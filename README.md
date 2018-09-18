@@ -22,7 +22,6 @@ Android and iOS Applications supporting DBK Drymatic.
 
 ### Road Map
 
-- iOS application
 - Android application
 - Bluetooth integration with DBK hardware
 
