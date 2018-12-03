@@ -1,5 +1,6 @@
 package edu.sc.dbkdrymatic;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,6 +13,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
+
 
 public class NavigationActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
@@ -22,6 +29,8 @@ public class NavigationActivity extends AppCompatActivity
     setContentView(R.layout.activity_navigation);
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
+
+
 
     FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
     fab.setOnClickListener(new View.OnClickListener() {
@@ -80,19 +89,21 @@ public class NavigationActivity extends AppCompatActivity
     // Handle navigation view item clicks here.
     int id = item.getItemId();
 
-    if (id == R.id.nav_camera) {
+    FragmentManager fragmentManager =getFragmentManager();
+
+    if (id == R.id.nav_first_layout) {
+      fragmentManager.beginTransaction()
+              .replace(R.id.content_frame, new FirstFragment()).commit();
       // Handle the camera action
-    } else if (id == R.id.nav_gallery) {
-
-    } else if (id == R.id.nav_slideshow) {
-
-    } else if (id == R.id.nav_manage) {
-
-    } else if (id == R.id.nav_share) {
-
-    } else if (id == R.id.nav_send) {
-
+    } else if (id == R.id.nav_second_layout) {
+      fragmentManager.beginTransaction()
+              .replace(R.id.content_frame, new SecondFragment()).commit();
+    } else if (id == R.id.nav_third_layout) {
+      fragmentManager.beginTransaction()
+              .replace(R.id.content_frame, new ThirdFragment()).commit();
     }
+
+
 
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     drawer.closeDrawer(GravityCompat.START);
