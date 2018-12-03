@@ -22,4 +22,8 @@ public class Job {
   public boolean HasBox(BoostBox box) {
     return boxes.contains(box);
   }
+
+  public SiteInfo getSiteInfo() {
+    return this.siteInfo;
+  }
 }
