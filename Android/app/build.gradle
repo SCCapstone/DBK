@@ -20,7 +20,9 @@ android {
 
 dependencies {
     // https://mvnrepository.com/artifact/org.jscience/jscience
-    implementation group: 'org.jscience', name: 'jscience', version: '4.3.1'
+    implementation ('org.jscience:jscience:4.3.1') {
+        exclude group: 'org.javolution', module: 'javolution'
+    }
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:27.1.1'
