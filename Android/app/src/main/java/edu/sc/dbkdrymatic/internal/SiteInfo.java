@@ -20,16 +20,34 @@ public class SiteInfo {
   public Amount<Temperature> outsideTemp;
   public double relativeHumidity;
   public Damage waterLoss;
+  public Country country;
 
   public SiteInfo(Amount<Volume> volume, Amount<Temperature> insideTemp,
                   Amount<Temperature> desiredTemp, Amount<Temperature> outsideTemp,
-                  double relativeHumidity, Damage waterLoss) {
+                  double relativeHumidity, Damage waterLoss, Country country) {
     this.volume = volume;
     this.outsideTemp = outsideTemp;
     this.desiredTemp = desiredTemp;
     this.insideTemp = insideTemp;
     this.relativeHumidity = relativeHumidity;
     this.waterLoss = waterLoss;
+    this.country = country;
+  }
+
+  public Amount<Energy> getAdjustedEnergy() {
+    double energyBtu = this.getEnergy().doubleValue(BTU);
+    double value = 0.0;
+    switch(this.country) {
+      case USA:
+        value = energyBtu - 6000 - (getD2Requirement() * 4700);
+        break;
+      case UK:
+      case AUS:  // fallthrough
+        value = energyBtu - 6000 - (getD2Requirement() * 9400);
+        break;
+    }
+
+    return Amount.valueOf(value, BTU);
   }
 
   public Amount<Energy> getEnergy() {
@@ -46,6 +64,11 @@ public class SiteInfo {
     return Amount.valueOf(energyValue, BTU);
   }
 
+  public Amount<Power> getAdjustedPower() {
+    return Amount.valueOf(
+        this.getAdjustedEnergy().doubleValue(BTU) / 3400.0, SI.KILO(SI.WATT));
+  }
+
   public Amount<Power> getPower() {
     return Amount.valueOf(this.getEnergy().doubleValue(BTU) / 3400.0, SI.KILO(SI.WATT));
   }
@@ -55,6 +78,6 @@ public class SiteInfo {
   }
 
   public double getBoostBoxRequirement() {
-    return this.getPower().doubleValue(SI.KILO(SI.WATT)) / 1.4;
+    return this.getAdjustedPower().doubleValue(SI.KILO(SI.WATT)) / country.getKilowattRating();
   }
 }
