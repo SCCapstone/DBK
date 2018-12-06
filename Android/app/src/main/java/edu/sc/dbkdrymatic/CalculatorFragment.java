@@ -17,6 +17,8 @@ import android.widget.Spinner;
 
 import org.jscience.physics.amount.Amount;
 
+import java.util.Arrays;
+
 import edu.sc.dbkdrymatic.internal.Damage;
 import edu.sc.dbkdrymatic.internal.JobFactory;
 import edu.sc.dbkdrymatic.internal.Settings;
@@ -29,8 +31,11 @@ public class CalculatorFragment extends Fragment {
   private Settings settings;
     View myView;
 
-    public CalculatorFragment() {
+    public CalculatorFragment() {}
 
+    public CalculatorFragment(SiteInfo siteInfo, Settings settings) {
+      this.siteInfo = siteInfo;
+      this.settings = settings;
     }
 
     @Nullable
@@ -53,23 +58,22 @@ public class CalculatorFragment extends Fragment {
     super.onViewCreated(view, savedInstanceState);
     // START OF CALCULATOR SCREEN
 
-    Spinner spinner = getView().findViewById(R.id.water_loss);
-    ArrayAdapter<Damage> adapter = new ArrayAdapter<Damage>(this.getActivity(), android.R.layout.simple_spinner_item);
-    adapter.addAll(Damage.values());
-    //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity(), R.array.numbers, android.R.layout.simple_spinner_item);
-    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    spinner.setAdapter(adapter);
-
     final EditText volumeField = (EditText) (getView().findViewById(R.id.volume));
+    volumeField.setText(
+        Double.toString(siteInfo.volume.doubleValue(settings.getVolumeUnit())));
     volumeField.addTextChangedListener(new TextWatcher() {
       @Override
       public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
       @Override
       public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-        siteInfo.volume = Amount.valueOf(
-            Double.parseDouble(volumeField.getText().toString()),
-            settings.getVolumeUnit());
+        double value = 0.0;
+        try {
+          value = Double.parseDouble(volumeField.getText().toString());
+        } catch (NumberFormatException e) {
+          value = 0.0;
+        }
+        siteInfo.volume = Amount.valueOf(value, settings.getVolumeUnit());
       }
 
       @Override
@@ -77,6 +81,8 @@ public class CalculatorFragment extends Fragment {
     });
 
     final EditText insideTempField = (EditText) (getView().findViewById(R.id.inside_temp));
+    insideTempField.setText(
+        Double.toString(siteInfo.insideTemp.doubleValue(settings.getTemperatureUnit())));
     insideTempField.addTextChangedListener(new TextWatcher() {
       @Override
       public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -85,10 +91,13 @@ public class CalculatorFragment extends Fragment {
 
       @Override
       public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        siteInfo.insideTemp = Amount.valueOf(
-            Double.parseDouble(insideTempField.getText().toString()),
-            settings.getTemperatureUnit()
-        );
+        double value = 0.0;
+        try {
+          value = Double.parseDouble(volumeField.getText().toString());
+        } catch (NumberFormatException e) {
+          value = 0.0;
+        }
+        siteInfo.insideTemp = Amount.valueOf(value, settings.getTemperatureUnit());
       }
 
       @Override
@@ -98,6 +107,8 @@ public class CalculatorFragment extends Fragment {
     });
 
     final EditText desiredTempField = (EditText) (getView().findViewById(R.id.desired_temp));
+    desiredTempField.setText(
+        Double.toString(siteInfo.desiredTemp.doubleValue(settings.getTemperatureUnit())));
     desiredTempField.addTextChangedListener(new TextWatcher() {
       @Override
       public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -106,10 +117,13 @@ public class CalculatorFragment extends Fragment {
 
       @Override
       public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        siteInfo.desiredTemp = Amount.valueOf(
-            Double.parseDouble(desiredTempField.getText().toString()),
-            settings.getTemperatureUnit()
-        );
+        double value = 0.0;
+        try {
+          value = Double.parseDouble(volumeField.getText().toString());
+        } catch (NumberFormatException e) {
+          value = 0.0;
+        }
+        siteInfo.desiredTemp = Amount.valueOf(value, settings.getTemperatureUnit());
       }
 
       @Override
@@ -119,6 +133,8 @@ public class CalculatorFragment extends Fragment {
     });
 
     final EditText outsideTempField = (EditText) (getView().findViewById(R.id.outside_temp));
+    outsideTempField.setText(
+        Double.toString(siteInfo.outsideTemp.doubleValue(settings.getTemperatureUnit())));
     outsideTempField.addTextChangedListener(new TextWatcher() {
       @Override
       public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -127,10 +143,13 @@ public class CalculatorFragment extends Fragment {
 
       @Override
       public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        siteInfo.insideTemp = Amount.valueOf(
-            Double.parseDouble(outsideTempField.getText().toString()),
-            settings.getTemperatureUnit()
-        );
+        double value = 0.0;
+        try {
+          value = Double.parseDouble(volumeField.getText().toString());
+        } catch (NumberFormatException e) {
+          value = 0.0;
+        }
+        siteInfo.insideTemp = Amount.valueOf(value, settings.getTemperatureUnit());
       }
 
       @Override
@@ -141,6 +160,7 @@ public class CalculatorFragment extends Fragment {
 
     final EditText relativeHumidityField =
         (EditText) (getView().findViewById(R.id.relative_humidity));
+    relativeHumidityField.setText(Double.toString(siteInfo.relativeHumidity));
     relativeHumidityField.addTextChangedListener(new TextWatcher() {
       @Override
       public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -149,7 +169,13 @@ public class CalculatorFragment extends Fragment {
 
       @Override
       public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        siteInfo.relativeHumidity = Double.parseDouble(relativeHumidityField.getText().toString());
+        double value = 0.0;
+        try {
+          value = Double.parseDouble(volumeField.getText().toString());
+        } catch (NumberFormatException e) {
+          value = 0.0;
+        }
+        siteInfo.relativeHumidity = value;
       }
 
       @Override
@@ -159,6 +185,13 @@ public class CalculatorFragment extends Fragment {
     });
 
     final Spinner damageClassSpinner = (Spinner) getView().findViewById(R.id.water_loss);
+
+    ArrayAdapter<Damage> adapter = new ArrayAdapter<Damage>(this.getActivity(), android.R.layout.simple_spinner_item);
+    adapter.addAll(Damage.values());
+    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    damageClassSpinner.setAdapter(adapter);
+
+    damageClassSpinner.setSelection(Arrays.asList(Damage.values()).indexOf(siteInfo.waterLoss));
     damageClassSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
       @Override
       public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
