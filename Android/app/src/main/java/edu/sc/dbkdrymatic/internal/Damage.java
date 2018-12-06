@@ -14,16 +14,12 @@ public enum Damage {
     this.value = value;
   }
 
-  public String getLabel() {
-    return this.label;
-  }
-
   public double getValue() {
     return this.value;
   }
 
   @Override
   public String toString() {
-    return this.getLabel();
+    return this.label;
   }
 }
