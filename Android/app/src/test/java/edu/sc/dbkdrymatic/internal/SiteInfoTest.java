@@ -4,6 +4,7 @@ import org.jscience.physics.amount.Amount;
 import org.junit.Test;
 
 import javax.measure.unit.NonSI;
+import javax.measure.unit.SI;
 
 import static org.junit.Assert.assertEquals;
 
@@ -28,5 +29,21 @@ public class SiteInfoTest {
 
     assertEquals(5.1, si.getBoostBoxRequirement(), 0.05);
     assertEquals(2.0, si.getD2Requirement(), 0.05);
+  }
+
+  @Test
+  public void cubicFootCorrectlySized() {
+    assertEquals(
+        28.31685,
+        Amount.valueOf(1, SiteInfo.CUBIC_FOOT).doubleValue(NonSI.LITER),
+        0.01);
+  }
+
+  @Test
+  public void btuCorrectlySized() {
+    assertEquals(
+        1055.056,
+        Amount.valueOf(1, SiteInfo.BTU).doubleValue(SI.JOULE),
+        0.01);
   }
 }
