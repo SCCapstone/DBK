@@ -101,9 +101,7 @@ public class NavigationActivity extends AppCompatActivity
     FragmentManager fragmentManager =getFragmentManager();
 
     if (id == R.id.nav_first_layout) {
-      CalculatorFragment cf = new CalculatorFragment();
-      cf.setSiteInfo(this.job.getSiteInfo());
-      cf.setSettings(this.settings);
+      CalculatorFragment cf = new CalculatorFragment(this.job.getSiteInfo(), this.settings);
       fragmentManager.beginTransaction()
               .replace(R.id.content_frame, cf).commit();
       // Handle the camera action
