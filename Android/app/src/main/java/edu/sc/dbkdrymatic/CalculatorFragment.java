@@ -93,7 +93,7 @@ public class CalculatorFragment extends Fragment {
       public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         double value = 0.0;
         try {
-          value = Double.parseDouble(volumeField.getText().toString());
+          value = Double.parseDouble(insideTempField.getText().toString());
         } catch (NumberFormatException e) {
           value = 0.0;
         }
@@ -119,7 +119,7 @@ public class CalculatorFragment extends Fragment {
       public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         double value = 0.0;
         try {
-          value = Double.parseDouble(volumeField.getText().toString());
+          value = Double.parseDouble(desiredTempField.getText().toString());
         } catch (NumberFormatException e) {
           value = 0.0;
         }
@@ -145,11 +145,11 @@ public class CalculatorFragment extends Fragment {
       public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         double value = 0.0;
         try {
-          value = Double.parseDouble(volumeField.getText().toString());
+          value = Double.parseDouble(outsideTempField.getText().toString());
         } catch (NumberFormatException e) {
           value = 0.0;
         }
-        siteInfo.insideTemp = Amount.valueOf(value, settings.getTemperatureUnit());
+        siteInfo.outsideTemp = Amount.valueOf(value, settings.getTemperatureUnit());
       }
 
       @Override
@@ -171,7 +171,7 @@ public class CalculatorFragment extends Fragment {
       public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         double value = 0.0;
         try {
-          value = Double.parseDouble(volumeField.getText().toString());
+          value = Double.parseDouble(relativeHumidityField.getText().toString());
         } catch (NumberFormatException e) {
           value = 0.0;
         }
