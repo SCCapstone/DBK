@@ -20,7 +20,6 @@ import org.jscience.physics.amount.Amount;
 import java.util.Arrays;
 
 import edu.sc.dbkdrymatic.internal.Damage;
-import edu.sc.dbkdrymatic.internal.JobFactory;
 import edu.sc.dbkdrymatic.internal.Settings;
 import edu.sc.dbkdrymatic.internal.SiteInfo;
 
@@ -29,30 +28,30 @@ public class CalculatorFragment extends Fragment {
 
   private SiteInfo siteInfo;
   private Settings settings;
-    View myView;
+  View myView;
 
-    public CalculatorFragment() {}
+  public CalculatorFragment() {}
 
-    public CalculatorFragment(SiteInfo siteInfo, Settings settings) {
-      this.siteInfo = siteInfo;
-      this.settings = settings;
-    }
+  public CalculatorFragment(SiteInfo siteInfo, Settings settings) {
+    this.siteInfo = siteInfo;
+    this.settings = settings;
+  }
 
-    @Nullable
-    @Override
-    public View onCreateView (LayoutInflater inflater, @Nullable ViewGroup container, Bundle
-            savedInstanceState){
-        myView = inflater.inflate(R.layout.first_layout, container, false);
-        return myView;
-    }
+  @Nullable
+  @Override
+  public View onCreateView (LayoutInflater inflater, @Nullable ViewGroup container, Bundle
+      savedInstanceState){
+    myView = inflater.inflate(R.layout.first_layout, container, false);
+    return myView;
+  }
 
-    public void setSiteInfo(SiteInfo siteInfo) {
-      this.siteInfo = siteInfo;
-    }
+  public void setSiteInfo(SiteInfo siteInfo) {
+    this.siteInfo = siteInfo;
+  }
 
-    public void setSettings(Settings settings) {
-      this.settings = settings;
-    }
+  public void setSettings(Settings settings) {
+    this.settings = settings;
+  }
 
   public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
@@ -204,7 +203,7 @@ public class CalculatorFragment extends Fragment {
       }
     });
 
-    Button calculate = (Button)  getView().findViewById(R.id.calculate);
+    Button calculate = (Button) getView().findViewById(R.id.calculate);
     calculate.setOnClickListener(new View.OnClickListener() {//when user clicks calculate button
       @Override
       public void onClick(View view) {
