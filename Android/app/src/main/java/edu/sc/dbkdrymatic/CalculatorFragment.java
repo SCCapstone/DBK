@@ -17,6 +17,7 @@ import android.widget.Spinner;
 
 import org.jscience.physics.amount.Amount;
 
+import java.text.DecimalFormat;
 import java.util.Arrays;
 
 import edu.sc.dbkdrymatic.internal.Damage;
@@ -57,9 +58,11 @@ public class CalculatorFragment extends Fragment {
     super.onViewCreated(view, savedInstanceState);
     // START OF CALCULATOR SCREEN
 
+    final DecimalFormat df = new DecimalFormat("#.#");
+
     final EditText volumeField = (EditText) (getView().findViewById(R.id.volume));
     volumeField.setText(
-        Double.toString(siteInfo.volume.doubleValue(settings.getVolumeUnit())));
+        df.format(siteInfo.volume.doubleValue(settings.getVolumeUnit())));
     volumeField.addTextChangedListener(new TextWatcher() {
       @Override
       public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
@@ -81,7 +84,7 @@ public class CalculatorFragment extends Fragment {
 
     final EditText insideTempField = (EditText) (getView().findViewById(R.id.inside_temp));
     insideTempField.setText(
-        Double.toString(siteInfo.insideTemp.doubleValue(settings.getTemperatureUnit())));
+        df.format(siteInfo.insideTemp.doubleValue(settings.getTemperatureUnit())));
     insideTempField.addTextChangedListener(new TextWatcher() {
       @Override
       public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -107,7 +110,7 @@ public class CalculatorFragment extends Fragment {
 
     final EditText desiredTempField = (EditText) (getView().findViewById(R.id.desired_temp));
     desiredTempField.setText(
-        Double.toString(siteInfo.desiredTemp.doubleValue(settings.getTemperatureUnit())));
+        df.format(siteInfo.desiredTemp.doubleValue(settings.getTemperatureUnit())));
     desiredTempField.addTextChangedListener(new TextWatcher() {
       @Override
       public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -133,7 +136,7 @@ public class CalculatorFragment extends Fragment {
 
     final EditText outsideTempField = (EditText) (getView().findViewById(R.id.outside_temp));
     outsideTempField.setText(
-        Double.toString(siteInfo.outsideTemp.doubleValue(settings.getTemperatureUnit())));
+        df.format(siteInfo.outsideTemp.doubleValue(settings.getTemperatureUnit())));
     outsideTempField.addTextChangedListener(new TextWatcher() {
       @Override
       public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -159,7 +162,7 @@ public class CalculatorFragment extends Fragment {
 
     final EditText relativeHumidityField =
         (EditText) (getView().findViewById(R.id.relative_humidity));
-    relativeHumidityField.setText(Double.toString(siteInfo.relativeHumidity));
+    relativeHumidityField.setText(df.format(siteInfo.relativeHumidity));
     relativeHumidityField.addTextChangedListener(new TextWatcher() {
       @Override
       public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -210,8 +213,8 @@ public class CalculatorFragment extends Fragment {
         TextView boost_boxes = (TextView)  getView().findViewById(R.id.boost_boxes);
         TextView d2s = (TextView)  getView().findViewById(R.id.d2s);
 
-        boost_boxes.setText(Double.toString(siteInfo.getBoostBoxRequirement()));
-        d2s.setText(Double.toString(siteInfo.getD2Requirement()));
+        boost_boxes.setText(df.format(siteInfo.getBoostBoxRequirement()));
+        d2s.setText(df.format(siteInfo.getD2Requirement()));
       }
 
     });

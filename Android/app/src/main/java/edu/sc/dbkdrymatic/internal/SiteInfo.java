@@ -11,8 +11,8 @@ import javax.measure.unit.SI;
 import javax.measure.unit.Unit;
 
 public class SiteInfo {
-  public static final Unit<Volume> CUBIC_FOOT = NonSI.LITER.divide(28.31685);
-  public static final Unit<Energy> BTU = SI.JOULE.divide(1055.056);
+  public static final Unit<Volume> CUBIC_FOOT = NonSI.LITER.times(28.31685);
+  public static final Unit<Energy> BTU = SI.JOULE.times(1055.056);
 
   public Amount<Volume> volume;
   public Amount<Temperature> insideTemp;
