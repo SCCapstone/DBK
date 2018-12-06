@@ -12,17 +12,6 @@
         android:text="Preferences"
         android:textSize="24sp" />
 
-    <Button
-        android:id="@+id/applyBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView12"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="202dp"
-        android:layout_marginBottom="220dp"
-        android:text="Apply Settings" />
-
     <Switch
         android:id="@+id/unitSwitch"
         android:layout_width="wrap_content"
