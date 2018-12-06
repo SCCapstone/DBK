@@ -42,7 +42,7 @@ public class CalculatorFragment extends Fragment {
   @Override
   public View onCreateView (LayoutInflater inflater, @Nullable ViewGroup container, Bundle
       savedInstanceState){
-    myView = inflater.inflate(R.layout.first_layout, container, false);
+    myView = inflater.inflate(R.layout.calculator_layout, container, false);
     return myView;
   }
 
