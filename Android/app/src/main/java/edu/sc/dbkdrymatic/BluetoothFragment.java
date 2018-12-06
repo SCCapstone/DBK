@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class SecondFragment extends Fragment {
+public class BluetoothFragment extends Fragment {
 
     View myView;
     @Nullable
