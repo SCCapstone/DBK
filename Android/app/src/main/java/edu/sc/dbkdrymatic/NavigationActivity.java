@@ -1,7 +1,5 @@
 package edu.sc.dbkdrymatic;
 
-import java.util.HashSet;
-
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -18,7 +16,7 @@ import android.view.MenuItem;
 
 import javax.measure.unit.NonSI;
 
-import edu.sc.dbkdrymatic.internal.BoostBox;
+import edu.sc.dbkdrymatic.internal.Country;
 import edu.sc.dbkdrymatic.internal.Job;
 import edu.sc.dbkdrymatic.internal.JobFactory;
 import edu.sc.dbkdrymatic.internal.Settings;
@@ -39,7 +37,7 @@ public class NavigationActivity extends AppCompatActivity
     setSupportActionBar(toolbar);
 
     this.job = new JobFactory().emptyJob();
-    this.settings = new Settings(SiteInfo.CUBIC_FOOT, NonSI.FAHRENHEIT);
+    this.settings = new Settings(SiteInfo.CUBIC_FOOT, NonSI.FAHRENHEIT, Country.USA);
 
     FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
     fab.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +96,7 @@ public class NavigationActivity extends AppCompatActivity
     // Handle navigation view item clicks here.
     int id = item.getItemId();
 
-    FragmentManager fragmentManager =getFragmentManager();
+    FragmentManager fragmentManager = getFragmentManager();
 
     if (id == R.id.nav_first_layout) {
       CalculatorFragment cf = new CalculatorFragment(this.job.getSiteInfo(), this.settings);
@@ -109,8 +107,9 @@ public class NavigationActivity extends AppCompatActivity
       fragmentManager.beginTransaction()
               .replace(R.id.content_frame, new SecondFragment()).commit();
     } else if (id == R.id.nav_third_layout) {
+      SettingsFragment sf = new SettingsFragment(this.settings);
       fragmentManager.beginTransaction()
-              .replace(R.id.content_frame, new ThirdFragment()).commit();
+              .replace(R.id.content_frame, sf).commit();
     }
 
 
