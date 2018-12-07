@@ -40,8 +40,8 @@ public class NavigationActivity extends AppCompatActivity
     setSupportActionBar(toolbar);
 
     this.appDatabase = Room.databaseBuilder(
-        getApplicationContext(), AppDatabase.class, "site_info").build();
-    this.job = new JobFactory().emptyJob();
+        getApplicationContext(), AppDatabase.class, "site_info").allowMainThreadQueries().build();
+    this.job = new JobFactory(this.appDatabase).emptyJob();
     this.settings = new Settings(SiteInfo.CUBIC_FOOT, NonSI.FAHRENHEIT, Country.USA);
 
     FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -104,7 +104,8 @@ public class NavigationActivity extends AppCompatActivity
     FragmentManager fragmentManager = getFragmentManager();
 
     if (id == R.id.nav_first_layout) {
-      CalculatorFragment cf = new CalculatorFragment(this.job.getSiteInfo(), this.settings);
+      CalculatorFragment cf = new CalculatorFragment(
+          this.job.getSiteInfo(), this.settings, appDatabase.siteInfoDao());
       fragmentManager.beginTransaction()
               .replace(R.id.content_frame, cf).commit();
       // Handle the camera action
