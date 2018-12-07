@@ -3,6 +3,7 @@ package edu.sc.dbkdrymatic;
 import android.app.FragmentManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
+import android.arch.persistence.room.Room;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,6 +19,7 @@ import android.view.MenuItem;
 
 import javax.measure.unit.NonSI;
 
+import edu.sc.dbkdrymatic.internal.AppDatabase;
 import edu.sc.dbkdrymatic.internal.Country;
 import edu.sc.dbkdrymatic.internal.Job;
 import edu.sc.dbkdrymatic.internal.JobFactory;
@@ -28,6 +30,7 @@ import edu.sc.dbkdrymatic.internal.SiteInfo;
 public class NavigationActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
 
+  private AppDatabase appDatabase;
   private Job job;
   private Settings settings;
   private BluetoothAdapter btAdapter;
@@ -39,7 +42,9 @@ public class NavigationActivity extends AppCompatActivity
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
-    this.job = new JobFactory().emptyJob();
+    this.appDatabase = Room.databaseBuilder(
+        getApplicationContext(), AppDatabase.class, "site_info").allowMainThreadQueries().build();
+    this.job = new JobFactory(this.appDatabase).emptyJob();
     this.settings = new Settings(SiteInfo.CUBIC_FOOT, NonSI.FAHRENHEIT, Country.USA);
     BluetoothManager btManager = (BluetoothManager) (this.getSystemService(BLUETOOTH_SERVICE));
     this.btAdapter = btManager.getAdapter();
@@ -104,7 +109,8 @@ public class NavigationActivity extends AppCompatActivity
     FragmentManager fragmentManager = getFragmentManager();
 
     if (id == R.id.nav_first_layout) {
-      CalculatorFragment cf = new CalculatorFragment(this.job.getSiteInfo(), this.settings);
+      CalculatorFragment cf = new CalculatorFragment(
+          this.job.getSiteInfo(), this.settings, appDatabase.siteInfoDao());
       fragmentManager.beginTransaction()
               .replace(R.id.content_frame, cf).commit();
       // Handle the camera action
