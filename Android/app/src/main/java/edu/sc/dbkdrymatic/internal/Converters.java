@@ -6,26 +6,27 @@ import org.jscience.physics.amount.Amount;
 
 import javax.measure.quantity.Temperature;
 import javax.measure.quantity.Volume;
+import javax.measure.unit.SI;
 
 public class Converters {
   @TypeConverter
-  public static String stringFromVolume(Amount<Volume> value) {
-    return value.toString();
+  public static double volumeToSI(Amount<Volume> value) {
+    return value.doubleValue(SI.CUBIC_METRE);
   }
 
   @TypeConverter
-  public static Amount<Volume> volumeFromString(String string) {
-    return (Amount<Volume>) Amount.valueOf(string);
+  public static Amount<Volume> volumeFromSI(double value) {
+    return Amount.valueOf(value, SI.CUBIC_METRE);
   }
 
   @TypeConverter
-  public static String stringFromTemperature(Amount<Temperature> value) {
-    return value.toString();
+  public static double tempToSI(Amount<Temperature> value) {
+    return value.doubleValue(SI.KELVIN);
   }
 
   @TypeConverter
-  public static Amount<Temperature> temperatureFromString(String string) {
-    return (Amount<Temperature>) Amount.valueOf(string);
+  public static Amount<Temperature> temperatureFromSI(double value) {
+    return Amount.valueOf(value, SI.KELVIN);
   }
 
   @TypeConverter
