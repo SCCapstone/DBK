@@ -1,6 +1,7 @@
 package edu.sc.dbkdrymatic;
 
 import android.app.FragmentManager;
+import android.arch.persistence.room.Room;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 
 import javax.measure.unit.NonSI;
 
+import edu.sc.dbkdrymatic.internal.AppDatabase;
 import edu.sc.dbkdrymatic.internal.Country;
 import edu.sc.dbkdrymatic.internal.Job;
 import edu.sc.dbkdrymatic.internal.JobFactory;
@@ -26,6 +28,7 @@ import edu.sc.dbkdrymatic.internal.SiteInfo;
 public class NavigationActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
 
+  private AppDatabase appDatabase;
   private Job job;
   private Settings settings;
 
@@ -36,6 +39,8 @@ public class NavigationActivity extends AppCompatActivity
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
+    this.appDatabase = Room.databaseBuilder(
+        getApplicationContext(), AppDatabase.class, "site_info").build();
     this.job = new JobFactory().emptyJob();
     this.settings = new Settings(SiteInfo.CUBIC_FOOT, NonSI.FAHRENHEIT, Country.USA);
 

@@ -22,7 +22,8 @@ public class JobFactory {
         Amount.valueOf(290, KELVIN),
         50,
         Damage.CLASS1,
-        Country.USA
+        Country.USA,
+        "Default Site"
     );
     return new Job(new HashSet<BoostBox>(), siteInfo);
   }
