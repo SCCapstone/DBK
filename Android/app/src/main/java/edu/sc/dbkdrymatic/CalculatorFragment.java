@@ -20,22 +20,26 @@ import org.jscience.physics.amount.Amount;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 
+import edu.sc.dbkdrymatic.internal.AppDatabase;
 import edu.sc.dbkdrymatic.internal.Damage;
 import edu.sc.dbkdrymatic.internal.Settings;
 import edu.sc.dbkdrymatic.internal.SiteInfo;
+import edu.sc.dbkdrymatic.internal.SiteInfoDao;
 
 
 public class CalculatorFragment extends Fragment {
 
   private SiteInfo siteInfo;
   private Settings settings;
+  private SiteInfoDao dao;
   View myView;
 
   public CalculatorFragment() {}
 
-  public CalculatorFragment(SiteInfo siteInfo, Settings settings) {
+  public CalculatorFragment(SiteInfo siteInfo, Settings settings, SiteInfoDao dao) {
     this.siteInfo = siteInfo;
     this.settings = settings;
+    this.dao = dao;
   }
 
   @Nullable
@@ -76,6 +80,7 @@ public class CalculatorFragment extends Fragment {
           value = 0.0;
         }
         siteInfo.volume = Amount.valueOf(value, settings.getVolumeUnit());
+        dao.update(siteInfo);
       }
 
       @Override
@@ -100,6 +105,7 @@ public class CalculatorFragment extends Fragment {
           value = 0.0;
         }
         siteInfo.insideTemp = Amount.valueOf(value, settings.getTemperatureUnit());
+        dao.update(siteInfo);
       }
 
       @Override
@@ -126,6 +132,7 @@ public class CalculatorFragment extends Fragment {
           value = 0.0;
         }
         siteInfo.desiredTemp = Amount.valueOf(value, settings.getTemperatureUnit());
+        dao.update(siteInfo);
       }
 
       @Override
@@ -152,6 +159,7 @@ public class CalculatorFragment extends Fragment {
           value = 0.0;
         }
         siteInfo.outsideTemp = Amount.valueOf(value, settings.getTemperatureUnit());
+        dao.update(siteInfo);
       }
 
       @Override
@@ -178,6 +186,7 @@ public class CalculatorFragment extends Fragment {
           value = 0.0;
         }
         siteInfo.relativeHumidity = value;
+        dao.update(siteInfo);
       }
 
       @Override
@@ -198,6 +207,7 @@ public class CalculatorFragment extends Fragment {
       @Override
       public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         siteInfo.waterLoss = (Damage) damageClassSpinner.getSelectedItem();
+        dao.update(siteInfo);
       }
 
       @Override
