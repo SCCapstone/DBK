@@ -1,28 +1,33 @@
 # DBK Apps
 
-Android and iOS Applications supporting DBK Drymatic
+Android Applications supporting DBK Drymatic
 
 ## Installing / Getting started
-
+-Enable APK's from unkown sources in settings
+-Download DBK App APK
+-Install from from file
 
 
 ## Developing
 
-
-
 ### Deploying / Publishing
-
+-Android Studio
+-Java SDK
+-Room Persistant Libary
 
 
 ## Features
 
+
 ### Complete
 
-> *There isn't anything here yet*
+-Psycrometric Calculator
+-Bluetooth
+-Settings
+-Navigation Drawer
 
 ### Road Map
 
-- iOS application
 - Android application
 - Bluetooth integration with DBK hardware
 
