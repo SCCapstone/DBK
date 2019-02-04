@@ -7,6 +7,16 @@ Android Applications supporting DBK Drymatic
 -Download DBK App APK
 -Install from from file
 
+## Testing
+
+### Unit Testing
+-located in app > java > edu.sc.dbkdrymatic(test) 
+
+-run the .java unit test 
+### Behavior Testing
+-located in app > java > edu.sc.dbkdrymatic(androidTest) 
+
+-run the .java instrumented test 
 
 ## Developing
 
