@@ -22,4 +22,4 @@ android:
     - sys-img-x86-android-26
     - sys-img-armeabi-v7a-android-17
 
-script: cd Android && ./gradlew test
+script: ls && ./gradlew test
