@@ -24,7 +24,8 @@ public class SiteInfoTest {
         Amount.valueOf(60, NonSI.FAHRENHEIT),
         80,
         Damage.CLASS2,
-        Country.USA
+        Country.USA,
+        "Default Site"
     );
 
     assertEquals(5.1, si.getBoostBoxRequirement(), 0.05);
