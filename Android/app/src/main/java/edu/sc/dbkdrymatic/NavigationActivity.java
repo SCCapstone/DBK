@@ -17,6 +17,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 import javax.measure.unit.NonSI;
 
 import edu.sc.dbkdrymatic.internal.AppDatabase;
@@ -31,9 +35,10 @@ public class NavigationActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
 
   private AppDatabase appDatabase;
-  private Job job;
+  private List<Job> jobs;
   private Settings settings;
   private BluetoothAdapter btAdapter;
+  private Map<MenuItem, Job> itemJobMap;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +49,12 @@ public class NavigationActivity extends AppCompatActivity
 
     this.appDatabase = Room.databaseBuilder(
         getApplicationContext(), AppDatabase.class, "site_info").allowMainThreadQueries().build();
-    this.job = new JobFactory(this.appDatabase).emptyJob();
+
+    this.jobs = new LinkedList<>();
+    jobs.add(new JobFactory(this.appDatabase).emptyJob());
+
     this.settings = new Settings(SiteInfo.CUBIC_FOOT, NonSI.FAHRENHEIT, Country.USA);
+
     BluetoothManager btManager = (BluetoothManager) (this.getSystemService(BLUETOOTH_SERVICE));
     this.btAdapter = btManager.getAdapter();
 
@@ -82,6 +91,12 @@ public class NavigationActivity extends AppCompatActivity
   public boolean onCreateOptionsMenu(Menu menu) {
     // Inflate the menu; this adds items to the action bar if it is present.
     getMenuInflater().inflate(R.menu.navigation, menu);
+
+    // Add a button for each job
+    for(Job job: this.jobs) {
+      this.itemJobMap.put(menu.add(job.getSiteInfo().name), job);
+    }
+
     return true;
   }
 
@@ -111,7 +126,7 @@ public class NavigationActivity extends AppCompatActivity
     switch(item.getItemId()) {
       case R.id.nav_first_layout:
         CalculatorFragment cf = new CalculatorFragment(
-            this.job.getSiteInfo(), this.settings, appDatabase.siteInfoDao());
+            this.jobs.get(0).getSiteInfo(), this.settings, appDatabase.siteInfoDao());
         fragmentManager.beginTransaction()
             .replace(R.id.content_frame, cf).commit();
         break;
@@ -123,8 +138,13 @@ public class NavigationActivity extends AppCompatActivity
         SettingsFragment sf = new SettingsFragment(this.settings);
         fragmentManager.beginTransaction()
             .replace(R.id.content_frame, sf).commit();
+      default:
+        CalculatorFragment fragment = new CalculatorFragment(
+            this.itemJobMap.get(item).getSiteInfo(), this.settings, appDatabase.siteInfoDao());
+        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+
     }
-    
+
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     drawer.closeDrawer(GravityCompat.START);
     return true;
