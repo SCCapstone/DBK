@@ -23,8 +23,10 @@ public class SiteInfo {
   public static final Unit<Energy> BTU = SI.JOULE.times(1055.056);
 
   @NonNull
-  @PrimaryKey
   public String name;
+
+  @PrimaryKey(autoGenerate = true)
+  public int id;
 
   @ColumnInfo(name = "volume")
   public Amount<Volume> volume;
@@ -68,7 +70,7 @@ public class SiteInfo {
         value = energyBtu - 6000 - (getD2Requirement() * 4700);
         break;
       case UK:
-      case AUS:  // fallthrough
+      case AUS:  // fallthrough as both use the same formula
         value = energyBtu - 6000 - (getD2Requirement() * 9400);
         break;
     }
