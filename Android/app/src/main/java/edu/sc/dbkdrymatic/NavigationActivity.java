@@ -108,23 +108,23 @@ public class NavigationActivity extends AppCompatActivity
 
     FragmentManager fragmentManager = getFragmentManager();
 
-    if (id == R.id.nav_first_layout) {
-      CalculatorFragment cf = new CalculatorFragment(
-          this.job.getSiteInfo(), this.settings, appDatabase.siteInfoDao());
-      fragmentManager.beginTransaction()
-              .replace(R.id.content_frame, cf).commit();
-      // Handle the camera action
-    } else if (id == R.id.nav_second_layout) {
-      fragmentManager.beginTransaction()
-              .replace(R.id.content_frame, new BluetoothFragment(btAdapter)).commit();
-    } else if (id == R.id.nav_third_layout) {
-      SettingsFragment sf = new SettingsFragment(this.settings);
-      fragmentManager.beginTransaction()
-              .replace(R.id.content_frame, sf).commit();
+    switch(item.getItemId()) {
+      case R.id.nav_first_layout:
+        CalculatorFragment cf = new CalculatorFragment(
+            this.job.getSiteInfo(), this.settings, appDatabase.siteInfoDao());
+        fragmentManager.beginTransaction()
+            .replace(R.id.content_frame, cf).commit();
+        break;
+      case R.id.nav_second_layout:
+        fragmentManager.beginTransaction()
+            .replace(R.id.content_frame, new BluetoothFragment(btAdapter)).commit();
+        break;
+      case R.id.nav_third_layout:
+        SettingsFragment sf = new SettingsFragment(this.settings);
+        fragmentManager.beginTransaction()
+            .replace(R.id.content_frame, sf).commit();
     }
-
-
-
+    
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     drawer.closeDrawer(GravityCompat.START);
     return true;
