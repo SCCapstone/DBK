@@ -1,4 +1,4 @@
-# DBK Apps [![Build Status](https://api.travis-ci.com/SCCapstone/DBK.png?branch=master)](https://travis-ci.com/SCCapstone/DBK)
+# DBK Apps [![Build Status](https://travis-ci.com/SCCapstone/DBK.svg?token=nmBKzbJ5DLtZmaoDqMk1&branch=master)](https://travis-ci.com/SCCapstone/DBK)
 
 Android Applications supporting DBK Drymatic
 
