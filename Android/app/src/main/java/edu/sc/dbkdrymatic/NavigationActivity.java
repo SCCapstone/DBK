@@ -1,6 +1,8 @@
 package edu.sc.dbkdrymatic;
 
 import android.app.FragmentManager;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
 import android.arch.persistence.room.Room;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -31,6 +33,7 @@ public class NavigationActivity extends AppCompatActivity
   private AppDatabase appDatabase;
   private Job job;
   private Settings settings;
+  private BluetoothAdapter btAdapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,8 @@ public class NavigationActivity extends AppCompatActivity
         getApplicationContext(), AppDatabase.class, "site_info").allowMainThreadQueries().build();
     this.job = new JobFactory(this.appDatabase).emptyJob();
     this.settings = new Settings(SiteInfo.CUBIC_FOOT, NonSI.FAHRENHEIT, Country.USA);
+    BluetoothManager btManager = (BluetoothManager) (this.getSystemService(BLUETOOTH_SERVICE));
+    this.btAdapter = btManager.getAdapter();
 
     FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
     fab.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +116,7 @@ public class NavigationActivity extends AppCompatActivity
       // Handle the camera action
     } else if (id == R.id.nav_second_layout) {
       fragmentManager.beginTransaction()
-              .replace(R.id.content_frame, new BluetoothFragment()).commit();
+              .replace(R.id.content_frame, new BluetoothFragment(btAdapter)).commit();
     } else if (id == R.id.nav_third_layout) {
       SettingsFragment sf = new SettingsFragment(this.settings);
       fragmentManager.beginTransaction()
