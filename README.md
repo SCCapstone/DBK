@@ -3,16 +3,19 @@
 Android Applications supporting DBK Drymatic
 
 ## Installing / Getting started
--Enable APK's from unkown sources in settings
--Download DBK App APK
--Install from from file
+- Enable APK's from unkown sources in settings
+- Download DBK App APK
+- Install from from file
 
 ## Testing
 
 ### Unit Testing
--located in app > java > edu.sc.dbkdrymatic(test) 
+See build badge for automated testing results.
 
--run the .java unit test 
+To execute the tests on your own system, simply run `./gradlew test` from the project directory.
+
+- located in app > java > edu.sc.dbkdrymatic(test) 
+- run the .java unit test
 ### Behavior Testing
 -located in app > java > edu.sc.dbkdrymatic(androidTest) 
 
@@ -21,9 +24,9 @@ Android Applications supporting DBK Drymatic
 ## Developing
 
 ### Deploying / Publishing
--Android Studio
--Java SDK
--Room Persistant Libary
+- Android Studio
+- Java SDK
+- Room Persistence Libary
 
 
 ## Features
@@ -31,10 +34,10 @@ Android Applications supporting DBK Drymatic
 
 ### Complete
 
--Psycrometric Calculator
--Bluetooth
--Settings
--Navigation Drawer
+- Psycrometric Calculator
+- Bluetooth
+- Settings
+- Navigation Drawer
 
 ### Road Map
 
