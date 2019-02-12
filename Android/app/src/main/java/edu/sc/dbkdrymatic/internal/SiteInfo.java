@@ -16,6 +16,8 @@ import javax.measure.unit.NonSI;
 import javax.measure.unit.SI;
 import javax.measure.unit.Unit;
 
+import edu.sc.dbkdrymatic.internal.database.Converters;
+
 @Entity
 @TypeConverters(Converters.class)
 public class SiteInfo {
@@ -25,6 +27,7 @@ public class SiteInfo {
   @NonNull
   public String name;
 
+  @NonNull
   @PrimaryKey(autoGenerate = true)
   public int id;
 
