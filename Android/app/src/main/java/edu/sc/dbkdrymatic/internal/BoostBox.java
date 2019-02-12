@@ -1,7 +1,20 @@
 package edu.sc.dbkdrymatic.internal;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+
+import org.jscience.physics.amount.Amount;
+
+import javax.measure.quantity.Duration;
+import javax.measure.quantity.ElectricCurrent;
+import javax.measure.quantity.ElectricPotential;
+import javax.measure.quantity.Energy;
+import javax.measure.quantity.Power;
+import javax.measure.quantity.Temperature;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -10,19 +23,84 @@ import java.util.Scanner;
 import java.util.UUID;
 
 import edu.sc.dbkdrymatic.BluetoothFragment;
+import edu.sc.dbkdrymatic.internal.database.Converters;
 
+/**
+ * Representation of a DBK Drymatic Boost Box air heating unit, storing the information exposed
+ * by the bluetooth connection to the device.
+ */
+@Entity
+@TypeConverters(Converters.class)
 public class BoostBox {
-  private final String serialUuidString = "00001101-0000-1000-8000-00805F9B34FB";
+  private static final String serialUuidString = "00001101-0000-1000-8000-00805F9B34FB";
 
-  private BluetoothDevice device;
-  private BluetoothFragment subscriber;
+  // Bluetooth hardware address of the BoostBox represented by this object.
+  @PrimaryKey
+  private String address;
 
-  public BoostBox(BluetoothDevice device, BluetoothFragment subscriber) {
-    this.device = device;
-    this.subscriber = subscriber;
+  // Number of hours the Boost Box has been run since it was last reset.
+  @ColumnInfo(name = "hours")
+  private Amount<Duration> hours;
 
+  // Temperature of air on the input side of the Boost Box.
+  private Amount<Temperature> airInTemp;
+
+  // Temperature of air on the output side of the Boost Box.
+  private Amount<Temperature> airOutTemp;
+
+  // Desired temperature of BoostBox output air.
+  private Amount<Temperature> airOutTarget;
+
+  // Minimum temperature of BoostBox output air before it will attempt to increase power usage.
+  private Amount<Temperature> airOutThreshold;
+
+  // Indicates whether there is sufficient airflow for the BoostBox to activate.
+  private boolean airflow;
+
+  // Indicates whether the Boost Box is running.
+  private boolean running;
+
+  // Indicates whether the Boost Box will resume previous state when turned on (true) or if it will
+  // wake into an inactive state unconditionally (false).
+  private boolean autoRestart;
+
+  // AC RMS voltage measured by the device.
+  private Amount<ElectricPotential> voltage;
+
+  // Current measured by the device.
+  private Amount<ElectricCurrent> current;
+
+  // Instantaneous power consumption by the device.
+  private Amount<Power> power;
+
+  // Energy used by the device since it was last reset.
+  private Amount<Energy> cumulativeEnergy;
+
+  public BoostBox(
+      String address, Amount<Duration> hours,
+      Amount<Temperature> airInTemp, Amount<Temperature> airOutTemp,
+      Amount<Temperature> airOutTarget, Amount<Temperature> airOutThreshold,
+      boolean airflow, boolean running, boolean autoRestart,
+      Amount<ElectricPotential> voltage, Amount<ElectricCurrent> current,
+      Amount<Power> power, Amount<Energy> cumulativeEnergy) {
+    this.address = address;
+    this.hours = hours;
+    this.airInTemp = airInTemp;
+    this.airOutTemp = airOutTemp;
+    this.airOutTarget = airOutTarget;
+    this.airOutThreshold = airOutThreshold;
+    this.airflow = airflow;
+    this.running = running;
+    this.autoRestart = autoRestart;
+    this.voltage = voltage;
+    this.current = current;
+    this.power = power;
+    this.cumulativeEnergy = cumulativeEnergy;
   }
 
+  /*** Commented out by hxtk (2019-02-12)
+   * This code requires a major rework anyway and blocks changes that are being made to the
+   * BoostBox class. It will be uncommented and fixed following resolution of Issue #41.
   public void listen() {
     try {
       UUID serialUuid = UUID.fromString(serialUuidString);
@@ -74,5 +152,6 @@ public class BoostBox {
       }
     }
   }
+  */
 
 }
