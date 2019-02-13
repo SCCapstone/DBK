@@ -21,16 +21,16 @@ import edu.sc.dbkdrymatic.internal.Damage;
  */
 public class Converters {
   @TypeConverter
-  public static double voltageToSI(Amount<ElectricPotential> value) {
+  public static double voltageToSi(Amount<ElectricPotential> value) {
     return value.doubleValue(SI.VOLT);
   }
 
-  public static Amount<ElectricPotential> voltageFromSI(double value) {
+  public static Amount<ElectricPotential> voltageFromSi(double value) {
     return Amount.valueOf(value, SI.VOLT);
   }
 
   @TypeConverter
-  public static double currentToSI(Amount<ElectricCurrent> value) {
+  public static double currentToSi(Amount<ElectricCurrent> value) {
     return value.doubleValue(SI.AMPERE);
   }
 
@@ -45,7 +45,7 @@ public class Converters {
   }
 
   @TypeConverter
-  public static Amount<Power> powerFromSI(double value) {
+  public static Amount<Power> powerFromSi(double value) {
     return Amount.valueOf(value, SI.WATT);
   }
 
@@ -60,22 +60,22 @@ public class Converters {
   }
 
   @TypeConverter
-  public static double volumeToSI(Amount<Volume> value) {
+  public static double volumeToSi(Amount<Volume> value) {
     return value.doubleValue(SI.CUBIC_METRE);
   }
 
   @TypeConverter
-  public static Amount<Volume> volumeFromSI(double value) {
+  public static Amount<Volume> volumeFromSi(double value) {
     return Amount.valueOf(value, SI.CUBIC_METRE);
   }
 
   @TypeConverter
-  public static double tempToSI(Amount<Temperature> value) {
+  public static double tempToSi(Amount<Temperature> value) {
     return value.doubleValue(SI.KELVIN);
   }
 
   @TypeConverter
-  public static Amount<Temperature> temperatureFromSI(double value) {
+  public static Amount<Temperature> temperatureFromSi(double value) {
     return Amount.valueOf(value, SI.KELVIN);
   }
 
