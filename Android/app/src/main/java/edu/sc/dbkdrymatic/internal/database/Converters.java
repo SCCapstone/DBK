@@ -4,6 +4,7 @@ import android.arch.persistence.room.TypeConverter;
 
 import org.jscience.physics.amount.Amount;
 
+import javax.measure.quantity.Duration;
 import javax.measure.quantity.ElectricCurrent;
 import javax.measure.quantity.ElectricPotential;
 import javax.measure.quantity.Energy;
@@ -25,6 +26,7 @@ public class Converters {
     return value.doubleValue(SI.VOLT);
   }
 
+  @TypeConverter
   public static Amount<ElectricPotential> voltageFromSi(double value) {
     return Amount.valueOf(value, SI.VOLT);
   }
@@ -77,6 +79,16 @@ public class Converters {
   @TypeConverter
   public static Amount<Temperature> temperatureFromSi(double value) {
     return Amount.valueOf(value, SI.KELVIN);
+  }
+
+  @TypeConverter
+  public static double timeToSi(Amount<Duration> value) {
+    return value.doubleValue(SI.SECOND);
+  }
+
+  @TypeConverter
+  public static Amount<Duration> timeFromSi(double value) {
+    return Amount.valueOf(value, SI.SECOND);
   }
 
   @TypeConverter
