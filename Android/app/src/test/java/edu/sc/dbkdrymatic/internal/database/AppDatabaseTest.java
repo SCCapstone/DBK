@@ -1,14 +1,10 @@
 package edu.sc.dbkdrymatic.internal.database;
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule;
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.LifecycleOwner;
-import android.arch.lifecycle.LifecycleRegistry;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.persistence.room.Room;
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import junit.framework.Assert;
@@ -22,8 +18,6 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
-import org.robolectric.android.controller.ActivityController;
-
 import java.util.List;
 
 import javax.measure.unit.NonSI;
@@ -37,6 +31,8 @@ import edu.sc.dbkdrymatic.internal.SiteInfo;
 
 @RunWith(RobolectricTestRunner.class)
 public class AppDatabaseTest {
+  public static final double delta = 0.0001;
+
   @Rule
   public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
@@ -82,13 +78,25 @@ public class AppDatabaseTest {
         Assert.assertEquals(1, jobs.size());
 
         SiteInfo testInfo = jobs.get(0).getSiteInfo();
-        Assert.assertEquals(siteInfo.name, testInfo.name);
+
+        // Test fields
+        Assert.assertTrue(siteInfo.equals(testInfo));
+
+        // Test computed properties
         Assert.assertEquals(
-            siteInfo.getBoostBoxRequirement(), testInfo.getBoostBoxRequirement(), 0.00001);
+            siteInfo.getD2Requirement(),
+            testInfo.getD2Requirement(),
+            delta);
         Assert.assertEquals(
             siteInfo.getAdjustedEnergy().doubleValue(SI.JOULE),
             testInfo.getAdjustedEnergy().doubleValue(SI.JOULE),
-            0.00001);
+            delta);
+        Assert.assertEquals(
+            siteInfo.getAdjustedPower().doubleValue(SI.WATT),
+            testInfo.getAdjustedPower().doubleValue(SI.WATT),
+            delta);
+        Assert.assertEquals(
+            siteInfo.getBoostBoxRequirement(), testInfo.getBoostBoxRequirement(), 0.00001);
       }
     });
     activity.finish();
