@@ -1,31 +1,47 @@
 package edu.sc.dbkdrymatic.internal.database;
 
+import android.arch.core.executor.testing.InstantTaskExecutorRule;
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleOwner;
+import android.arch.lifecycle.LifecycleRegistry;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.runner.AndroidJUnit4;
 
 import junit.framework.Assert;
 
 import org.jscience.physics.amount.Amount;
+import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
+import org.robolectric.android.controller.ActivityController;
 
 import java.util.List;
 
 import javax.measure.unit.NonSI;
+import javax.measure.unit.SI;
 
+import edu.sc.dbkdrymatic.NavigationActivity;
 import edu.sc.dbkdrymatic.internal.Country;
 import edu.sc.dbkdrymatic.internal.Damage;
 import edu.sc.dbkdrymatic.internal.Job;
 import edu.sc.dbkdrymatic.internal.SiteInfo;
 
+@RunWith(RobolectricTestRunner.class)
 public class AppDatabaseTest {
+  @Rule
+  public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
+
   SiteInfo siteInfo;
+  AppDatabase db;
 
   @Before
   public void setUp() {
@@ -39,26 +55,43 @@ public class AppDatabaseTest {
         Country.USA,
         "Default Site"
     );
+    Context appContext = RuntimeEnvironment.application.getApplicationContext();
+    this.db = Room.inMemoryDatabaseBuilder(
+        appContext, AppDatabase.class).allowMainThreadQueries().build();
+  }
+
+  @After
+  public void tearDown() {
+    this.db.close();
   }
 
   @Test
   public void storageAndRetrieval() {
     // Context of the app under test.
-    Context appContext = InstrumentationRegistry.getTargetContext();
-    AppDatabase db = Room.inMemoryDatabaseBuilder(
-        appContext, AppDatabase.class).allowMainThreadQueries().build();
+    NavigationActivity activity = Robolectric.buildActivity(
+        NavigationActivity.class).get();
 
-    db.siteInfoDao().insertAll(siteInfo);
 
-    LiveData<List<Job>> all = db.siteInfoDao().getAllJobs();
-    all.observe(appContext, new Observer<List<Job>>() {
+    this.db.siteInfoDao().insertAll(siteInfo);
+
+    LiveData<List<Job>> all = this.db.siteInfoDao().getAllJobs();
+    all.observeForever(new Observer<List<Job>>() {
       @Override
       public void onChanged(@Nullable List<Job> jobs) {
         Assert.assertNotNull(jobs);
         Assert.assertEquals(1, jobs.size());
-        Assert.assertEquals(siteInfo, jobs.get(0).getSiteInfo());
+
+        SiteInfo testInfo = jobs.get(0).getSiteInfo();
+        Assert.assertEquals(siteInfo.name, testInfo.name);
+        Assert.assertEquals(
+            siteInfo.getBoostBoxRequirement(), testInfo.getBoostBoxRequirement(), 0.00001);
+        Assert.assertEquals(
+            siteInfo.getAdjustedEnergy().doubleValue(SI.JOULE),
+            testInfo.getAdjustedEnergy().doubleValue(SI.JOULE),
+            0.00001);
       }
     });
-
+    activity.finish();
   }
+
 }
