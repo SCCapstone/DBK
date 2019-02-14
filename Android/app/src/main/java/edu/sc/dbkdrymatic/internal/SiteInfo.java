@@ -25,11 +25,11 @@ public class SiteInfo {
   public static final Unit<Energy> BTU = SI.JOULE.times(1055.056);
 
   @NonNull
-  public String name;
+  @PrimaryKey(autoGenerate = true)
+  private int id;
 
   @NonNull
-  @PrimaryKey(autoGenerate = true)
-  public int id;
+  public String name;
 
   @ColumnInfo(name = "volume")
   public Amount<Volume> volume;
@@ -63,6 +63,14 @@ public class SiteInfo {
     this.waterLoss = waterLoss;
     this.country = country;
     this.name = name;
+  }
+
+  public int getId() {
+    return this.id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
   }
 
   public Amount<Energy> getAdjustedEnergy() {
@@ -110,9 +118,5 @@ public class SiteInfo {
 
   public double getBoostBoxRequirement() {
     return this.getAdjustedPower().doubleValue(SI.KILO(SI.WATT)) / country.getKilowattRating();
-  }
-
-  public String getName() {
-    return name;
   }
 }

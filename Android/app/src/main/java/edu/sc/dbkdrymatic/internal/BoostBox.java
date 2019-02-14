@@ -6,6 +6,7 @@ import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.support.annotation.NonNull;
 
 import org.jscience.physics.amount.Amount;
 
@@ -35,8 +36,12 @@ public class BoostBox {
   private static final String serialUuidString = "00001101-0000-1000-8000-00805F9B34FB";
 
   // Bluetooth hardware address of the BoostBox represented by this object.
+  @NonNull
   @PrimaryKey
   private String address;
+
+  // Primary key of the Job Site at which this BoostBox is located.
+  private int jobId;
 
   // Number of hours the Boost Box has been run since it was last reset.
   @ColumnInfo(name = "hours")
@@ -96,6 +101,66 @@ public class BoostBox {
     this.current = current;
     this.power = power;
     this.cumulativeEnergy = cumulativeEnergy;
+  }
+
+  public String getAddress() {
+    return address;
+  }
+
+  public Amount<Duration> getHours() {
+    return hours;
+  }
+
+  public Amount<ElectricPotential> getVoltage() {
+    return voltage;
+  }
+
+  public Amount<Energy> getCumulativeEnergy() {
+    return cumulativeEnergy;
+  }
+
+  public Amount<Temperature> getAirInTemp() {
+    return airInTemp;
+  }
+
+  public Amount<Power> getPower() {
+    return power;
+  }
+
+  public Amount<ElectricCurrent> getCurrent() {
+    return current;
+  }
+
+  public Amount<Temperature> getAirOutTarget() {
+    return airOutTarget;
+  }
+
+  public Amount<Temperature> getAirOutTemp() {
+    return airOutTemp;
+  }
+
+  public Amount<Temperature> getAirOutThreshold() {
+    return airOutThreshold;
+  }
+
+  public boolean isAirflow() {
+    return airflow;
+  }
+
+  public boolean isRunning() {
+    return running;
+  }
+
+  public boolean isAutoRestart() {
+    return autoRestart;
+  }
+
+  public int getJobId() {
+    return jobId;
+  }
+
+  public void setJobId(int jobId) {
+    this.jobId = jobId;
   }
 
   /*** Commented out by hxtk (2019-02-12)
