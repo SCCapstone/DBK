@@ -90,16 +90,17 @@ public class SiteInfo {
   }
 
   public Amount<Energy> getEnergy() {
-    Amount<Temperature> desiredOutsideTempDiff = desiredTemp.minus(outsideTemp);
-    Amount<Temperature> desiredInsideTempDiff = desiredTemp.minus(insideTemp);
+    double desiredOutsideTempDiff = desiredTemp.doubleValue(NonSI.FAHRENHEIT);
+    desiredOutsideTempDiff -= outsideTemp.doubleValue(NonSI.FAHRENHEIT);
+
+    double desiredInsideTempDiff = desiredTemp.doubleValue(NonSI.FAHRENHEIT);
+    desiredInsideTempDiff -= insideTemp.doubleValue(NonSI.FAHRENHEIT);
+
     double energyValue =
-          (0.008568 * volume.doubleValue(CUBIC_FOOT) *
-              desiredOutsideTempDiff.doubleValue(NonSI.FAHRENHEIT))
+          (volume.doubleValue(CUBIC_FOOT) * desiredOutsideTempDiff * 0.008568)
         + (volume.doubleValue(CUBIC_FOOT) * waterLoss.getValue() * 12.6)
-        + (volume.doubleValue(CUBIC_FOOT) * waterLoss.getValue() *
-              desiredInsideTempDiff.doubleValue(NonSI.FAHRENHEIT) * 0.012)
-        + (volume.doubleValue(CUBIC_FOOT) *
-              desiredInsideTempDiff.doubleValue(NonSI.FAHRENHEIT) * 0.055);
+        + (volume.doubleValue(CUBIC_FOOT) * desiredInsideTempDiff * waterLoss.getValue() * 0.012)
+        + (volume.doubleValue(CUBIC_FOOT) * desiredInsideTempDiff * 0.055);
     return Amount.valueOf(energyValue, BTU);
   }
 

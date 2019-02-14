@@ -31,7 +31,7 @@ import edu.sc.dbkdrymatic.internal.SiteInfo;
 
 @RunWith(RobolectricTestRunner.class)
 public class AppDatabaseTest {
-  public static final double delta = 0.0001;
+  public static final double delta = 0.1;
 
   @Rule
   public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
@@ -86,6 +86,10 @@ public class AppDatabaseTest {
         Assert.assertEquals(
             siteInfo.getD2Requirement(),
             testInfo.getD2Requirement(),
+            delta);
+        Assert.assertEquals(
+            siteInfo.getEnergy().doubleValue(SiteInfo.BTU),
+            testInfo.getEnergy().doubleValue(SiteInfo.BTU),
             delta);
         Assert.assertEquals(
             siteInfo.getAdjustedEnergy().doubleValue(SI.JOULE),
