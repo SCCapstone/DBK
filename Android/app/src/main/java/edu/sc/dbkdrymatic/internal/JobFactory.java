@@ -11,6 +11,8 @@ import org.jscience.physics.amount.Amount;
 import javax.measure.quantity.Volume;
 import javax.measure.unit.Unit;
 
+import edu.sc.dbkdrymatic.internal.database.AppDatabase;
+
 
 public class JobFactory {
 
@@ -22,7 +24,7 @@ public class JobFactory {
 
   public Job emptyJob() {
     Unit<Volume> cubicFoot = LITER.divide(28.31685);
-    List<SiteInfo> list = appDatabase.siteInfoDao().getAll();
+    List<SiteInfo> list = appDatabase.siteInfoDao().getAll().getValue();
     SiteInfo siteInfo = null;
     if (list.size() == 0) {
       siteInfo = new SiteInfo(
