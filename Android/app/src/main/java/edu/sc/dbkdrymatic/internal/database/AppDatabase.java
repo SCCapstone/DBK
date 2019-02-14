@@ -20,9 +20,9 @@ import edu.sc.dbkdrymatic.internal.SiteInfo;
  */
 @Database(entities = {SiteInfo.class, BoostBox.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
-  /** Returns an abstraction for storage and retrieval of {@code SiteInfo} objects */
-  public abstract SiteInfoDao siteInfoDao();
-
   /** Returns an abstraction for storage and retrieval of {@code BoostBox} objects.*/
   public abstract BoostBoxDao boostBoxDao();
+
+  /** Returns an abstraction for storage and retrieval of {@code SiteInfo} objects.*/
+  public abstract SiteInfoDao siteInfoDao();
 }
