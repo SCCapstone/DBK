@@ -119,4 +119,18 @@ public class SiteInfo {
   public double getBoostBoxRequirement() {
     return this.getAdjustedPower().doubleValue(SI.KILO(SI.WATT)) / country.getKilowattRating();
   }
+
+  @Override
+  public boolean equals(Object that) {
+    if (that.getClass() != this.getClass()) return false;
+    SiteInfo other = (SiteInfo) that;
+    return other.volume.compareTo(volume) == 0 &&
+        other.outsideTemp.compareTo(outsideTemp) == 0 &&
+        other.desiredTemp.compareTo(desiredTemp) == 0 &&
+        other.insideTemp.compareTo(insideTemp) == 0 &&
+        Math.abs(other.relativeHumidity - relativeHumidity) < 0.0001 &&
+        other.waterLoss == waterLoss &&
+        other.country == country &&
+        other.name.equals(name);
+  }
 }
