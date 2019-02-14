@@ -57,7 +57,7 @@ public class Converters {
   }
 
   @TypeConverter
-  public static Amount<Energy> enegyFromSi(double value) {
+  public static Amount<Energy> energyFromSi(double value) {
     return Amount.valueOf(value, SI.JOULE);
   }
 
@@ -77,7 +77,7 @@ public class Converters {
   }
 
   @TypeConverter
-  public static Amount<Temperature> temperatureFromSi(double value) {
+  public static Amount<Temperature> tempFromSi(double value) {
     return Amount.valueOf(value, SI.KELVIN);
   }
 
@@ -92,7 +92,7 @@ public class Converters {
   }
 
   @TypeConverter
-  public static String stringFromDamage(Damage damage) {
+  public static String damageToString(Damage damage) {
     return damage.toString();
   }
 
@@ -107,7 +107,7 @@ public class Converters {
   }
 
   @TypeConverter
-  public static String stringFromCountry(Country country) {
+  public static String countryToString(Country country) {
     return country.toString();
   }
 
