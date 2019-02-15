@@ -22,11 +22,14 @@ import java.util.Map;
 
 import edu.sc.dbkdrymatic.internal.database.AppDatabase;
 import edu.sc.dbkdrymatic.internal.Job;
+import edu.sc.dbkdrymatic.internal.viewmodels.DataModel;
+import edu.sc.dbkdrymatic.internal.viewmodels.SelectedJobModel;
 
 public class NavigationActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener, Observer<List<Job>> {
 
-  private DataModel model;
+  private DataModel jobsModel;
+  private SelectedJobModel selection;
   private Map<MenuItem, Job> itemJobMap;
 
   @Override
@@ -36,14 +39,18 @@ public class NavigationActivity extends AppCompatActivity
     AppDatabase appDb = Room.databaseBuilder(
         getApplicationContext(), AppDatabase.class, "dbk.db").build();
 
-    DataModel.Factory factory = new DataModel.Factory(appDb.siteInfoDao(), appDb.boostBoxDao());
-    this.model = ViewModelProviders.of(this, factory).get(DataModel.class);
+    DataModel.Factory jobsFactory = new DataModel.Factory(appDb.siteInfoDao());
+    this.jobsModel = ViewModelProviders.of(this, jobsFactory).get(DataModel.class);
+
+    SelectedJobModel.Factory selectionFactory = new SelectedJobModel.Factory(appDb.siteInfoDao());
+    this.selection = ViewModelProviders.of(
+        this, selectionFactory).get(SelectedJobModel.class);
 
     setContentView(R.layout.activity_navigation);
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
-    this.model.getJobs().observe(this, this);
+    this.jobsModel.getJobs().observe(this, this);
 
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -127,10 +134,14 @@ public class NavigationActivity extends AppCompatActivity
         }
 
         // Update the selected `Job`.
-        model.setSelectedJob(itemJobMap.get(item));
+        selection.setSelectedJob(itemJobMap.get(item));
 
-        // Change to job fragment.
-        fragmentManager.beginTransaction().replace(R.id.content_frame, new JobFragment()).commit();
+        // Change to `JobFragment` if we are not already on a `JobFragment`.
+        if (fragmentManager.findFragmentById(R.id.content_frame).getClass() != JobFragment.class) {
+          fragmentManager.beginTransaction().replace(
+              R.id.content_frame, new JobFragment()).commit();
+        }
+
     }
 
     DrawerLayout drawer = findViewById(R.id.drawer_layout);
