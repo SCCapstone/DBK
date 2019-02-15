@@ -1,13 +1,11 @@
 package edu.sc.dbkdrymatic;
 
-import android.app.FragmentManager;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothManager;
+import android.support.v4.app.FragmentManager;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.arch.persistence.room.Room;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,56 +14,36 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
-import java.util.LinkedList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.measure.unit.NonSI;
-
-import edu.sc.dbkdrymatic.internal.AppDatabase;
-import edu.sc.dbkdrymatic.internal.Country;
+import edu.sc.dbkdrymatic.internal.database.AppDatabase;
 import edu.sc.dbkdrymatic.internal.Job;
-import edu.sc.dbkdrymatic.internal.JobFactory;
-import edu.sc.dbkdrymatic.internal.Settings;
-import edu.sc.dbkdrymatic.internal.SiteInfo;
-
 
 public class NavigationActivity extends AppCompatActivity
-    implements NavigationView.OnNavigationItemSelectedListener {
+    implements NavigationView.OnNavigationItemSelectedListener, Observer<List<Job>> {
 
-  private AppDatabase appDatabase;
-  private List<Job> jobs;
-  private Settings settings;
-  private BluetoothAdapter btAdapter;
+  private DataModel model;
   private Map<MenuItem, Job> itemJobMap;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
+    AppDatabase appDb = Room.databaseBuilder(
+        getApplicationContext(), AppDatabase.class, "dbk.db").build();
+
+    DataModel.Factory factory = new DataModel.Factory(appDb.siteInfoDao(), appDb.boostBoxDao());
+    this.model = ViewModelProviders.of(this, factory).get(DataModel.class);
+
     setContentView(R.layout.activity_navigation);
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
-    this.appDatabase = Room.databaseBuilder(
-        getApplicationContext(), AppDatabase.class, "site_info").allowMainThreadQueries().build();
-
-    this.jobs = new LinkedList<>();
-    jobs.add(new JobFactory(this.appDatabase).emptyJob());
-
-    this.settings = new Settings(SiteInfo.CUBIC_FOOT, NonSI.FAHRENHEIT, Country.USA);
-
-    BluetoothManager btManager = (BluetoothManager) (this.getSystemService(BLUETOOTH_SERVICE));
-    this.btAdapter = btManager.getAdapter();
-
-    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-    fab.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-            .setAction("Action", null).show();
-      }
-    });
+    this.model.getJobs().observe(this, this);
 
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -77,6 +55,12 @@ public class NavigationActivity extends AppCompatActivity
     navigationView.setNavigationItemSelectedListener(this);
   }
 
+  /**
+   * Handle press of the System UI back button.
+   *
+   * <p>If the navigation drawer is opened, we close the drawer. Otherwise, the system default
+   * action is used.
+   */
   @Override
   public void onBackPressed() {
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -87,19 +71,20 @@ public class NavigationActivity extends AppCompatActivity
     }
   }
 
+  /**
+   * Populate the {@code AppBar} menu with items from the resource {@code R.menu.navigation}.
+   */
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     // Inflate the menu; this adds items to the action bar if it is present.
     getMenuInflater().inflate(R.menu.navigation, menu);
 
-    // Add a button for each job
-    for(Job job: this.jobs) {
-      this.itemJobMap.put(menu.add(job.getSiteInfo().name), job);
-    }
-
     return true;
   }
 
+  /**
+   * Handles the selection of items from the action bar menu.
+   */
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     // Handle action bar item clicks here. The action bar will
@@ -115,38 +100,68 @@ public class NavigationActivity extends AppCompatActivity
     return super.onOptionsItemSelected(item);
   }
 
+  /**
+   * Handles selection of items from the navigation drawer.
+   *
+   * <p>If the object selected was an item defined in the menu resource then we switch to that
+   * fragment and a dedicated view for that fragment. Otherwise, it is assumed that the object is
+   * a {@code Job} from the database. If it is not on record, we emit a {@code Toast} warning the
+   * user of the error and do not change the view. If it is a known {@code Job} then we change to
+   * the relevant view and pass in that {@code Job}'s ID through the bundle.
+   */
   @SuppressWarnings("StatementWithEmptyBody")
   @Override
   public boolean onNavigationItemSelected(MenuItem item) {
-    // Handle navigation view item clicks here.
-    int id = item.getItemId();
-
-    FragmentManager fragmentManager = getFragmentManager();
+    FragmentManager fragmentManager = getSupportFragmentManager();
 
     switch(item.getItemId()) {
-      case R.id.nav_first_layout:
-        CalculatorFragment cf = new CalculatorFragment(
-            this.jobs.get(0).getSiteInfo(), this.settings, appDatabase.siteInfoDao());
+      case R.id.nav_settings:
         fragmentManager.beginTransaction()
-            .replace(R.id.content_frame, cf).commit();
+            .replace(R.id.content_frame, new SettingsFragment()).commit();
         break;
-      case R.id.nav_second_layout:
-        fragmentManager.beginTransaction()
-            .replace(R.id.content_frame, new BluetoothFragment(btAdapter)).commit();
-        break;
-      case R.id.nav_third_layout:
-        SettingsFragment sf = new SettingsFragment(this.settings);
-        fragmentManager.beginTransaction()
-            .replace(R.id.content_frame, sf).commit();
-      default:
-        CalculatorFragment fragment = new CalculatorFragment(
-            this.itemJobMap.get(item).getSiteInfo(), this.settings, appDatabase.siteInfoDao());
-        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+      default:  // This is the case where they have clicked on a Job.
+        // Error check for non-existent job.
+        if (!itemJobMap.keySet().contains(item)) {
+          Toast.makeText(this, "No such job exists.", Toast.LENGTH_SHORT).show();
+          return false;
+        }
 
+        // Update the selected `Job`.
+        model.setSelectedJob(itemJobMap.get(item));
+
+        // Change to job fragment.
+        fragmentManager.beginTransaction().replace(R.id.content_frame, new JobFragment()).commit();
     }
 
-    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+    DrawerLayout drawer = findViewById(R.id.drawer_layout);
     drawer.closeDrawer(GravityCompat.START);
     return true;
+  }
+
+  /**
+   * When the list of {@code Job}s in the database changes, this will clear the Jobs section of the
+   * navigation drawer and refill it with the up-to-date list of Jobs.
+   */
+  @Override
+  public void onChanged(@Nullable List<Job> jobs) {
+    NavigationView navigationView = findViewById(R.id.nav_view);
+    Menu menu = navigationView.getMenu();
+
+    // Clear existing list of jobs. This ensures that the jobs are kept in order and that any
+    // deleted jobs do not persist in the menu.
+    this.itemJobMap = new HashMap<>();
+    menu.removeGroup(R.id.group_jobs);
+
+    // The variable is marked as nullable, so we have to handle the case where it is null.
+    // In normal operations, this path should never execute.
+    if (jobs == null) {
+      return;
+    }
+
+    // Add a menu item with the job name for each `Job` and put it in the map so that it may be
+    // referenced by the menu selection.
+    for (Job job: jobs) {
+      itemJobMap.put(menu.add(job.getSiteInfo().name), job);
+    }
   }
 }
