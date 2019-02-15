@@ -22,6 +22,10 @@ public interface SiteInfoDao {
   @Query("SELECT * FROM SiteInfo")
   LiveData<List<Job>> getAllJobs();
 
+  @Transaction
+  @Query("SELECT * FROM SiteInfo WHERE id = :id LIMIT 1")
+  LiveData<Job> getJob(int id);
+
   @Query("SELECT * FROM SiteInfo WHERE id = :id LIMIT 1")
   LiveData<SiteInfo> getById(int id);
 
