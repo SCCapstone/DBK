@@ -57,9 +57,9 @@ public class BluetoothFragment extends Fragment implements Subscriber<String>, A
 
   @Override
   public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-    final Spinner deviceSpinner = getView().findViewById(R.id.bluetooth_device);
+    /*final Spinner deviceSpinner = getView().findViewById(R.id.bluetooth_device);
     BoostBox boostBox = new BoostBox((BluetoothDevice) deviceSpinner.getSelectedItem(), this);
-    boostBox.listen();
+    boostBox.listen();*/
   }
 
   @Override
