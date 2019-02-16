@@ -9,9 +9,6 @@ import org.jscience.physics.amount.Amount;
 
 import java.util.List;
 
-import javax.measure.unit.NonSI;
-
-import edu.sc.dbkdrymatic.internal.Country;
 import edu.sc.dbkdrymatic.internal.Damage;
 import edu.sc.dbkdrymatic.internal.Job;
 import edu.sc.dbkdrymatic.internal.Settings;
