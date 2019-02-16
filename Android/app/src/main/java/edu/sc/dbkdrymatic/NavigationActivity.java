@@ -116,7 +116,6 @@ public class NavigationActivity extends AppCompatActivity
    * user of the error and do not change the view. If it is a known {@code Job} then we change to
    * the relevant view and pass in that {@code Job}'s ID through the bundle.
    */
-  @SuppressWarnings("StatementWithEmptyBody")
   @Override
   public boolean onNavigationItemSelected(MenuItem item) {
     FragmentManager fragmentManager = getSupportFragmentManager();
@@ -135,13 +134,7 @@ public class NavigationActivity extends AppCompatActivity
 
         // Update the selected `Job`.
         selection.setSelectedJob(itemJobMap.get(item));
-
-        // Change to `JobFragment` if we are not already on a `JobFragment`.
-        if (fragmentManager.findFragmentById(R.id.content_frame).getClass() != JobFragment.class) {
-          fragmentManager.beginTransaction().replace(
-              R.id.content_frame, new JobFragment()).commit();
-        }
-
+        fragmentManager.beginTransaction().replace(R.id.content_frame, new JobFragment()).commit();
     }
 
     DrawerLayout drawer = findViewById(R.id.drawer_layout);
