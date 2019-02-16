@@ -17,6 +17,7 @@ import javax.measure.unit.Unit;
 import edu.sc.dbkdrymatic.internal.Country;
 import edu.sc.dbkdrymatic.internal.Settings;
 import edu.sc.dbkdrymatic.internal.SiteInfo;
+import edu.sc.dbkdrymatic.internal.database.Converters;
 import edu.sc.dbkdrymatic.internal.database.SiteInfoDao;
 
 
@@ -69,8 +70,8 @@ public class SettingsModel extends ViewModel
     @Override
     public void run() {
       boolean imperial = preferences.getBoolean("imperial", true);
-      Country country = Country.valueOf(
-          preferences.getString("country", Country.USA.toString()));
+      String countryString = preferences.getString("country", Country.USA.toString());
+      Country country = Converters.countryFromString(countryString);
       Unit<Volume> volumeUnit = imperial ? SiteInfo.CUBIC_FOOT : SI.CUBIC_METRE;
       Unit<Temperature> temperatureUnit = imperial ? NonSI.FAHRENHEIT : SI.CELSIUS;
 
