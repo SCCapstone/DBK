@@ -3,16 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:checkableBehavior="single"
+        android:id="@+id/group_settings">
         <item
-            android:id="@+id/nav_first_layout"
-            android:title="Calculator" />
-        <item
-            android:id="@+id/nav_second_layout"
-            android:title="Bluetooth" />
-        <item
-            android:id="@+id/nav_third_layout"
+            android:id="@+id/nav_settings"
             android:title="Settings" />
+    </group>
+
+    <group
+        android:checkableBehavior="single"
+        android:id="@+id/group_jobs">
     </group>
 
 </menu>
