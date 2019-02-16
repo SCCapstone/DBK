@@ -45,7 +45,7 @@ public class CalculatorFragment extends Fragment {
   public void onCreate(Bundle savedState) {
     super.onCreate(savedState);
 
-    // Monitor for changes to the currently selected job and update the view as appropriate
+    // Monitor for changes to the currently selected job and update the view as appropriate.
     AppDatabase appDb = Room.databaseBuilder(
         this.getActivity().getApplicationContext(), AppDatabase.class, "dbk.db").build();
     SelectedJobModel.Factory sjmFactory = new SelectedJobModel.Factory(appDb.siteInfoDao());
@@ -57,7 +57,7 @@ public class CalculatorFragment extends Fragment {
       }
     });
 
-    // Monitor for
+    // Monitor for changes to the application preferences.
     SharedPreferences preferences = PreferenceManager
         .getDefaultSharedPreferences(this.getContext());
     SettingsModel.Factory settingsFactory = new SettingsModel.Factory(preferences);
