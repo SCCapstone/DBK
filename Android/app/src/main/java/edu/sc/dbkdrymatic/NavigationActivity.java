@@ -181,7 +181,8 @@ public class NavigationActivity extends AppCompatActivity
     // Clear existing list of jobs. This ensures that the jobs are kept in order and that any
     // deleted jobs do not persist in the menu.
     this.itemJobMap = new HashMap<>();
-    menu.removeGroup(R.id.group_jobs);
+    menu.clear();
+    navigationView.inflateMenu(R.menu.activity_navigation_drawer);
 
     // The variable is marked as nullable, so we have to handle the case where it is null.
     // In normal operations, this path should never execute.
