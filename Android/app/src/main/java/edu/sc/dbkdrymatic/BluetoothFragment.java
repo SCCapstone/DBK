@@ -1,6 +1,6 @@
 package edu.sc.dbkdrymatic;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.os.AsyncTask;
@@ -15,18 +15,12 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
-import edu.sc.dbkdrymatic.internal.BoostBox;
-import edu.sc.dbkdrymatic.internal.Subscriber;
-
-public class BluetoothFragment extends Fragment implements Subscriber<String>, AdapterView.OnItemSelectedListener {
+public class BluetoothFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
   private BluetoothAdapter bluetoothAdapter;
   View myView;
 
   public BluetoothFragment() {}
-  public BluetoothFragment(BluetoothAdapter adapter) {
-    this.bluetoothAdapter = adapter;
-  }
 
   @Nullable
   @Override
@@ -40,19 +34,6 @@ public class BluetoothFragment extends Fragment implements Subscriber<String>, A
     super.onViewCreated(view, savedInstanceState);
 
     final TextView dataDisplay = getView().findViewById(R.id.data_display);
-
-    final Spinner deviceSpinner = getView().findViewById(R.id.bluetooth_device);
-    ArrayAdapter adapter = new ArrayAdapter<BluetoothDevice>(
-        this.getActivity(), android.R.layout.simple_spinner_item);
-    adapter.addAll(bluetoothAdapter.getBondedDevices());
-    deviceSpinner.setAdapter(adapter);
-    deviceSpinner.setOnItemSelectedListener(this);
-  }
-
-  @Override
-  public void publish(String data) {
-    TextView dataDisplay = getView().findViewById(R.id.data_display);
-    dataDisplay.setText(dataDisplay.getText().toString() + "\n" + data);
   }
 
   @Override

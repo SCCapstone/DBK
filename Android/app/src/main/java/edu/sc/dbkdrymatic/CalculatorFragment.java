@@ -219,6 +219,10 @@ public class CalculatorFragment extends Fragment {
   }
 
   public void updateView(Job job, Settings settings) {
+    if (job == null || settings == null) {
+      return;
+    }
+
     this.job = job;
     this.settings = settings;
 
