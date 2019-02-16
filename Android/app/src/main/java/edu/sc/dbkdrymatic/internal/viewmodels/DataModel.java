@@ -36,7 +36,7 @@ public class DataModel extends ViewModel {
    * TODO: Return the job and automatically switch to it.
    */
   public void createWithName(String name, Settings settings) {
-    SiteInfo siteInfo = new SiteInfo(
+    final SiteInfo siteInfo = new SiteInfo(
         Amount.valueOf(0.0, settings.getVolumeUnit()),
         Amount.valueOf(0, settings.getTemperatureUnit()),
         Amount.valueOf(0, settings.getTemperatureUnit()),
@@ -45,7 +45,13 @@ public class DataModel extends ViewModel {
         Damage.CLASS1,
         settings.getCountry(),
         name);
-    siDao.insertAll(siteInfo);
+
+    new Thread() {
+      @Override
+      public void run() {
+        siDao.insertAll(siteInfo);
+      }
+    }.start();
   }
 
   /**
