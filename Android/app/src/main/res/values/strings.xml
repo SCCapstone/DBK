@@ -6,12 +6,7 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-
-    <string-array name="numbers">
-        <item>1-0.05</item>
-        <item>2-0.12</item>
-        <item>3-0.16</item>
-        <item>4-0.09</item>
-
-    </string-array>
+    <string name="new_job_title">New Job Name</string>
+    <string name="create">Create</string>
+    <string name="cancel">Cancel</string>
 </resources>

@@ -1,16 +1,18 @@
 package edu.sc.dbkdrymatic.internal.viewmodels;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
+
+import org.jscience.physics.amount.Amount;
 
 import java.util.List;
 
 import javax.measure.unit.NonSI;
 
 import edu.sc.dbkdrymatic.internal.Country;
+import edu.sc.dbkdrymatic.internal.Damage;
 import edu.sc.dbkdrymatic.internal.Job;
 import edu.sc.dbkdrymatic.internal.Settings;
 import edu.sc.dbkdrymatic.internal.SiteInfo;
@@ -19,8 +21,6 @@ import edu.sc.dbkdrymatic.internal.database.SiteInfoDao;
 public class DataModel extends ViewModel {
 
   private SiteInfoDao siDao;
-
-  private MutableLiveData<Job> selectedJob;
 
   public DataModel(SiteInfoDao siDao) {
     this.siDao = siDao;
@@ -31,6 +31,24 @@ public class DataModel extends ViewModel {
    */
   public LiveData<List<Job>> getJobs() {
     return this.siDao.getAllJobs();
+  }
+
+  /**
+   * Creates a new Job with the given name and empty parameters, adding it to the database.
+   *
+   * TODO: Return the job and automatically switch to it.
+   */
+  public void createWithName(String name, Settings settings) {
+    SiteInfo siteInfo = new SiteInfo(
+        Amount.valueOf(0.0, settings.getVolumeUnit()),
+        Amount.valueOf(0, settings.getTemperatureUnit()),
+        Amount.valueOf(0, settings.getTemperatureUnit()),
+        Amount.valueOf(0, settings.getTemperatureUnit()),
+        0.0,
+        Damage.CLASS1,
+        settings.getCountry(),
+        name);
+    siDao.insertAll(siteInfo);
   }
 
   /**

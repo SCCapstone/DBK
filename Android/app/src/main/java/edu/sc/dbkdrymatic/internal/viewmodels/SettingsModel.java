@@ -60,6 +60,10 @@ public class SettingsModel extends ViewModel
     new SettingsLoader().start();
   }
 
+  /**
+   * Completely reloads the settings for the application from a worker thread so as not to lock the
+   * UI thread.
+   */
   private class SettingsLoader extends Thread {
 
     @Override

@@ -1,5 +1,11 @@
 package edu.sc.dbkdrymatic;
 
+import android.app.AlertDialog;
+import android.arch.lifecycle.LiveData;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -12,25 +18,31 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import edu.sc.dbkdrymatic.internal.Settings;
 import edu.sc.dbkdrymatic.internal.database.AppDatabase;
 import edu.sc.dbkdrymatic.internal.Job;
 import edu.sc.dbkdrymatic.internal.viewmodels.DataModel;
 import edu.sc.dbkdrymatic.internal.viewmodels.SelectedJobModel;
+import edu.sc.dbkdrymatic.internal.viewmodels.SettingsModel;
 
 public class NavigationActivity extends AppCompatActivity
-    implements NavigationView.OnNavigationItemSelectedListener, Observer<List<Job>> {
+    implements NavigationView.OnNavigationItemSelectedListener, Observer<List<Job>>, View.OnClickListener {
 
   private DataModel jobsModel;
   private SelectedJobModel selection;
   private Map<MenuItem, Job> itemJobMap;
+  private Settings settings;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +50,18 @@ public class NavigationActivity extends AppCompatActivity
 
     AppDatabase appDb = Room.databaseBuilder(
         getApplicationContext(), AppDatabase.class, "dbk.db").build();
+
+    SharedPreferences preferences = PreferenceManager
+        .getDefaultSharedPreferences(this);
+    SettingsModel.Factory settingsFactory = new SettingsModel.Factory(preferences);
+    SettingsModel settingsModel = ViewModelProviders.of(this, settingsFactory)
+        .get(SettingsModel.class);
+    settingsModel.getSettings().observe(this, new Observer<Settings>() {
+      @Override
+      public void onChanged(@Nullable Settings newSettings) {
+        settings = newSettings;
+      }
+    });
 
     DataModel.Factory jobsFactory = new DataModel.Factory(appDb.siteInfoDao());
     this.jobsModel = ViewModelProviders.of(this, jobsFactory).get(DataModel.class);
@@ -60,6 +84,9 @@ public class NavigationActivity extends AppCompatActivity
 
     NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(this);
+
+    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+    fab.setOnClickListener(this);
   }
 
   /**
@@ -167,5 +194,31 @@ public class NavigationActivity extends AppCompatActivity
     for (Job job: jobs) {
       itemJobMap.put(menu.add(job.getSiteInfo().name), job);
     }
+  }
+
+  @Override
+  public void onClick(View view) {
+    // Handle Floating Action Button
+    final EditText name = new EditText(this);
+    name.setInputType(InputType.TYPE_CLASS_TEXT);
+
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    builder
+        .setTitle(R.string.new_job_title)
+        .setView(name)
+        .setPositiveButton(R.string.create, new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialog, int i) {
+            // TODO: Switch to the job after it is created.
+            jobsModel.createWithName(name.getText().toString(), settings);
+            dialog.dismiss();
+          }
+        })
+        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialogInterface, int i) {
+            dialogInterface.cancel();
+          }
+        }).show();
   }
 }
