@@ -1,8 +1,9 @@
-# DBK Apps [![Build Status](https://travis-ci.com/SCCapstone/DBK.svg?token=nmBKzbJ5DLtZmaoDqMk1&branch=master)](https://travis-ci.com/SCCapstone/DBK)
+# DBK Apps [![Build Status](https://travis-ci.com/SCCapstone/DBK.svg?token=nmBKzbJ5DLtZmaoDqMk1&branch=master)](https://travis-ci.com/SCCapstone/DBK) [![codecov](https://codecov.io/gh/SCCapstone/DBK/branch/master/graph/badge.svg?token=bFyjC1ZmCH)](https://codecov.io/gh/SCCapstone/DBK) [![Maintainability](https://api.codeclimate.com/v1/badges/f73b13299358e294d538/maintainability)](https://codeclimate.com/repos/5c697869d751b00285001fa4/maintainability)
 
 Android Applications supporting DBK Drymatic
 
-## Installing / Getting started
+## Installation 
+
 - Enable APK's from unkown sources in settings
 - Download DBK App APK
 - Install from from file
