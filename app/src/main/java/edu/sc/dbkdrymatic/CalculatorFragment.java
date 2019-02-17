@@ -76,12 +76,6 @@ public class CalculatorFragment extends Fragment {
   public View onCreateView (LayoutInflater inflater, @Nullable ViewGroup container, Bundle
       savedInstanceState){
     myView = inflater.inflate(R.layout.calculator_layout, container, false);
-    return myView;
-  }
-
-  @Override
-  public void onViewCreated(View view, Bundle savedState) {
-    super.onViewCreated(view, savedState);
 
     final Spinner damageClassSpinner = (Spinner) getView().findViewById(R.id.water_loss);
     ArrayAdapter<Damage> adapter = new ArrayAdapter<Damage>(
@@ -89,6 +83,13 @@ public class CalculatorFragment extends Fragment {
     adapter.addAll(Damage.values());
     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     damageClassSpinner.setAdapter(adapter);
+
+    return myView;
+  }
+
+  @Override
+  public void onViewCreated(View view, Bundle savedState) {
+    super.onViewCreated(view, savedState);
 
     final EditText volumeField = (EditText) (getView().findViewById(R.id.volume));
     volumeField.addTextChangedListener(new UpdateWatcher() {
