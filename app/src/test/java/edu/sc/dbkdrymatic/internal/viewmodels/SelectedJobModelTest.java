@@ -71,7 +71,7 @@ public class SelectedJobModelTest {
   }
 
   @Test
-  void getSelectedJob_jobInitiallyNull() throws ExecutionException, InterruptedException {
+  public void getSelectedJob_jobInitiallyNull() throws ExecutionException, InterruptedException {
     SelectedJobModel model = new SelectedJobModel(this.db.siteInfoDao());
     LiveData<Job> data = model.getSelectedJob();
 

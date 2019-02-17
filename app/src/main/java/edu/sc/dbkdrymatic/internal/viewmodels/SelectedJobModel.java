@@ -57,6 +57,9 @@ public class SelectedJobModel extends ViewModel implements Observer<Job> {
    * the database or if a different {@code Job} is selected.
    */
   public LiveData<Job> getSelectedJob() {
+    if (this.selectedJob == null) {
+      this.selectedJob = new MutableLiveData<>();
+    }
     return this.selectedJob;
   }
 
