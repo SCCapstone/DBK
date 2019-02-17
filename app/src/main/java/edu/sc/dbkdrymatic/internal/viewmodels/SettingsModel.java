@@ -8,6 +8,9 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import javax.measure.quantity.Temperature;
 import javax.measure.quantity.Volume;
 import javax.measure.unit.NonSI;
@@ -46,7 +49,7 @@ public class SettingsModel extends ViewModel
   public LiveData<Settings> getSettings() {
     if (settings == null) {
       settings = new MutableLiveData<>();
-      new SettingsLoader().start();
+      new SettingsLoader().run();
       preferences.registerOnSharedPreferenceChangeListener(this);
     }
     return settings;
@@ -58,14 +61,15 @@ public class SettingsModel extends ViewModel
    */
   @Override
   public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-    new SettingsLoader().start();
+    ExecutorService executor = Executors.newSingleThreadExecutor();
+    executor.submit(new SettingsLoader());
   }
 
   /**
    * Completely reloads the settings for the application from a worker thread so as not to lock the
    * UI thread.
    */
-  private class SettingsLoader extends Thread {
+  private class SettingsLoader implements Runnable {
 
     @Override
     public void run() {

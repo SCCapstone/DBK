@@ -36,4 +36,16 @@ public class Settings {
   public void setCountry(Country country) {
     this.country = country;
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj.getClass() != this.getClass()) {
+      return false;
+    }
+    Settings that = (Settings) obj;
+
+    return that.getCountry() == this.getCountry() &&
+        that.getVolumeUnit() == this.getVolumeUnit() &&
+        that.getTemperatureUnit() == this.getTemperatureUnit();
+  }
 }
