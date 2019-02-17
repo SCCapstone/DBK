@@ -42,7 +42,6 @@ public class SettingsModelTest {
   private LifecycleOwner owner;
   private LifecycleRegistry registry;
   private SharedPreferences preferences;
-  private Settings settings;
   private LiveData<Settings> liveSettings;
 
   @Before
