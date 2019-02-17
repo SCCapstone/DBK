@@ -91,131 +91,50 @@ public class CalculatorFragment extends Fragment {
     damageClassSpinner.setAdapter(adapter);
 
     final EditText volumeField = (EditText) (getView().findViewById(R.id.volume));
-    volumeField.addTextChangedListener(new TextWatcher() {
+    volumeField.addTextChangedListener(new UpdateWatcher() {
       @Override
-      public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-      }
-
-      @Override
-      public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        double value;
-        try {
-          value = Double.parseDouble(charSequence.toString());
-        } catch (NumberFormatException e) {
-          value = 0;
-        }
+      public void update(double value) {
         job.getSiteInfo().volume = Amount.valueOf(value, settings.getVolumeUnit());
         model.update(job);
-      }
-
-      @Override
-      public void afterTextChanged(Editable editable) {
-
       }
     });
 
     final EditText insideTempField = (EditText) (getView().findViewById(R.id.inside_temp));
-    insideTempField.addTextChangedListener(new TextWatcher() {
+    insideTempField.addTextChangedListener(new UpdateWatcher() {
       @Override
-      public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-      }
-
-      @Override
-      public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        double value;
-        try {
-          value = Double.parseDouble(charSequence.toString());
-        } catch (NumberFormatException e) {
-          value = 0;
-        }
+      public void update(double value) {
         job.getSiteInfo().insideTemp = Amount.valueOf(value, settings.getTemperatureUnit());
         model.update(job);
-      }
-
-      @Override
-      public void afterTextChanged(Editable editable) {
-
       }
     });
 
     final EditText desiredTempField = (EditText) (getView().findViewById(R.id.desired_temp));
-    insideTempField.addTextChangedListener(new TextWatcher() {
+    insideTempField.addTextChangedListener(new UpdateWatcher() {
       @Override
-      public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-      }
-
-      @Override
-      public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        double value;
-        try {
-          value = Double.parseDouble(charSequence.toString());
-        } catch (NumberFormatException e) {
-          value = 0;
-        }
-        job.getSiteInfo().desiredTemp = Amount.valueOf(value, settings.getTemperatureUnit());
+      public void update(double changed) {
+        job.getSiteInfo().desiredTemp = Amount.valueOf(changed, settings.getTemperatureUnit());
         model.update(job);
-      }
-
-      @Override
-      public void afterTextChanged(Editable editable) {
-
       }
     });
 
     final EditText outsideTempField = (EditText) (getView().findViewById(R.id.outside_temp));
-    insideTempField.addTextChangedListener(new TextWatcher() {
+    insideTempField.addTextChangedListener(new UpdateWatcher() {
       @Override
-      public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-      }
-
-      @Override
-      public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        double value;
-        try {
-          value = Double.parseDouble(charSequence.toString());
-        } catch (NumberFormatException e) {
-          value = 0;
-        }
-        job.getSiteInfo().outsideTemp = Amount.valueOf(value, settings.getTemperatureUnit());
+      public void update(double changed) {
+        job.getSiteInfo().outsideTemp = Amount.valueOf(changed, settings.getTemperatureUnit());
         model.update(job);
-      }
-
-      @Override
-      public void afterTextChanged(Editable editable) {
-
       }
     });
 
     final EditText relativeHumidityField =
         (EditText) (getView().findViewById(R.id.relative_humidity));
-    insideTempField.addTextChangedListener(new TextWatcher() {
+    insideTempField.addTextChangedListener(new UpdateWatcher() {
       @Override
-      public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-      }
-
-      @Override
-      public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        double value;
-        try {
-          value = Double.parseDouble(charSequence.toString());
-        } catch (NumberFormatException e) {
-          value = 0;
-        }
+      public void update(double value) {
         job.getSiteInfo().relativeHumidity = value;
         model.update(job);
       }
-
-      @Override
-      public void afterTextChanged(Editable editable) {
-
-      }
     });
-
   }
 
   public void updateView(Job job, Settings settings) {
@@ -256,5 +175,35 @@ public class CalculatorFragment extends Fragment {
 
     final TextView d2s = (TextView) getView().findViewById(R.id.d2s);
     d2s.setText(df.format(siteInfo.getD2Requirement()));
+  }
+
+  private abstract class UpdateWatcher implements TextWatcher {
+
+    public abstract void update(double value);
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+      double value = 0.0;
+      try {
+        value = Double.parseDouble(charSequence.toString());
+      } catch (NumberFormatException e) {
+        value = 0.0;
+      }
+      this.update(value);
+    }
+
+    /**
+     * This function is intentionally left blank. We do nothing in this case.
+     */
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+    /**
+     * This function is intentionally left blank. We do nothing in this case.
+     */
+    @Override
+    public void afterTextChanged(Editable editable) {
+
+    }
   }
 }
