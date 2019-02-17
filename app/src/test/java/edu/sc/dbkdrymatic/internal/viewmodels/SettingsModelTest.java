@@ -19,13 +19,11 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.FutureTask;
 
 import javax.measure.unit.NonSI;
 import javax.measure.unit.SI;
@@ -34,6 +32,7 @@ import edu.sc.dbkdrymatic.internal.Country;
 import edu.sc.dbkdrymatic.internal.Settings;
 import edu.sc.dbkdrymatic.internal.SiteInfo;
 import edu.sc.dbkdrymatic.test.Utils;
+
 
 @RunWith(RobolectricTestRunner.class)
 public class SettingsModelTest {
