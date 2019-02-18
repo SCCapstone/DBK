@@ -1,18 +1,13 @@
 package edu.sc.dbkdrymatic.internal.viewmodels;
 
-import android.arch.core.executor.ArchTaskExecutor;
 import android.arch.core.executor.testing.InstantTaskExecutorRule;
-import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.LifecycleRegistry;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
-
 import junit.framework.Assert;
 
 import org.junit.Before;
@@ -75,5 +70,47 @@ public class SettingsModelTest {
     Utils.observe(liveSettings, this.owner, Mockito.mock(Observer.class));
 
     Assert.assertEquals(settings, liveSettings.getValue());
+  }
+
+  @Test
+  public void getSettings_hasInitialValue() {
+    SettingsModel settingsModel = new SettingsModel(preferences);
+    Assert.assertNotNull(settingsModel.getSettings().getValue());
+  }
+
+  @Test
+  public void setCountry_upToDate() throws ExecutionException, InterruptedException {
+    SettingsModel settingsModel = new SettingsModel(preferences);
+    liveSettings = settingsModel.getSettings();
+
+    settingsModel.selectCountry(Country.AUS);
+    Utils.observe(liveSettings, this.owner, Mockito.mock(Observer.class));
+
+    Assert.assertEquals(Country.AUS, liveSettings.getValue().getCountry());
+  }
+
+  @Test
+  public void setImperial_setFalse() throws ExecutionException, InterruptedException {
+    SettingsModel settingsModel = new SettingsModel(preferences);
+    liveSettings = settingsModel.getSettings();
+
+    settingsModel.setImperial(false);
+    Utils.observe(liveSettings, this.owner, Mockito.mock(Observer.class));
+
+    Assert.assertEquals(SI.CUBIC_METRE, liveSettings.getValue().getVolumeUnit());
+  }
+
+  @Test
+  public void setImperial_setTrue() throws ExecutionException, InterruptedException {
+    SettingsModel settingsModel = new SettingsModel(preferences);
+    preferences.edit()
+        .putBoolean("imperial", false)
+        .apply();
+    liveSettings = settingsModel.getSettings();
+
+    settingsModel.setImperial(true);
+    Utils.observe(liveSettings, this.owner, Mockito.mock(Observer.class));
+
+    Assert.assertEquals(SiteInfo.CUBIC_FOOT, liveSettings.getValue().getVolumeUnit());
   }
 }

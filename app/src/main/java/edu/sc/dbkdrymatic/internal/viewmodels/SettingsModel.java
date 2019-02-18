@@ -34,6 +34,34 @@ public class SettingsModel extends ViewModel
     this.preferences = preferences;
   }
 
+  /**
+   * Updates the Country both in the preferences object and in the {@code LiveData} exposed by
+   * this object.
+   */
+  public void selectCountry(Country country) {
+    this.preferences.edit()
+        .putString("country", Converters.countryToString(country))
+        .apply();
+  }
+
+  /**
+   * If true, returned {@code Settings} will use cubic feet and degrees Fahrenheit.
+   * If false, cubic metres and degrees Celsius are used instead.
+   *
+   * This is immediately available in both the {@code SharedPreferences} object and the
+   * {@code LiveData} exposed by this object.
+   */
+  public void setImperial(boolean imperial) {
+    this.preferences.edit()
+        .putBoolean("imperial", imperial)
+        .apply();
+  }
+
+  /**
+   * Given a complete settings object, update the one in preferences and {@code LiveData} to match.
+   *
+   * @deprecated
+   */
   public void updateSettings(Settings settings) {
     preferences.edit()
         .putBoolean("imperial", settings.getVolumeUnit() == SiteInfo.CUBIC_FOOT)
@@ -45,11 +73,15 @@ public class SettingsModel extends ViewModel
    * Provides a monitor of the application settings that will always be up-to-date, tracking any
    * changes that are made to the settings during its lifetime and notifying observers when those
    * changes are made.
+   *
+   * This object is guaranteed to always have a value; it is always safe to call
+   * {@code LiveData.getValue()} and assume that there will be a result. We use LiveData in order
+   * to observe changes here; not to wait for an async task.
    */
   public LiveData<Settings> getSettings() {
     if (settings == null) {
       settings = new MutableLiveData<>();
-      new SettingsLoader().run();
+      this.loadSettings();
       preferences.registerOnSharedPreferenceChangeListener(this);
     }
     return settings;
@@ -61,27 +93,18 @@ public class SettingsModel extends ViewModel
    */
   @Override
   public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-    ExecutorService executor = Executors.newSingleThreadExecutor();
-    executor.submit(new SettingsLoader());
+    this.loadSettings();
   }
 
-  /**
-   * Completely reloads the settings for the application from a worker thread so as not to lock the
-   * UI thread.
-   */
-  private class SettingsLoader implements Runnable {
+  private void loadSettings() {
+    boolean imperial = preferences.getBoolean("imperial", true);
+    String countryString = preferences.getString("country", Country.USA.toString());
+    Country country = Converters.countryFromString(countryString);
+    Unit<Volume> volumeUnit = imperial ? SiteInfo.CUBIC_FOOT : SI.CUBIC_METRE;
+    Unit<Temperature> temperatureUnit = imperial ? NonSI.FAHRENHEIT : SI.CELSIUS;
 
-    @Override
-    public void run() {
-      boolean imperial = preferences.getBoolean("imperial", true);
-      String countryString = preferences.getString("country", Country.USA.toString());
-      Country country = Converters.countryFromString(countryString);
-      Unit<Volume> volumeUnit = imperial ? SiteInfo.CUBIC_FOOT : SI.CUBIC_METRE;
-      Unit<Temperature> temperatureUnit = imperial ? NonSI.FAHRENHEIT : SI.CELSIUS;
-
-      Settings res = new Settings(volumeUnit, temperatureUnit, country);
-      settings.postValue(res);
-    }
+    Settings res = new Settings(volumeUnit, temperatureUnit, country);
+    settings.postValue(res);
   }
 
   /**
