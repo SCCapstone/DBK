@@ -13,7 +13,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="9dp"
-        android:text="Psychrometric Calculator"
+        android:text="@string/calculator_title"
         android:textSize="24sp" />
 
     <Button
@@ -24,7 +24,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="129dp"
         android:layout_marginBottom="5dp"
-        android:text="Calculate" />
+        android:text="@string/calculator_button" />
 
     <TextView
         android:id="@+id/textView2"
@@ -34,7 +34,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="23dp"
         android:layout_marginTop="63dp"
-        android:text="Volume" />
+        android:text="@string/volume" />
 
     <TextView
         android:id="@+id/textView5"
@@ -44,7 +44,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="115dp"
         android:layout_marginEnd="-28dp"
-        android:text="Inside Temp" />
+        android:text="@string/inside_temp" />
 
     <TextView
         android:id="@+id/textView6"
@@ -54,7 +54,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="1dp"
         android:layout_marginTop="161dp"
-        android:text="Desired Temp" />
+        android:text="@string/desired_temp" />
 
     <TextView
         android:id="@+id/textView7"
@@ -64,7 +64,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="211dp"
-        android:text="Outside Temp" />
+        android:text="@string/outside_temp" />
 
     <TextView
         android:id="@+id/textView8"
@@ -74,7 +74,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="257dp"
         android:layout_marginEnd="-94dp"
-        android:text="Relative Humidity" />
+        android:text="@string/humidity" />
 
     <TextView
         android:id="@+id/textView9"
