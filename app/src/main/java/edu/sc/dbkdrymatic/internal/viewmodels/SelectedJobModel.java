@@ -49,7 +49,6 @@ public class SelectedJobModel extends ViewModel implements Observer<Job> {
    * crash with an assertion failure if this is not respected.
    */
   public void update(Job job) {
-    assert job.getSiteInfo().getId() == selectedJob.getValue().getSiteInfo().getId();
     this.siDao.update(job.getSiteInfo());
   }
 
