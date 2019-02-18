@@ -31,7 +31,10 @@ public class SelectedJobModel extends ViewModel implements Observer<Job> {
     }
 
     // Stop observing the old "current job"
-    this.siDao.getJob(this.selectedJobId).removeObserver(this);
+    LiveData<Job> currentJob = this.siDao.getJob(this.selectedJobId);
+    if (currentJob != null) {
+      this.siDao.getJob(this.selectedJobId).removeObserver(this);
+    }
 
     // Update and begin observing the new current job.
     this.selectedJobId = job.getSiteInfo().getId();
