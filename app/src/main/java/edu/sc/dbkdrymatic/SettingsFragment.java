@@ -1,6 +1,5 @@
 package edu.sc.dbkdrymatic;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -26,10 +25,9 @@ import edu.sc.dbkdrymatic.internal.Settings;
 import edu.sc.dbkdrymatic.internal.SiteInfo;
 import edu.sc.dbkdrymatic.internal.viewmodels.SettingsModel;
 
-public class SettingsFragment extends Fragment {
+public class SettingsFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
   private SettingsModel settingsModel;
-  private Settings settings;
   View myView;
 
   @Override
@@ -41,12 +39,6 @@ public class SettingsFragment extends Fragment {
     SettingsModel.Factory settingsFactory = new SettingsModel.Factory(preferences);
     this.settingsModel = ViewModelProviders.of(this.getActivity(), settingsFactory)
         .get(SettingsModel.class);
-    this.settingsModel.getSettings().observe(this, new Observer<Settings>() {
-      @Override
-      public void onChanged(@Nullable Settings settings) {
-        updateView(settings);
-      }
-    });
   }
 
   @Nullable
@@ -61,20 +53,12 @@ public class SettingsFragment extends Fragment {
     super.onViewCreated(view, savedInstanceState);
 
     final Switch unitSwitch = getView().findViewById(R.id.unitSwitch);
-    unitSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-      @Override
-      public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-        if (isChecked) {
-          settings.setVolumeUnit(SI.CUBIC_METRE);
-          settings.setTemperatureUnit(SI.CELSIUS);
-          settingsModel.updateSettings(settings);
-        } else {
-          settings.setVolumeUnit(SiteInfo.CUBIC_FOOT);
-          settings.setTemperatureUnit(NonSI.FAHRENHEIT);
-          settingsModel.updateSettings(settings);
-        }
-      }
-    });
+    unitSwitch.setChecked(
+        settingsModel.getSettings().getValue().getVolumeUnit() == SiteInfo.CUBIC_FOOT);
+    unitSwitch.setOnCheckedChangeListener(((compoundButton, isChecked) -> {
+      settingsModel.setImperial(isChecked);
+      System.out.println("Unit switch callback called");
+    }));
 
     final Spinner countrySpinner = (Spinner) (getView().findViewById(R.id.country));
     ArrayAdapter<Country> adapter = new ArrayAdapter<Country>(
@@ -82,26 +66,27 @@ public class SettingsFragment extends Fragment {
     adapter.addAll(Country.values());
     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     countrySpinner.setAdapter(adapter);
-    countrySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-      @Override
-      public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        settings.setCountry((Country) (countrySpinner.getSelectedItem()));
-      }
+    countrySpinner.setSelection(
+        Arrays.asList(Country.values()).indexOf(
+            settingsModel.getSettings().getValue().getCountry()));
 
-      @Override
-      public void onNothingSelected(AdapterView<?> adapterView) {
-
-      }
-    });
+    countrySpinner.setOnItemSelectedListener(this);
   }
 
-  public void updateView(Settings settings) {
-    this.settings = settings;
-
-    final Switch unitSwitch = getView().findViewById(R.id.unitSwitch);
-    unitSwitch.setChecked(settings.getVolumeUnit() == SiteInfo.CUBIC_FOOT);
-
+  /**
+   * Update the selected Country in preferences when a country is selected in the spinner.
+   */
+  @Override
+  public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
     final Spinner countrySpinner = (Spinner) (getView().findViewById(R.id.country));
-    countrySpinner.setSelection(Arrays.asList(Country.values()).indexOf(settings.getCountry()));
+    settingsModel.selectCountry((Country) (countrySpinner.getSelectedItem()));
+  }
+
+  /**
+   * This method is intentionally left blank; we do nothing here.
+   */
+  @Override
+  public void onNothingSelected(AdapterView<?> adapterView) {
+
   }
 }
