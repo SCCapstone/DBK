@@ -148,15 +148,19 @@ public class NavigationActivity extends AppCompatActivity
     FragmentManager fragmentManager = getSupportFragmentManager();
 
     switch(item.getItemId()) {
-      case R.id.nav_settings:
-        fragmentManager.beginTransaction()
-            .replace(R.id.content_frame, new SettingsFragment()).commit();
-        break;
-      default:  // This is the case where they have clicked on a Job.
-        // Error check for non-existent job.
-        if (!itemJobMap.keySet().contains(item)) {
-          Toast.makeText(this, "No such job exists.", Toast.LENGTH_SHORT).show();
-          return false;
+        case R.id.nav_about:
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, new AboutUsFragment()).commit();
+            break;
+        case R.id.nav_settings:
+            fragmentManager.beginTransaction()
+                .replace(R.id.content_frame, new SettingsFragment()).commit();
+            break;
+        default:  // This is the case where they have clicked on a Job.
+            // Error check for non-existent job.
+            if (!itemJobMap.keySet().contains(item)) {
+            Toast.makeText(this, "No such job exists.", Toast.LENGTH_SHORT).show();
+            return false;
         }
 
         // Update the selected `Job`.
