@@ -55,6 +55,9 @@ public class SiteInfo {
   @ColumnInfo(name = "outside_temp")
   public Amount<Temperature> outsideTemp;
 
+  @ColumnInfo(name = "surface_temp")
+  public Amount<Temperature> surfaceTemp;// to be used for new calculations
+
   @ColumnInfo(name = "relative_humidity")
   public double relativeHumidity;
 
@@ -65,12 +68,13 @@ public class SiteInfo {
   public Country country;
 
   public SiteInfo(Amount<Volume> volume, Amount<Temperature> insideTemp,
-                  Amount<Temperature> desiredTemp, Amount<Temperature> outsideTemp,
+                  Amount<Temperature> desiredTemp, Amount<Temperature> outsideTemp, Amount<Temperature> surfaceTemp,
                   double relativeHumidity, Damage waterLoss, Country country, String name) {
     this.volume = volume;
     this.outsideTemp = outsideTemp;
     this.desiredTemp = desiredTemp;
     this.insideTemp = insideTemp;
+    this.surfaceTemp = surfaceTemp;
     this.relativeHumidity = relativeHumidity;
     this.waterLoss = waterLoss;
     this.country = country;
