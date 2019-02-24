@@ -71,6 +71,8 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemSele
             settingsModel.getSettings().getValue().getCountry()));
 
     countrySpinner.setOnItemSelectedListener(this);
+
+
   }
 
   /**

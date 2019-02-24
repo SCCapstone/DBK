@@ -20,6 +20,12 @@
     <string name="outside_temp">Outside Temp</string>
     <string name="humidity">Relative Humidity</string>
 
+    <!-- Settings View -->
+    <string name="preferences_title">Preferences</string>
+    <string name="unit_selected">Imperial/Metric</string>
+    <string name="unit_selected_title">Unit Select</string>
+    <string name="country_selected_title">Country Select</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
