@@ -3,10 +3,15 @@
 Android Applications supporting DBK Drymatic
 
 ## Installation 
+- Download Android Studio
+- Once Android Studio is downloaded and installed, download the program from the DBK Repository.   
+- An alternative way to get the program is to Import From Version Control using the DBK repo URL
+- Once the program is downloaded open it with Android Studio 
 
-- Enable APK's from unkown sources in settings
-- Download DBK App APK
-- Install from from file
+Note: make sure you are using at least API 21 or higher. can be downloaded in Tools > AVD Manager.
+
+
+
 
 ## Testing
 
