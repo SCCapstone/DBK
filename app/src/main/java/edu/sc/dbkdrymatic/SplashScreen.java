@@ -14,7 +14,7 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    sleep(3000);
+                    sleep(3000);// time of splash screen in ms
                     Intent intent = new Intent(getApplicationContext(), NavigationActivity.class);
                     startActivity(intent);
                     finish();
