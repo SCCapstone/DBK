@@ -1,11 +1,9 @@
 package edu.sc.dbkdrymatic.internal.viewmodels;
 
-
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.support.annotation.NonNull;
 
 import org.jscience.physics.amount.Amount;
 

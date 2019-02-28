@@ -1,12 +1,12 @@
 package edu.sc.dbkdrymatic.internal.viewmodels;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
 
 import javax.measure.quantity.Temperature;
 import javax.measure.quantity.Volume;
