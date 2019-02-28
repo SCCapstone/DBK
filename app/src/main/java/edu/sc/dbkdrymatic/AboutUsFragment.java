@@ -43,7 +43,7 @@ public class AboutUsFragment extends Fragment {
   public void onViewCreated(View view, Bundle savedState){
     super.onViewCreated(view, savedState);
 
-    getView().findViewById(R.id.dbktext).setOnClickListener(new View.OnClickListener() {
+    getView().findViewById(R.id.dbk_btn).setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
         clicked_btn("https://dbkusa.com/");
