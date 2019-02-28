@@ -92,6 +92,10 @@ public class NavigationActivity extends AppCompatActivity
 
     FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
     fab.setOnClickListener(this);
+
+    // Opens About us fragment on start up of the code
+    FragmentManager fragmentManager = getSupportFragmentManager();
+    fragmentManager.beginTransaction().replace(R.id.content_frame, new AboutUsFragment()).commit();
   }
 
   /**

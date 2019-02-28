@@ -15,7 +15,6 @@ import androidx.annotation.Nullable;
 
 public class AboutUsFragment extends Fragment {
 
-
   //private AboutUsModel aboutUsModel;
   View myView;
 
@@ -74,11 +73,9 @@ public class AboutUsFragment extends Fragment {
 
   }
 
-  public void clicked_btn(String url)
-  {
+  public void clicked_btn(String url) {
     Intent intent = new Intent(Intent.ACTION_VIEW);
     intent.setData(Uri.parse(url));
     startActivity(intent);
   }
-
 }
