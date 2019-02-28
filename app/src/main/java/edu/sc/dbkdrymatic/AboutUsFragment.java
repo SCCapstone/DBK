@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import javax.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 public class AboutUsFragment extends Fragment {
 
