@@ -73,6 +73,7 @@ public class CalculatorFragment extends Fragment {
 
   @Nullable
   @Override
+  //Populates view with information from layout file
   public View onCreateView (LayoutInflater inflater, @Nullable ViewGroup container, Bundle
       savedInstanceState){
     myView = inflater.inflate(R.layout.calculator_layout, container, false);
