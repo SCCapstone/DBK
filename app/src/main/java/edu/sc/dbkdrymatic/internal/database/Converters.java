@@ -1,6 +1,6 @@
 package edu.sc.dbkdrymatic.internal.database;
 
-import android.arch.persistence.room.TypeConverter;
+import androidx.room.TypeConverter;
 
 import org.jscience.physics.amount.Amount;
 

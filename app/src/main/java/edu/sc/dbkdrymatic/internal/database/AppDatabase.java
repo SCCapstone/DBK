@@ -1,7 +1,7 @@
 package edu.sc.dbkdrymatic.internal.database;
 
-import android.arch.persistence.room.Database;
-import android.arch.persistence.room.RoomDatabase;
+import androidx.room.Database;
+import androidx.room.RoomDatabase;
 
 import edu.sc.dbkdrymatic.internal.BoostBox;
 import edu.sc.dbkdrymatic.internal.SiteInfo;
@@ -15,7 +15,7 @@ import edu.sc.dbkdrymatic.internal.SiteInfo;
  * exist on their own.
  *
  * <p>This class should be instantiated using a {@code RoomDatabase.Builder} generated using
- * {@code android.arch.persistence.room.Room.databaseBuilder()}. For documentation, see
+ * {@code androidx.room.Room.databaseBuilder()}. For documentation, see
  * {@code https://developer.android.com/reference/android/arch/persistence/room/Room.html}.
  */
 @Database(entities = {SiteInfo.class, BoostBox.class}, version = 1)
