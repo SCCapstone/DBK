@@ -18,7 +18,7 @@ import edu.sc.dbkdrymatic.internal.SiteInfo;
  * {@code androidx.room.Room.databaseBuilder()}. For documentation, see
  * {@code https://developer.android.com/reference/android/arch/persistence/room/Room.html}.
  */
-@Database(entities = {SiteInfo.class, BoostBox.class}, version = 2)
+@Database(entities = {SiteInfo.class, BoostBox.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
   /** Returns an abstraction for storage and retrieval of {@code BoostBox} objects.*/
   public abstract BoostBoxDao boostBoxDao();
