@@ -1,29 +1,28 @@
 package edu.sc.dbkdrymatic;
 
 import android.app.AlertDialog;
-import android.arch.lifecycle.LiveData;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentManager;
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 import android.arch.persistence.room.Room;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.legacy.app.ActionBarDrawerToggle;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.Observer;
 
 import java.util.HashMap;
 import java.util.List;
@@ -77,10 +76,16 @@ public class NavigationActivity extends AppCompatActivity
     this.jobsModel.getJobs().observe(this, this);
 
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+    /** Commented out by hxtk (2019-02-28):
+     * Deprecated and takes different arguments than what we supply.
+     * Uncomment or replace when we figure out how (Google's documentation us currently lacking).
+
+     
     ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
         this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
     drawer.addDrawerListener(toggle);
     toggle.syncState();
+    */
 
     NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(this);
@@ -145,7 +150,7 @@ public class NavigationActivity extends AppCompatActivity
    */
   @Override
   public boolean onNavigationItemSelected(MenuItem item) {
-    FragmentManager fragmentManager = getSupportFragmentManager();
+    androidx.fragment.app.FragmentManager fragmentManager = getSupportFragmentManager();
 
     switch(item.getItemId()) {
         case R.id.nav_about:

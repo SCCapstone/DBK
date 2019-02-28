@@ -1,15 +1,12 @@
 package edu.sc.dbkdrymatic.internal.viewmodels;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
-import android.support.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 
 import javax.measure.quantity.Temperature;
 import javax.measure.quantity.Volume;
@@ -21,8 +18,6 @@ import edu.sc.dbkdrymatic.internal.Country;
 import edu.sc.dbkdrymatic.internal.Settings;
 import edu.sc.dbkdrymatic.internal.SiteInfo;
 import edu.sc.dbkdrymatic.internal.database.Converters;
-import edu.sc.dbkdrymatic.internal.database.SiteInfoDao;
-
 
 public class SettingsModel extends ViewModel
     implements SharedPreferences.OnSharedPreferenceChangeListener {

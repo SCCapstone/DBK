@@ -1,9 +1,7 @@
 package edu.sc.dbkdrymatic;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -11,17 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Switch;
 
+import androidx.lifecycle.ViewModelProviders;
+import androidx.fragment.app.Fragment;
+
 import java.util.Arrays;
 
-import javax.measure.unit.NonSI;
-import javax.measure.unit.SI;
-
 import edu.sc.dbkdrymatic.internal.Country;
-import edu.sc.dbkdrymatic.internal.Settings;
 import edu.sc.dbkdrymatic.internal.SiteInfo;
 import edu.sc.dbkdrymatic.internal.viewmodels.SettingsModel;
 

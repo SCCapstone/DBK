@@ -1,6 +1,5 @@
 package edu.sc.dbkdrymatic;
 
-import android.support.v4.app.Fragment;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.os.AsyncTask;
@@ -14,6 +13,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 public class BluetoothFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 

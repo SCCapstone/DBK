@@ -1,10 +1,7 @@
 package edu.sc.dbkdrymatic;
 
-import android.arch.lifecycle.Observer;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
-import android.arch.lifecycle.ViewModelProviders;
 import android.arch.persistence.room.Room;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,6 +14,10 @@ import android.widget.TextView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import org.jscience.physics.amount.Amount;
 
