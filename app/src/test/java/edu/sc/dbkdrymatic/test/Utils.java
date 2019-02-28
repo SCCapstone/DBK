@@ -1,9 +1,9 @@
 package edu.sc.dbkdrymatic.test;
 
-import android.arch.core.executor.ArchTaskExecutor;
-import android.arch.lifecycle.LifecycleOwner;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Observer;
+import androidx.arch.core.executor.ArchTaskExecutor;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
