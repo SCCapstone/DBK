@@ -4,12 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
-import android.arch.persistence.room.Room;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,12 +12,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.legacy.app.ActionBarDrawerToggle;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.lifecycle.Observer;
+import androidx.room.Room;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.HashMap;
 import java.util.List;
