@@ -1,5 +1,7 @@
 package edu.sc.dbkdrymatic.internal.viewmodels;
 
+import android.os.AsyncTask;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
@@ -38,6 +40,7 @@ public class SelectedJobModel extends ViewModel implements Observer<Job> {
     }
 
     // Update and begin observing the new current job.
+    this.selectedJob.setValue(job);
     this.selectedJobId = job.getSiteInfo().getId();
     this.siDao.getJob(this.selectedJobId).observeForever(this);
   }
@@ -50,7 +53,9 @@ public class SelectedJobModel extends ViewModel implements Observer<Job> {
    * crash with an assertion failure if this is not respected.
    */
   public void update(Job job) {
-    this.siDao.update(job.getSiteInfo());
+    AsyncTask.execute(() -> {
+      this.siDao.update(job.getSiteInfo());
+    });
   }
 
   /**

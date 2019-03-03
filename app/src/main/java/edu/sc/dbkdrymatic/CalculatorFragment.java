@@ -35,11 +35,9 @@ import edu.sc.dbkdrymatic.internal.viewmodels.SettingsModel;
 
 public class CalculatorFragment extends Fragment {
 
-  private Settings settings;
   private SelectedJobModel model;
   private SettingsModel settingsModel;
 
-  private Job job;
   View myView;
 
   @Override
@@ -51,12 +49,6 @@ public class CalculatorFragment extends Fragment {
         this.getActivity().getApplicationContext(), AppDatabase.class, "dbk.db").build();
     SelectedJobModel.Factory sjmFactory = new SelectedJobModel.Factory(appDb.siteInfoDao());
     this.model = ViewModelProviders.of(this.getActivity(), sjmFactory).get(SelectedJobModel.class);
-    this.model.getSelectedJob().observe(this, new Observer<Job>() {
-      @Override
-      public void onChanged(@Nullable Job job) {
-        updateView(job, settings);
-      }
-    });
 
     // Monitor for changes to the application preferences.
     SharedPreferences preferences = PreferenceManager
@@ -64,12 +56,6 @@ public class CalculatorFragment extends Fragment {
     SettingsModel.Factory settingsFactory = new SettingsModel.Factory(preferences);
     this.settingsModel = ViewModelProviders.of(this.getActivity(), settingsFactory)
         .get(SettingsModel.class);
-    this.settingsModel.getSettings().observe(this, new Observer<Settings>() {
-      @Override
-      public void onChanged(@Nullable Settings settings) {
-        updateView(job, settings);
-      }
-    });
   }
 
   @Nullable
@@ -77,13 +63,20 @@ public class CalculatorFragment extends Fragment {
   //Populates view with information from layout file
   public View onCreateView (LayoutInflater inflater, @Nullable ViewGroup container, Bundle
       savedInstanceState){
-    myView = inflater.inflate(R.layout.calculator_layout, container, false);
-    return myView;
+    this.myView = inflater.inflate(R.layout.calculator_layout, container, false);
+    return this.myView;
   }
 
   @Override
   public void onViewCreated(View view, Bundle savedState) {
     super.onViewCreated(view, savedState);
+
+    this.settingsModel.getSettings().observe(this, new Observer<Settings>() {
+      @Override
+      public void onChanged(Settings settings) {
+        CalculatorFragment.this.updateView();
+      }
+    });
 
     // This has to be in onViewCreated (per #56)
     final Spinner damageClassSpinner = (Spinner) getView().findViewById(R.id.water_loss);
@@ -92,6 +85,9 @@ public class CalculatorFragment extends Fragment {
     adapter.addAll(Damage.values());
     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     damageClassSpinner.setAdapter(adapter);
+
+    Job job = this.model.getSelectedJob().getValue();
+    Settings settings = this.settingsModel.getSettings().getValue();
 
     final EditText volumeField = (EditText) (getView().findViewById(R.id.volume));
     volumeField.addTextChangedListener(new UpdateWatcher() {
@@ -140,13 +136,9 @@ public class CalculatorFragment extends Fragment {
     });
   }
 
-  public void updateView(Job job, Settings settings) {
-    if (job == null || settings == null) {
-      return;
-    }
-
-    this.job = job;
-    this.settings = settings;
+  public void updateView() {
+    Job job = this.model.getSelectedJob().getValue();
+    Settings settings = this.settingsModel.getSettings().getValue();
 
     final DecimalFormat df = new DecimalFormat("#.#");
     final SiteInfo siteInfo = job.getSiteInfo();
