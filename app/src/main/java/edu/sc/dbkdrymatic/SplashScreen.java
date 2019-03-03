@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashScreen extends AppCompatActivity {
 
+  public int wait_time= 3000;// time of splash screen in ms
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -15,7 +17,7 @@ public class SplashScreen extends AppCompatActivity {
       @Override
       public void run() {
         try {
-          sleep(3000);// time of splash screen in ms
+          sleep(wait_time);
           Intent intent = new Intent(getApplicationContext(), NavigationActivity.class);
           startActivity(intent);
           finish();
