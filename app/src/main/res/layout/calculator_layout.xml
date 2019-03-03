@@ -16,6 +16,16 @@
         android:text="@string/calculator_title"
         android:textSize="24sp" />
 
+    <Button
+        android:id="@+id/calculate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="129dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/calculator_button" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
