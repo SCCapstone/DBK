@@ -16,36 +16,14 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class BluetoothFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class BluetoothFragment extends Fragment {
 
-  private BluetoothAdapter bluetoothAdapter;
   View myView;
-
-  public BluetoothFragment() {}
 
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
     myView = inflater.inflate(R.layout.bluetooth_layout, container, false);
     return myView;
-  }
-
-  @Override
-  public void onViewCreated(View view, Bundle savedInstanceState) {
-    super.onViewCreated(view, savedInstanceState);
-
-    final TextView dataDisplay = getView().findViewById(R.id.data_display);
-  }
-
-  @Override
-  public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-    /*final Spinner deviceSpinner = getView().findViewById(R.id.bluetooth_device);
-    BoostBox boostBox = new BoostBox((BluetoothDevice) deviceSpinner.getSelectedItem(), this);
-    boostBox.listen();*/
-  }
-
-  @Override
-  public void onNothingSelected(AdapterView<?> adapterView) {
-
   }
 }
