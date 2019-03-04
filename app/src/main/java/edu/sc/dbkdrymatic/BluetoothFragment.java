@@ -13,17 +13,20 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public class BluetoothFragment extends Fragment {
 
-  View myView;
+  View view;
 
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-    myView = inflater.inflate(R.layout.bluetooth_layout, container, false);
-    return myView;
+    this.view = inflater.inflate(R.layout.bluetooth_layout, container, false);
+
+    return this.view;
   }
 }
