@@ -11,6 +11,10 @@
     <string name="create">Create</string>
     <string name="cancel">Cancel</string>
 
+    <!-- Job View -->
+    <string name="calculator_tab">Calculator</string>
+    <string name="bluetooth_tab">Boost Boxes</string>
+
     <!-- Calculator View -->
     <string name="calculator_title">Psychrometric Calculator</string>
     <string name="calculator_button">Calculate</string>
