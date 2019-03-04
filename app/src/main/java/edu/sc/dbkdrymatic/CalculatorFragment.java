@@ -168,21 +168,17 @@ public class CalculatorFragment extends Fragment {
     final Spinner damageClassSpinner = (Spinner) getView().findViewById(R.id.water_loss);
     damageClassSpinner.setSelection(Arrays.asList(Damage.values()).indexOf(siteInfo.waterLoss));
 
-    final TextView boostBoxes = (TextView) getView().findViewById(R.id.boost_boxes);
-    boostBoxes.setText(df.format(siteInfo.getBoostBoxRequirement()));
-
-    final TextView d2s = (TextView) getView().findViewById(R.id.d2s);
-    d2s.setText(df.format(siteInfo.getD2Requirement()));
-
     Button calculate = (Button) getView().findViewById(R.id.calculate);
     calculate.setOnClickListener(new View.OnClickListener() {//when user clicks calculate button
       @Override
       public void onClick(View view) {
-        TextView boost_boxes = (TextView)  getView().findViewById(R.id.boost_boxes);
-        TextView d2s = (TextView)  getView().findViewById(R.id.d2s);
+        //set textview of boost boxes and d2s to change on startup
+        final TextView boostBoxes = (TextView) getView().findViewById(R.id.boost_boxes);
+        boostBoxes.setText(df.format(siteInfo.getBoostBoxRequirement()));
 
-        boost_boxes.setText(df.format(siteInfo.getBoostBoxRequirement()));
+        final TextView d2s = (TextView) getView().findViewById(R.id.d2s);
         d2s.setText(df.format(siteInfo.getD2Requirement()));
+
       }
 
     });
@@ -201,6 +197,7 @@ public class CalculatorFragment extends Fragment {
         value = 0.0;
       }
       this.update(value);
+
     }
 
     /**
