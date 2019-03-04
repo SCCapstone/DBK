@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -132,8 +133,10 @@ public class CalculatorFragment extends Fragment {
       public void update(double value) {
         job.getSiteInfo().relativeHumidity = value;
         model.update(job);
+
       }
     });
+
   }
 
   public void updateView() {
@@ -170,6 +173,19 @@ public class CalculatorFragment extends Fragment {
 
     final TextView d2s = (TextView) getView().findViewById(R.id.d2s);
     d2s.setText(df.format(siteInfo.getD2Requirement()));
+
+    Button calculate = (Button) getView().findViewById(R.id.calculate);
+    calculate.setOnClickListener(new View.OnClickListener() {//when user clicks calculate button
+      @Override
+      public void onClick(View view) {
+        TextView boost_boxes = (TextView)  getView().findViewById(R.id.boost_boxes);
+        TextView d2s = (TextView)  getView().findViewById(R.id.d2s);
+
+        boost_boxes.setText(df.format(siteInfo.getBoostBoxRequirement()));
+        d2s.setText(df.format(siteInfo.getD2Requirement()));
+      }
+
+    });
   }
 
   private abstract class UpdateWatcher implements TextWatcher {
