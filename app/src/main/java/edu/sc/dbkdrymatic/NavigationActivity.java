@@ -97,6 +97,7 @@ public class NavigationActivity extends AppCompatActivity
     // Opens About us fragment on start up of the code
     FragmentManager fragmentManager = getSupportFragmentManager();
     fragmentManager.beginTransaction().replace(R.id.content_frame, new AboutUsFragment()).commit();
+
   }
 
   /**

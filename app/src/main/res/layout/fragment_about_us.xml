@@ -4,9 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AboutUsFragment">
+    tools:context=".AboutUsFragment"><![CDATA[
 
     android:orientation="vertical">
+
+    ]]>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout_ab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_ab"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:title="Preferences"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <ImageButton
         android:id="@+id/fb_btn"
@@ -61,13 +79,11 @@
         android:layout_width="125dp"
         android:layout_height="75dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="56dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="14dp"
         android:background="@null"
         android:scaleType="centerInside"
         android:src="@drawable/dbk_icon"
-        app:layout_constraintBottom_toTopOf="@+id/textView15"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -105,13 +121,13 @@
 
     <TextView
         android:id="@+id/textView16"
-        android:inputType="none"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:inputType="none"
         android:text="About Us:"
         android:textColor="@color/colorAccent"
         android:textSize="24sp"
