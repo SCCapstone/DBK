@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -80,13 +81,21 @@ public class NavigationActivity extends AppCompatActivity
     /** Commented out by hxtk (2019-02-28):
      * Deprecated and takes different arguments than what we supply.
      * Uncomment or replace when we figure out how (Google's documentation us currently lacking).
+     */
 
-     
+    /**comment by lanerass (3-12-19)
+     * the action bar methods below should no longer be deprecated by using:
+     * import.androidx.appcompat.app.ActionBarDrawerToggle;
+     * still working to get the appbar to appear in screens
+     */
     ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
         this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
     drawer.addDrawerListener(toggle);
     toggle.syncState();
-    */
+    if(getSupportActionBar() != null) {//if no appbar do not call function
+      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
     NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(this);
 
