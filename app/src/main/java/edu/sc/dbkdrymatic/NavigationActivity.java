@@ -87,16 +87,17 @@ public class NavigationActivity extends AppCompatActivity
     drawer.addDrawerListener(toggle);
     toggle.syncState();
     */
-
     NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(this);
 
     FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
     fab.setOnClickListener(this);
+    fab.setImageResource(R.drawable.add_profile2);// changes fab icon to add_profile image
 
     // Opens About us fragment on start up of the code
     FragmentManager fragmentManager = getSupportFragmentManager();
     fragmentManager.beginTransaction().replace(R.id.content_frame, new AboutUsFragment()).commit();
+
 
   }
 
