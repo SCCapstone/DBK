@@ -10,22 +10,7 @@
 
     ]]>
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout_ab"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        tools:ignore="MissingConstraints">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_ab"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:title="Preferences"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-    </com.google.android.material.appbar.AppBarLayout>
 
     <ImageButton
         android:id="@+id/fb_btn"
@@ -80,7 +65,7 @@
         android:layout_width="125dp"
         android:layout_height="75dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:background="@null"
         android:scaleType="centerInside"
@@ -111,7 +96,7 @@
         android:layout_width="340dp"
         android:layout_height="166dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:inputType="none"
         android:text="From our offices, located in Spartanburg, South Carolina, we proudly serve DBK customers in both North and South America.  With the launch of our new website, DBKUSA.com, we look to provide each of our customers with top of the line service and state of the art products. Through the addition of our new online store, we can facilitate quick and intuitive purchases that enable our customers to spend less time browsing and more time doing what counts."
