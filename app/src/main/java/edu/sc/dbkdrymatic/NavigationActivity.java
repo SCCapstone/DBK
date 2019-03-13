@@ -86,7 +86,8 @@ public class NavigationActivity extends AppCompatActivity
     /**comment by lanerass (3-12-19)
      * the action bar methods below should no longer be deprecated by using:
      * import.androidx.appcompat.app.ActionBarDrawerToggle;
-     * still working to get the appbar to appear in screens
+     *
+     * */
     ActionBar actionbar = getSupportActionBar();
     actionbar.setDisplayHomeAsUpEnabled(true);
     actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
@@ -99,7 +100,7 @@ public class NavigationActivity extends AppCompatActivity
     if(getSupportActionBar() != null) {//if no appbar do not call function
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-    */
+
     NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(this);
 
