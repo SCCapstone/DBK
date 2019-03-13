@@ -5,7 +5,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class SplashScreenTest {
-
     @Test
     public void time_is_correct() {
         //used to test sleep value in splash screen

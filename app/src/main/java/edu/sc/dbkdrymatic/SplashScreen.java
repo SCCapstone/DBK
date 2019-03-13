@@ -7,6 +7,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashScreen extends AppCompatActivity {
 
+/**comment by lanerass
+ * the splash screen length is currently set at 3 seconds(3000ms)
+ * if you feel this is too short/long, change it using wait_time
+ * wait_time is in ms so convert it to seconds accordingly
+ * example: 1000ms = 1s
+ * */
+
   public int wait_time= 3000;// time of splash screen in ms
 
   @Override
