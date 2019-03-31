@@ -153,9 +153,7 @@ public class NavigationActivity extends AppCompatActivity
     int id = item.getItemId();
 
     //noinspection SimplifiableIfStatement
-    if (id == R.id.action_settings) {
-      return true;
-    }
+    
 
     return super.onOptionsItemSelected(item);
   }
@@ -174,6 +172,7 @@ public class NavigationActivity extends AppCompatActivity
     androidx.fragment.app.FragmentManager fragmentManager = getSupportFragmentManager();
 
     switch(item.getItemId()) {
+
         case R.id.nav_about:
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, new AboutUsFragment()).commit();
