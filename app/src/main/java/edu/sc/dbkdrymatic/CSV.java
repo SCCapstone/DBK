@@ -26,9 +26,14 @@ import com.opencsv.CSVWriter;
 
 public class CSV {
 
-    private static final String CSV_File = "./file.csv";
+    private static final String CSV_File = "./DBK.csv";
 
-    public void write(String filePath){
+    public static void main(String[] args)
+    {
+       write(CSV_File);
+    }
+
+    public static void write(String filePath){
         /**
          * this class is to be used for creating the CSV file that contains all the data related to
          * the boost boxes
