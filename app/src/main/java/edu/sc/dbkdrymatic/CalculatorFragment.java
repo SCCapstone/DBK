@@ -108,6 +108,16 @@ public class CalculatorFragment extends Fragment {
       }
     });
 
+    final EditText surfaceTempField = (EditText) (getView().findViewById(R.id.surface_temp));
+    insideTempField.addTextChangedListener(new UpdateWatcher() {
+      @Override
+      public void update(double changed) {
+        job.getSiteInfo().surfaceTemp = Amount.valueOf(changed, settings.getTemperatureUnit());
+        model.update(job);
+      }
+    });
+
+
     final EditText desiredTempField = (EditText) (getView().findViewById(R.id.desired_temp));
     insideTempField.addTextChangedListener(new UpdateWatcher() {
       @Override
@@ -153,6 +163,10 @@ public class CalculatorFragment extends Fragment {
     insideTempField.setText(
         df.format(siteInfo.insideTemp.doubleValue(settings.getTemperatureUnit())));
 
+    final EditText surfaceTempField = (EditText) (getView().findViewById(R.id.surface_temp));
+    surfaceTempField.setText(
+        df.format(siteInfo.surfaceTemp.doubleValue(settings.getTemperatureUnit())));
+
     final EditText desiredTempField = (EditText) (getView().findViewById(R.id.desired_temp));
     desiredTempField.setText(
         df.format(siteInfo.desiredTemp.doubleValue(settings.getTemperatureUnit())));
@@ -179,6 +193,19 @@ public class CalculatorFragment extends Fragment {
         final TextView d2s = (TextView) getView().findViewById(R.id.d2s);
         d2s.setText(df.format(siteInfo.getD2Requirement()));
 
+        //TODO Define Requirements in site Info
+        //set the text view of vapor pressure air, differential, gpp and dew_point
+        final TextView dew_point = (TextView) getView().findViewById(R.id.dew_point);
+        dew_point.setText(df.format(siteInfo.getDewPointRequirement()));
+
+        final TextView vp_diff = (TextView) getView().findViewById(R.id.vp_diff);
+        vp_diff.setText(df.format(siteInfo.getVPDiffRequirement()));
+
+        final TextView vp_air = (TextView) getView().findViewById(R.id.vp_air);
+        vp_air.setText(df.format(siteInfo.getVPAirRequirement()));
+
+        final TextView gpp = (TextView) getView().findViewById(R.id.gpp);
+        gpp.setText(df.format(siteInfo.getGPPRequirement()));
       }
 
     });
