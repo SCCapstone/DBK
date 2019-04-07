@@ -68,7 +68,7 @@ public class JobFragment extends Fragment {
           //BluetoothFragment tab_bluetooth = new BluetoothFragment();
           //return tab_bluetooth;
           MockBluetooth tab_mock = new MockBluetooth();
-          return  tab_mock;
+          return tab_mock;
         default:
           return null;
 
