@@ -1,6 +1,7 @@
 package edu.sc.dbkdrymatic;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,7 @@ public class JobFragment extends Fragment {
 
   @Override
   public void onViewCreated(View view, Bundle state) {
-    super.onViewCreated(view, state);
+    super.onViewCreated(view, state );
 
     ViewPager pager = this.view.findViewById(R.id.job_pager);
     pager.setAdapter(new TabAdapter(getFragmentManager()));
@@ -54,10 +55,18 @@ public class JobFragment extends Fragment {
 
     @Override
     public Fragment getItem(int position) {
-      if (position == 0) {
-        return new CalculatorFragment();
-      } else {
-        return new BluetoothFragment();
+
+      switch (position){
+        case 0:
+          CalculatorFragment tab_calculator = new CalculatorFragment();
+          return  tab_calculator;
+        case 1:
+          BluetoothFragment tab_bluetooth = new BluetoothFragment();
+          return tab_bluetooth;
+        default:
+          return null;
+
+
       }
     }
 

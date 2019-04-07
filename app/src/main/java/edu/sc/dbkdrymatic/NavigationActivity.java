@@ -153,7 +153,7 @@ public class NavigationActivity extends AppCompatActivity
     int id = item.getItemId();
 
     //noinspection SimplifiableIfStatement
-    
+
 
     return super.onOptionsItemSelected(item);
   }
