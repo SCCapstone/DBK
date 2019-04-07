@@ -38,4 +38,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--Mock Bluetooth View -->
+    <string-array name="mock_boostbox">
+        <item>Mock Boost Box 1</item>
+        <item>Mock Boost Box 2</item>
+    </string-array>
+
 </resources>
