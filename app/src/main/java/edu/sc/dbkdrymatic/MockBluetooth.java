@@ -3,12 +3,15 @@ package edu.sc.dbkdrymatic;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.room.Room;
@@ -18,12 +21,18 @@ import edu.sc.dbkdrymatic.internal.viewmodels.SettingsModel;
 
 public class MockBluetooth extends Fragment {
 
-
+    View myView;
     public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
         SharedPreferences preferences = PreferenceManager
                 .getDefaultSharedPreferences(this.getContext());
     }
+    public View onCreateView (LayoutInflater inflater, @Nullable ViewGroup container, Bundle
+            savedInstanceState){
+        this.myView = inflater.inflate(R.layout.mock_bluetooth, container, false);
+        return this.myView;
+    }
+
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Spinner spinner = getView().findViewById(R.id.bt_spinner);
