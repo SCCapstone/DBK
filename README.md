@@ -8,8 +8,8 @@ Android Applications supporting DBK Drymatic
 - An alternative way to get the program is to Import From Version Control using the DBK repo URL
 - Once the program is downloaded open it with Android Studio 
 
-Note: make sure you are using at least API 21 or higher. can be downloaded in Tools > AVD Manager.
-Also, use gradle version 3.3.2 as used by the program. 
+Note: make sure you are using at least API 21 or higher. can be downloaded in Tools > AVD Manager. Also, use gradle version 3.3.2 as used by the program. 
+
 If the emulator is crashing delete it and reinstall it for this program, the emulator may not be using the correct version.
 
 
