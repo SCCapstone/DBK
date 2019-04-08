@@ -30,7 +30,7 @@ public class SiteInfoTest {
         "Default Site"
     );
 
-    assertEquals(5.1, si.getBoostBoxRequirement(), 0.05);
+    assertEquals(4.0, si.getBoostBoxRequirement(), 0.05);
   }
 
   @Test
@@ -44,11 +44,11 @@ public class SiteInfoTest {
         Amount.valueOf(100, NonSI.FAHRENHEIT),
         56,
         Damage.CLASS2,
-        Country.USA,
+        Country.UK,
         "Default Site"
     );
 
-    assertEquals(2.1, si.getBoostBoxRequirement(), 0.05);
+    assertEquals(1.4, si.getBoostBoxRequirement(), 0.05);
   }
 
   @Test
@@ -62,11 +62,11 @@ public class SiteInfoTest {
         Amount.valueOf(100, NonSI.FAHRENHEIT),
         56,
         Damage.CLASS2,
-        Country.USA,
+        Country.AUS,
         "Default Site"
     );
 
-    assertEquals(2.4, si.getBoostBoxRequirement(), 0.05);
+    assertEquals(1.6, si.getBoostBoxRequirement(), 0.05);
   }
 
   @Test
