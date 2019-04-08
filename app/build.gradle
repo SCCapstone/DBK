@@ -73,7 +73,7 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:2.19.0'
 
     // Jetpack
-    def jetpack_version = "1.1.0-alpha04"
+    def jetpack_version = "1.1.0-alpha06"
     implementation "androidx.fragment:fragment:$jetpack_version"
     implementation "androidx.fragment:fragment-ktx:$jetpack_version"
     testImplementation "androidx.fragment:fragment-testing:$jetpack_version"
@@ -90,5 +90,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
 
     // https://mvnrepository.com/artifact/com.opencsv/opencsv
-    implementation 'com.opencsv:opencsv:4.5'
+    implementation('com.opencsv:opencsv:4.5') {
+        exclude group: 'commons-logging', module: 'commons-logging'
+    }
 }
