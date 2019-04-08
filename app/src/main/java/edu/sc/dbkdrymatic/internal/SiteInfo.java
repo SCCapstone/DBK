@@ -170,10 +170,9 @@ public class SiteInfo {
   public double getBoostBoxRequirement() {
     return this.getAdjustedPower().doubleValue(SI.KILO(SI.WATT)) / country.getKilowattRating();
   }
-
-  //TODO input equation for calculating these values
+  
   public double getDewPointRequirement(){
-    return ((Math.pow(relativeHumidity/100,1/this.getVPMaterial()))*(112+(0.9*this.getSurfaceTempC())))+0.1*this.getSurfaceTempC()-112;
+    return ((Math.pow(relativeHumidity/100,1/this.getVPMaterial()))*(112+(0.9*surfaceTemp.doubleValue(NonSI.FAHRENHEIT))))+0.1*surfaceTemp.doubleValue(NonSI.FAHRENHEIT)-112;
   }
 
   public double getVPAirRequirement(){
@@ -209,13 +208,12 @@ public class SiteInfo {
         other.name.equals(name);
   }
 
-  //TODO alot of small equations
   private double getSaturationVPAir(){
-    return (
+    return  (
       22064.0*Math.exp(
-              (647.096/(this.getInsideTempC()+273.15))*((this.getK8()*-7.85951783)+(1.84408259*Math.pow(this.getK8(),1.5))+
+              ((647.096/(insideTemp.doubleValue(SI.KELVIN)))*((this.getK8()*-7.85951783)+(1.84408259*Math.pow(this.getK8(),1.5))+
                       (-11.7866497*Math.pow(this.getK8(),3))+(22.6807411*Math.pow(this.getK8(),3.5))+
-                      (-15.9618719*Math.pow(this.getK8(),4))+(1.80122502*Math.pow(this.getK8(),7.5))
+                      (-15.9618719*Math.pow(this.getK8(),4))+(1.80122502*Math.pow(this.getK8(),7.5)))
               )
 
       )
@@ -225,9 +223,9 @@ public class SiteInfo {
   private double getSatuarationVPMaterial(){
     return (
             22064.0*Math.exp(
-                    (647.096/(this.getSurfaceTempC()+273.15))*((this.getL8()*-7.85951783)+(1.84408259*Math.pow(this.getL8(),1.5))+
+                    ((647.096/(surfaceTemp.doubleValue(SI.KELVIN)))*((this.getL8()*-7.85951783)+(1.84408259*Math.pow(this.getL8(),1.5))+
                             (-11.7866497*Math.pow(this.getL8(),3))+(22.6807411*Math.pow(this.getL8(),3.5))+
-                            (-15.9618719*Math.pow(this.getL8(),4))+(1.80122502*Math.pow(this.getL8(),7.5))
+                            (-15.9618719*Math.pow(this.getL8(),4))+(1.80122502*Math.pow(this.getL8(),7.5)))
                     )
             )
     );
@@ -238,20 +236,13 @@ public class SiteInfo {
   }
 
   private double getK8(){
-    return 1-(((insideTemp.doubleValue(NonSI.FAHRENHEIT)-32)+237.0)/647.096);
+    return  1-((insideTemp.doubleValue(SI.CELSIUS)+273)/647.096);
   }
 
   private double getL8(){
-    return 1-(((surfaceTemp.doubleValue(NonSI.FAHRENHEIT)-32)+237.0)/647.096);
+    return 1-((surfaceTemp.doubleValue(SI.CELSIUS)+273)/647.096);
   }
 
-  private double getSurfaceTempC(){
-    return ((surfaceTemp.doubleValue(NonSI.FAHRENHEIT)-32)*(5/9));
-  }
-
-  private double getInsideTempC(){
-    return ((insideTemp.doubleValue(NonSI.FAHRENHEIT)-32)*(5/9));
-  }
 
 
 
