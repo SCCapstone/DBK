@@ -100,8 +100,8 @@ public class MockBluetooth extends Fragment {
                             "13:35:13.297 FlowOut = 3315 K\n" +
                             "13:35:13.307 FlowOut = 722 C\n" +
                             "13:35:13.333 Airflow? = 0\n" +
-                            "13:35:13.333 Max Air Off = 3230 K\n" +
-                            "13:35:13.333 Min Air Off = 3180 K\n" +
+                            "13:35:13.333 Max Air Off = 3140 K\n" +
+                            "13:35:13.333 Min Air Off = 3070 K\n" +
                             "13:35:13.334 Run? = 1\n" +
                             "13:35:13.334 AutoRestart = 1\n" +
                             "13:35:13.336 ECal = 0\n" +

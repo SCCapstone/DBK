@@ -170,7 +170,6 @@ public class NavigationActivity extends AppCompatActivity
   @Override
   public boolean onNavigationItemSelected(MenuItem item) {
     androidx.fragment.app.FragmentManager fragmentManager = getSupportFragmentManager();
-
     switch(item.getItemId()) {
 
         case R.id.nav_about:
@@ -183,16 +182,14 @@ public class NavigationActivity extends AppCompatActivity
             break;
         default:  // This is the case where they have clicked on a Job.
             // Error check for non-existent job.
-            if (!itemJobMap.keySet().contains(item)) {
-            Toast.makeText(this, "No such job exists.", Toast.LENGTH_SHORT).show();
+           if (!itemJobMap.keySet().contains(item)) {
+           Toast.makeText(this, "No such job exists.", Toast.LENGTH_SHORT).show();
             return false;
         }
-
         // Update the selected `Job`.
-        selection.setSelectedJob(itemJobMap.get(item));
-        fragmentManager.beginTransaction().replace(R.id.content_frame, new JobFragment()).commit();
+          selection.setSelectedJob(itemJobMap.get(item));
+          fragmentManager.beginTransaction().replace(R.id.content_frame, new JobFragment()).commit();
     }
-
     DrawerLayout drawer = findViewById(R.id.drawer_layout);
     drawer.closeDrawer(GravityCompat.START);
     return true;
@@ -202,6 +199,7 @@ public class NavigationActivity extends AppCompatActivity
    * When the list of {@code Job}s in the database changes, this will clear the Jobs section of the
    * navigation drawer and refill it with the up-to-date list of Jobs.
    */
+
   @Override
   public void onChanged(@Nullable List<Job> jobs) {
     NavigationView navigationView = findViewById(R.id.nav_view);
