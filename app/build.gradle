@@ -89,6 +89,6 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.0.0"
     implementation 'com.google.android.material:material:1.0.0'
 
-    implementation files ('libs/opencsv-4.5.jar')
-
+    // https://mvnrepository.com/artifact/com.opencsv/opencsv
+    implementation 'com.opencsv:opencsv:4.5'
 }
