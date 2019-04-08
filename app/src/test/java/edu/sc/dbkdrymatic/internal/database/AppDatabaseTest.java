@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.room.Room;
 
+
 import junit.framework.Assert;
 
 import org.jscience.physics.amount.Amount;
@@ -44,10 +45,11 @@ public class AppDatabaseTest {
   public void setUp() {
     this.siteInfo = new SiteInfo(
         Amount.valueOf(12000, SiteInfo.CUBIC_FOOT),
-        Amount.valueOf(80, NonSI.FAHRENHEIT),
-        Amount.valueOf(105, NonSI.FAHRENHEIT),
-        Amount.valueOf(60, NonSI.FAHRENHEIT),
-        80,
+        Amount.valueOf(76, NonSI.FAHRENHEIT),
+        Amount.valueOf(92, NonSI.FAHRENHEIT),
+        Amount.valueOf(100, NonSI.FAHRENHEIT),
+        Amount.valueOf(100, NonSI.FAHRENHEIT),
+        56,
         Damage.CLASS2,
         Country.USA,
         "Default Site"
