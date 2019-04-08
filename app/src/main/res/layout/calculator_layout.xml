@@ -32,97 +32,32 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/calculator_button"
-        app:layout_constraintBottom_toTopOf="@+id/textView9"
+        app:layout_constraintBottom_toTopOf="@+id/gpp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="22dp"
-        android:text="@string/volume"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/textView2"
         android:layout_alignParentTop="true"
         android:layout_marginStart="20dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="30dp"
         android:text="@string/inside_temp"
-        app:layout_constraintBottom_toTopOf="@+id/textView8"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textView2"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="28dp"
-        android:text="@string/desired_temp"
-        app:layout_constraintBottom_toTopOf="@+id/textView7"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textView2"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="28dp"
-        android:text="@string/outside_temp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/textView10"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="142dp"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/textView2"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="20dp"
         android:text="@string/humidity"
-        app:layout_constraintBottom_toTopOf="@+id/textView6"
+        app:layout_constraintBottom_toTopOf="@+id/calculate"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="153dp"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/textView2"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Number of Boost Boxes"
-        app:layout_constraintBottom_toTopOf="@+id/textView10"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/volume"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/water_loss"
-        app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
         android:id="@+id/inside_temp"
@@ -135,35 +70,19 @@
         android:ems="10"
         android:inputType="numberDecimal"
         android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/surface_temp"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/surface_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/relative_humidity"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <EditText
-        android:id="@+id/desired_temp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/outside_temp"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <EditText
-        android:id="@+id/outside_temp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/volume"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
@@ -177,67 +96,94 @@
         android:ems="10"
         android:inputType="numberDecimal"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/desired_temp"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Spinner
-        android:id="@+id/water_loss"
-        android:layout_width="156dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/calculate"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="138dp"
+        android:id="@+id/dew_point"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/textView5"
-        android:layout_alignBottom="@+id/water_loss"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="12dp"
-        android:text="Class of Water Loss"
-        app:layout_constraintBottom_toTopOf="@+id/calculate"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/vp_air"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/vp_diff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/vp_air"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/vp_diff"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/gpp"
+        android:layout_width="wrap_content"
+        android:layout_height="17dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/dew_point"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="20dp"
-        android:layout_toStartOf="@+id/outside_temp"
-        android:text="Number of D2's"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="30dp"
+        android:text="Surface Temp"
+        app:layout_constraintBottom_toTopOf="@+id/textView8"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/boost_boxes"
+        android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginEnd="150dp"
+        android:layout_marginStart="14dp"
         android:layout_marginBottom="8dp"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/d2s"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:text="Vapor Pressure Air (kPA)"
+        app:layout_constraintBottom_toTopOf="@+id/textView19"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/d2s"
+        android:id="@+id/textView17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/calculate"
-        android:layout_centerHorizontal="true"
-        android:layout_marginEnd="150dp"
-        android:layout_marginBottom="20dp"
-        android:textAlignment="center"
+        android:layout_marginStart="69dp"
+        android:layout_marginBottom="8dp"
+        android:text="GPP"
+        app:layout_constraintBottom_toTopOf="@+id/textView18"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginBottom="8dp"
+        android:text="Dew Point"
+        app:layout_constraintBottom_toTopOf="@+id/textView11"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Vapor Pressure Differential"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
