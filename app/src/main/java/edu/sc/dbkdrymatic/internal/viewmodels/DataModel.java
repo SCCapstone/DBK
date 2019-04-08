@@ -41,6 +41,7 @@ public class DataModel extends ViewModel {
         Amount.valueOf(0, settings.getTemperatureUnit()),
         Amount.valueOf(0, settings.getTemperatureUnit()),
         Amount.valueOf(0, settings.getTemperatureUnit()),
+        Amount.valueOf(0, settings.getTemperatureUnit()),
         0.0,
         Damage.CLASS1,
         settings.getCountry(),

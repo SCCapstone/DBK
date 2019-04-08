@@ -80,24 +80,9 @@ public class CalculatorFragment extends Fragment {
     });
 
     // This has to be in onViewCreated (per #56)
-    final Spinner damageClassSpinner = (Spinner) getView().findViewById(R.id.water_loss);
-    ArrayAdapter<Damage> adapter = new ArrayAdapter<Damage>(
-        this.getActivity(), android.R.layout.simple_spinner_item);
-    adapter.addAll(Damage.values());
-    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    damageClassSpinner.setAdapter(adapter);
-
     Job job = this.model.getSelectedJob().getValue();
     Settings settings = this.settingsModel.getSettings().getValue();
 
-    final EditText volumeField = (EditText) (getView().findViewById(R.id.volume));
-    volumeField.addTextChangedListener(new UpdateWatcher() {
-      @Override
-      public void update(double value) {
-        job.getSiteInfo().volume = Amount.valueOf(value, settings.getVolumeUnit());
-        model.update(job);
-      }
-    });
 
     final EditText insideTempField = (EditText) (getView().findViewById(R.id.inside_temp));
     insideTempField.addTextChangedListener(new UpdateWatcher() {
@@ -108,27 +93,18 @@ public class CalculatorFragment extends Fragment {
       }
     });
 
-    final EditText desiredTempField = (EditText) (getView().findViewById(R.id.desired_temp));
-    insideTempField.addTextChangedListener(new UpdateWatcher() {
+    final EditText surfaceTempField = (EditText) (getView().findViewById(R.id.surface_temp));
+    surfaceTempField.addTextChangedListener(new UpdateWatcher() {
       @Override
       public void update(double changed) {
-        job.getSiteInfo().desiredTemp = Amount.valueOf(changed, settings.getTemperatureUnit());
-        model.update(job);
-      }
-    });
-
-    final EditText outsideTempField = (EditText) (getView().findViewById(R.id.outside_temp));
-    insideTempField.addTextChangedListener(new UpdateWatcher() {
-      @Override
-      public void update(double changed) {
-        job.getSiteInfo().outsideTemp = Amount.valueOf(changed, settings.getTemperatureUnit());
+        job.getSiteInfo().surfaceTemp = Amount.valueOf(changed, settings.getTemperatureUnit());
         model.update(job);
       }
     });
 
     final EditText relativeHumidityField =
         (EditText) (getView().findViewById(R.id.relative_humidity));
-    insideTempField.addTextChangedListener(new UpdateWatcher() {
+    relativeHumidityField.addTextChangedListener(new UpdateWatcher() {
       @Override
       public void update(double value) {
         job.getSiteInfo().relativeHumidity = value;
@@ -146,39 +122,35 @@ public class CalculatorFragment extends Fragment {
     final DecimalFormat df = new DecimalFormat("#.#");
     final SiteInfo siteInfo = job.getSiteInfo();
 
-    final EditText volumeField = (EditText) (getView().findViewById(R.id.volume));
-    volumeField.setText(
-        df.format(siteInfo.volume.doubleValue(settings.getVolumeUnit())));
     final EditText insideTempField = (EditText) (getView().findViewById(R.id.inside_temp));
     insideTempField.setText(
         df.format(siteInfo.insideTemp.doubleValue(settings.getTemperatureUnit())));
 
-    final EditText desiredTempField = (EditText) (getView().findViewById(R.id.desired_temp));
-    desiredTempField.setText(
-        df.format(siteInfo.desiredTemp.doubleValue(settings.getTemperatureUnit())));
-
-    final EditText outsideTempField = (EditText) (getView().findViewById(R.id.outside_temp));
-    outsideTempField.setText(
-        df.format(siteInfo.outsideTemp.doubleValue(settings.getTemperatureUnit())));
+    final EditText surfaceTempField = (EditText) (getView().findViewById(R.id.surface_temp));
+    surfaceTempField.setText(
+        df.format(siteInfo.surfaceTemp.doubleValue(settings.getTemperatureUnit())));
 
     final EditText relativeHumidityField =
         (EditText) (getView().findViewById(R.id.relative_humidity));
     relativeHumidityField.setText(df.format(siteInfo.relativeHumidity));
 
-    final Spinner damageClassSpinner = (Spinner) getView().findViewById(R.id.water_loss);
-    damageClassSpinner.setSelection(Arrays.asList(Damage.values()).indexOf(siteInfo.waterLoss));
-
     Button calculate = (Button) getView().findViewById(R.id.calculate);
     calculate.setOnClickListener(new View.OnClickListener() {//when user clicks calculate button
       @Override
       public void onClick(View view) {
-        //set textview of boost boxes and d2s to change on startup
-        final TextView boostBoxes = (TextView) getView().findViewById(R.id.boost_boxes);
-        boostBoxes.setText(df.format(siteInfo.getBoostBoxRequirement()));
 
-        final TextView d2s = (TextView) getView().findViewById(R.id.d2s);
-        d2s.setText(df.format(siteInfo.getD2Requirement()));
+        //set the text view of vapor pressure air, differential, gpp and dew_point
+        final TextView dew_point = (TextView) getView().findViewById(R.id.dew_point);
+        dew_point.setText(df.format(siteInfo.getDewPointRequirement()));
 
+        final TextView vp_diff = (TextView) getView().findViewById(R.id.vp_diff);
+        vp_diff.setText(df.format(siteInfo.getVPDiffRequirement()));
+
+        final TextView vp_air = (TextView) getView().findViewById(R.id.vp_air);
+        vp_air.setText(df.format(siteInfo.getVPAirRequirement()));
+
+        final TextView gpp = (TextView) getView().findViewById(R.id.gpp);
+        gpp.setText(df.format(siteInfo.getGPPRequirement()));
       }
 
     });
