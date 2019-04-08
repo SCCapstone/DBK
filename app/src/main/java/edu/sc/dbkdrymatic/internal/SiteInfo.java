@@ -64,17 +64,13 @@ public class SiteInfo {
   @ColumnInfo(name = "country")
   public Country country;
 
-  @ColumnInfo(name = "surface_temp")
-  public Amount<Temperature> surfaceTemp;
-
-  public SiteInfo(Amount<Volume> volume, Amount<Temperature> insideTemp, Amount<Temperature> surfaceTemp,
+  public SiteInfo(Amount<Volume> volume, Amount<Temperature> insideTemp,
                   Amount<Temperature> desiredTemp, Amount<Temperature> outsideTemp,
                   double relativeHumidity, Damage waterLoss, Country country, String name) {
     this.volume = volume;
     this.outsideTemp = outsideTemp;
     this.desiredTemp = desiredTemp;
     this.insideTemp = insideTemp;
-    this.surfaceTemp = surfaceTemp;
     this.relativeHumidity = relativeHumidity;
     this.waterLoss = waterLoss;
     this.country = country;
@@ -170,23 +166,6 @@ public class SiteInfo {
   public double getBoostBoxRequirement() {
     return this.getAdjustedPower().doubleValue(SI.KILO(SI.WATT)) / country.getKilowattRating();
   }
-  
-  public double getDewPointRequirement(){
-    return ((Math.pow(relativeHumidity/100,1/this.getVPMaterial()))*(112+(0.9*surfaceTemp.doubleValue(NonSI.FAHRENHEIT))))+0.1*surfaceTemp.doubleValue(NonSI.FAHRENHEIT)-112;
-  }
-
-  public double getVPAirRequirement(){
-    return (relativeHumidity*this.getSaturationVPAir())/100;
-  }
-
-  public double getVPDiffRequirement(){
-    return this.getSatuarationVPMaterial()-this.getVPAirRequirement();
-  }
-
-  public double getGPPRequirement(){
-    return 4354*(this.getVPAirRequirement()/(101.33-this.getVPAirRequirement()));
-  }
-
 
   /**
    * Compares a {@code SiteInfo} to another object. If that object is not a {@code SiteInfo}, or
@@ -201,50 +180,9 @@ public class SiteInfo {
         other.outsideTemp.compareTo(outsideTemp) == 0 &&
         other.desiredTemp.compareTo(desiredTemp) == 0 &&
         other.insideTemp.compareTo(insideTemp) == 0 &&
-        other.surfaceTemp.compareTo(surfaceTemp) == 0 &&
         Math.abs(other.relativeHumidity - relativeHumidity) < 0.0001 &&
         other.waterLoss == waterLoss &&
         other.country == country &&
         other.name.equals(name);
   }
-
-  private double getSaturationVPAir(){
-    return  (
-      22064.0*Math.exp(
-              ((647.096/(insideTemp.doubleValue(SI.KELVIN)))*((this.getK8()*-7.85951783)+(1.84408259*Math.pow(this.getK8(),1.5))+
-                      (-11.7866497*Math.pow(this.getK8(),3))+(22.6807411*Math.pow(this.getK8(),3.5))+
-                      (-15.9618719*Math.pow(this.getK8(),4))+(1.80122502*Math.pow(this.getK8(),7.5)))
-              )
-
-      )
-    );
-  }
-
-  private double getSatuarationVPMaterial(){
-    return (
-            22064.0*Math.exp(
-                    ((647.096/(surfaceTemp.doubleValue(SI.KELVIN)))*((this.getL8()*-7.85951783)+(1.84408259*Math.pow(this.getL8(),1.5))+
-                            (-11.7866497*Math.pow(this.getL8(),3))+(22.6807411*Math.pow(this.getL8(),3.5))+
-                            (-15.9618719*Math.pow(this.getL8(),4))+(1.80122502*Math.pow(this.getL8(),7.5)))
-                    )
-            )
-    );
-  }
-
-  private double getVPMaterial(){
-    return (relativeHumidity*this.getSatuarationVPMaterial())/100;
-  }
-
-  private double getK8(){
-    return  1-((insideTemp.doubleValue(SI.CELSIUS)+273)/647.096);
-  }
-
-  private double getL8(){
-    return 1-((surfaceTemp.doubleValue(SI.CELSIUS)+273)/647.096);
-  }
-
-
-
-
-
 }
