@@ -23,7 +23,7 @@ public class JobFragment extends Fragment {
   public View onCreateView(
       LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
     this.view = inflater.inflate(R.layout.job_layout, container, false);
-
+    getActivity().setTitle("Job");
     return this.view;
   }
 

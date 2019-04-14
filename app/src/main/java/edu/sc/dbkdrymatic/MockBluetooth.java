@@ -50,6 +50,7 @@ public class MockBluetooth extends Fragment {
                 Spinner mySpinner = (Spinner) getView().findViewById(R.id.bt_spinner);
                 String text = mySpinner.getSelectedItem().toString();
                 String spinner_value="";
+                //data taken from previous readings. to be used for mock
                 if(text.equals("Mock Boost Box 1"))
                 {
                     spinner_value=

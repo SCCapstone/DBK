@@ -29,12 +29,12 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemSele
   @Override
   public void onCreate(Bundle savedInstance) {
     super.onCreate(savedInstance);
-
     SharedPreferences preferences = PreferenceManager
         .getDefaultSharedPreferences(this.getContext());
     SettingsModel.Factory settingsFactory = new SettingsModel.Factory(preferences);
     this.settingsModel = ViewModelProviders.of(this.getActivity(), settingsFactory)
         .get(SettingsModel.class);
+
   }
 
   @Nullable
@@ -42,6 +42,7 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemSele
   public View onCreateView(
       LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
     myView = inflater.inflate(R.layout.settings_layout, container, false);
+    getActivity().setTitle("Settings");
     return myView;
   }
 
