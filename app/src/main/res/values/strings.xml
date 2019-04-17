@@ -34,7 +34,7 @@
     <string name="DBK_title">DBK App</string>
     <string name="DBK_email">email@DBK.com</string>
 
-    <color name="white">#FFFFFF</color>
+    <color name="white">#ffffff</color>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
