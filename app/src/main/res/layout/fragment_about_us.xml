@@ -2,33 +2,31 @@
 
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="wrap_content">
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/gradientbackground"
+
     tools:context=".AboutUsFragment"><![CDATA[
-
     android:orientation="vertical">
-
     ]]>
-
-
 
     <ImageButton
         android:id="@+id/fb_btn"
-        android:background="@null"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:background="@null"
         android:scaleType="centerInside"
         android:src="@drawable/facebook_icon"
-        app:layout_constraintBottom_toTopOf="@+id/textView16"
         app:layout_constraintEnd_toStartOf="@+id/yt_btn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
@@ -38,29 +36,27 @@
         android:layout_width="74dp"
         android:layout_height="75dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:background="@null"
         android:scaleType="centerInside"
         android:src="@drawable/youtube_icon"
-        app:layout_constraintBottom_toTopOf="@+id/textView16"
         app:layout_constraintEnd_toStartOf="@+id/li_btn"
         app:layout_constraintStart_toEndOf="@+id/fb_btn"
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
     <ImageButton
         android:id="@+id/li_btn"
-        android:background="@null"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="40dp"
+        android:background="@null"
         android:scaleType="centerInside"
         android:src="@drawable/linkedin_icon"
-        app:layout_constraintBottom_toTopOf="@+id/textView16"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/yt_btn"
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
@@ -86,29 +82,44 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="24dp"
         android:inputType="none"
         android:text="Follow Us On:"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/yt_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dbk_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
-    <TextView
-        android:id="@+id/multiAutoCompleteTextView"
-        android:layout_width="340dp"
-        android:layout_height="166dp"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/scrollView2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:inputType="none"
-        android:text="From our offices, located in Spartanburg, South Carolina, we proudly serve DBK customers in both North and South America.  With the launch of our new website, DBKUSA.com, we look to provide each of our customers with top of the line service and state of the art products. Through the addition of our new online store, we can facilitate quick and intuitive purchases that enable our customers to spend less time browsing and more time doing what counts."
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+        app:layout_constraintTop_toBottomOf="@+id/textView16">
+
+        <TextView
+            android:id="@+id/multiAutoCompleteTextView"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/abeezee"
+            android:inputType="none"
+            android:text="From our offices, located in Spartanburg, South Carolina, we proudly serve DBK customers in both North and South America.  With the launch of our new website, DBKUSA.com, we look to provide each of our customers with top of the line service and state of the art products. Through the addition of our new online store, we can facilitate quick and intuitive purchases that enable our customers to spend less time browsing and more time doing what counts."
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView16" />
+    </ScrollView>
 
     <TextView
         android:id="@+id/textView16"
@@ -117,15 +128,14 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:inputType="none"
+
         android:text="About Us:"
         android:textColor="@color/colorAccent"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/multiAutoCompleteTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/yt_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/dbk_btn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
