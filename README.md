@@ -1,6 +1,6 @@
 # DBK App
 
-Android Applications supporting DBK Drymatic
+DBK is a company that uses heat and air based equipment to dry out homes after floods. In order to make this process possible, certain numbers and equations are used to determine how much power and heat is needed to fully dry a home. This mobile app (for android using Java SDK) will be designed to make calculations for drying easier to compute for the customer. The goal of this project is for a customer to be able to use this app, and based off the calculations, graphs, and equations, be able to assess how much thermal energy is needed to dry out the water. It will also be used in conjunction with the drymatic equipment, connecting to it via Bluetooth.
 
 ## Video
 
@@ -25,10 +25,26 @@ To execute the tests on your own system, simply run `./gradlew test` from the pr
 
 - located in app > java > edu.sc.dbkdrymatic(test) 
 - run the .java unit test
-### Behavior Testing
--located in app > java > edu.sc.dbkdrymatic(androidTest) 
 
--run the .java instrumented test 
+### Behavior Testing
+
+- located in app > java > edu.sc.dbkdrymatic(androidTest) 
+- run the .java instrumented test 
+
+## Built With 
+
+- Android Studio
+- Java SDK
+- Room Persistence Libary
 
 ## Team
 
+George Brown
+
+Nicholas Ford
+
+Andrew Lokantsov
+
+Lane Rassmussen
+
+Peter Sanders
