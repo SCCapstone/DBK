@@ -30,12 +30,5 @@ To execute the tests on your own system, simply run `./gradlew test` from the pr
 
 -run the .java instrumented test 
 
-## Developing
-
-### Deploying / Publishing
-- Android Studio
-- Java SDK
-- Room Persistence Libary
-
 ## Team
 
