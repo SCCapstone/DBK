@@ -39,12 +39,13 @@ To execute the tests on your own system, simply run `./gradlew test` from the pr
 
 ## Team
 
-George Brown
+[George Brown](https://github.com/holtb4000)
 
-Nicholas Ford
+[Nicholas Ford](https://github.com/ntford)
 
-Andrew Lokantsov
+[Andrew Lokantsov](https://github.com/Lokantsov)
 
-Lane Rassmussen
+[Lane Rassmussen](https://github.com/lanerass)
 
-Peter Sanders
+[Peter Sanders](https://github.com/hxtk)
+
