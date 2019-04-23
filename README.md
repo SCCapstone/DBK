@@ -30,9 +30,9 @@ To execute the tests on your own system, simply run `./gradlew test` from the pr
 
 ## Built With 
 
-- Android Studio
-- Java SDK
-- Room Persistence Libary
+- [Android Studio](https://developer.android.com/studio)
+- [Java SDK](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html)
+- [Room Persistence Libary](https://developer.android.com/topic/libraries/architecture/room)
 
 ## Team
 
