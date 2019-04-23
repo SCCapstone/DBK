@@ -19,7 +19,6 @@ If the emulator is crashing delete it and reinstall it for this program, the emu
 ## Testing
 
 ### Unit Testing
-See build badge for automated testing results.
 
 To execute the tests on your own system, simply run `./gradlew test` from the project directory.
 
