@@ -96,8 +96,8 @@ public class CalculatorFragment extends Fragment {
     final EditText surfaceTempField = (EditText) (getView().findViewById(R.id.surface_temp));
     surfaceTempField.addTextChangedListener(new UpdateWatcher() {
       @Override
-      public void update(double changed) {
-        job.getSiteInfo().surfaceTemp = Amount.valueOf(changed, settings.getTemperatureUnit());
+      public void update(double value) {
+        job.getSiteInfo().surfaceTemp = Amount.valueOf(value, settings.getTemperatureUnit());
         model.update(job);
       }
     });
@@ -119,7 +119,7 @@ public class CalculatorFragment extends Fragment {
     Job job = this.model.getSelectedJob().getValue();
     Settings settings = this.settingsModel.getSettings().getValue();
 
-    final DecimalFormat df = new DecimalFormat("#.#");
+    final DecimalFormat df = new DecimalFormat("#.##");
     final SiteInfo siteInfo = job.getSiteInfo();
 
     final EditText insideTempField = (EditText) (getView().findViewById(R.id.inside_temp));
