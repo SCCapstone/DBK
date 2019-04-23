@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/blackbackground">
 
     <TextView
         android:id="@+id/textView12"
@@ -15,6 +16,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:text="@string/preferences_title"
+        android:textColor="@color/colorWhite"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,6 +33,7 @@
         android:layout_marginEnd="8dp"
         android:layout_toEndOf="@+id/textView13"
         android:text="Metric/Imperial"
+        android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView13"
         app:layout_constraintTop_toBottomOf="@+id/textView12" />
@@ -45,6 +48,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="220dp"
+        android:background="@color/colorGrey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView14"
@@ -60,6 +64,7 @@
         android:layout_marginTop="28dp"
         android:layout_marginEnd="8dp"
         android:text="@string/unit_selected_title"
+        android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toStartOf="@+id/unitSwitch"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView12" />
@@ -75,6 +80,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="218dp"
         android:text="@string/country_selected_title"
+        android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/country"
         app:layout_constraintStart_toStartOf="parent"

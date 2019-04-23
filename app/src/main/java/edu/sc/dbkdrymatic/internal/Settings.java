@@ -26,6 +26,7 @@ public class Settings {
   public Unit<Temperature> getTemperatureUnit() {
     return this.temperatureUnit;
   }
+
   public void setTemperatureUnit(Unit<Temperature> temperatureUnit) {
     this.temperatureUnit = temperatureUnit;
   }

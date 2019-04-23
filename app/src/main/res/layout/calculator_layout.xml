@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:visibility="visible"
-    android:background="@drawable/gradientbackground1">
+    android:background="@drawable/blackbackground">
 
 
     <TextView
@@ -19,6 +19,7 @@
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/krona_one"
         android:text="@string/calculator_title"
+        android:textColor="@color/colorWhite"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,6 +48,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/inside_temp"
+        android:textColor="@color/colorWhite"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -59,6 +61,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="20dp"
         android:text="@string/humidity"
+        android:textColor="@color/colorWhite"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
@@ -73,6 +76,8 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="numberDecimal"
+        android:singleLine="false"
+        android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -85,6 +90,7 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="numberDecimal"
+        android:textColor="@color/colorWhite"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inside_temp" />
@@ -99,6 +105,7 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="numberDecimal"
+        android:textColor="@color/colorWhite"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/surface_temp" />
@@ -108,9 +115,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginEnd="20dp"
         android:textColor="@color/white"
-        android:textSize="24sp"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gpp" />
 
@@ -119,9 +126,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="20dp"
         android:textColor="@color/white"
-        android:textSize="24sp"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vp_air" />
 
@@ -130,9 +137,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="20dp"
         android:textColor="@color/colorWhite"
-        android:textSize="24sp"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dew_point" />
 
@@ -141,9 +148,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginEnd="20dp"
         android:textColor="@color/colorWhite"
-        android:textSize="24sp"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calculate" />
 
@@ -154,6 +161,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="20dp"
         android:text="Surface Temp"
+        android:textColor="@color/colorWhite"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -166,7 +174,7 @@
         android:layout_marginTop="8dp"
         android:text="Vapor Pressure Air (kPA)"
         android:textColor="@color/colorWhite"
-        android:textSize="24sp"
+        android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
@@ -178,7 +186,7 @@
         android:layout_marginTop="8dp"
         android:text="GPP"
         android:textColor="@color/colorWhite"
-        android:textSize="24sp"
+        android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calculate" />
 
@@ -190,7 +198,7 @@
         android:layout_marginTop="8dp"
         android:text="Dew Point"
         android:textColor="@color/colorWhite"
-        android:textSize="24sp"
+        android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
@@ -202,7 +210,7 @@
         android:layout_marginTop="8dp"
         android:text="Vapor Pressure Differential"
         android:textColor="@color/colorWhite"
-        android:textSize="24sp"
+        android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
