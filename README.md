@@ -3,7 +3,11 @@ DBK is a company that uses heat and air based equipment to dry out homes after f
 ## Video
 
 ## Screenshots
-
+![github-small](https://user-images.githubusercontent.com/42427359/56622033-92c41a00-65fc-11e9-99b6-dd1ccd843879.png)
+![github-small](https://user-images.githubusercontent.com/42427359/56622176-14b44300-65fd-11e9-96f6-eff72bdc8924.png)
+![github-small](https://user-images.githubusercontent.com/42427359/56622195-1c73e780-65fd-11e9-8bcd-9635f59f4094.png)
+![github-small](https://user-images.githubusercontent.com/42427359/56622215-2c8bc700-65fd-11e9-8eea-b4034f7966b2.png)
+![github-small](https://user-images.githubusercontent.com/42427359/56622228-34e40200-65fd-11e9-9a71-4c48a77be3f6.png)
 ## Installation/ Getting Started
 - Download Android Studio
 - Once Android Studio is downloaded and installed, download the program from the DBK Repository.   
