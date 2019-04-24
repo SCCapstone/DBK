@@ -5,14 +5,16 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/blackbackground">
 
         <TextView
             android:id="@+id/bluetooth_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Sample Title" />
+            android:text="Sample Title"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -22,13 +24,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hours Run"/>
+                android:text="Hours Run"
+                android:textColor="@color/colorWhite" />
 
             <TextView
                 android:id="@+id/boost_box_hours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="42"/>
+                android:text="42"
+                android:textColor="@color/colorWhite" />
         </LinearLayout>
 
         <LinearLayout
@@ -39,13 +43,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Energy Used"/>
+                android:text="Energy Used"
+                android:textColor="@color/colorWhite" />
 
             <TextView
                 android:id="@+id/boost_box_energy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="76"/>
+                android:text="76"
+                android:textColor="@color/colorWhite" />
         </LinearLayout>
     </LinearLayout>
 
