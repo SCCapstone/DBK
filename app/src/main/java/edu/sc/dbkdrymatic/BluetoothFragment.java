@@ -17,8 +17,20 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
+import edu.sc.dbkdrymatic.internal.Job;
+import edu.sc.dbkdrymatic.internal.database.AppDatabase;
+import edu.sc.dbkdrymatic.internal.viewmodels.SelectedJobModel;
 
 public class BluetoothFragment extends Fragment {
+
+  private RecyclerView recyclerView;
+  private RecyclerView.LayoutManager layoutManager;
+  private RecyclerView.Adapter adapter;
+  private SelectedJobModel selectedJobModel;
 
   View view;
 
@@ -28,5 +40,28 @@ public class BluetoothFragment extends Fragment {
     this.view = inflater.inflate(R.layout.bluetooth_layout, container, false);
 
     return this.view;
+  }
+
+  @Override
+  public void onCreate(Bundle savedState) {
+    super.onCreate(savedState);
+
+    // Monitor for changes to the currently selected job and update the view as appropriate.
+    AppDatabase appDb = Room.databaseBuilder(
+        this.getActivity().getApplicationContext(), AppDatabase.class, "dbk.db").build();
+    SelectedJobModel.Factory sjmFactory = new SelectedJobModel.Factory(appDb.siteInfoDao());
+    this.selectedJobModel = ViewModelProviders.of(
+        this.getActivity(), sjmFactory).get(SelectedJobModel.class);
+
+    this.recyclerView = getView().findViewById(R.id.bluetooth_recycler);
+
+    this.layoutManager = new LinearLayoutManager(this.getContext());
+    this.recyclerView.setLayoutManager(this.layoutManager);
+    this.adapter = new BoostBoxRecyclerAdapter(
+        this.selectedJobModel.getSelectedJob().getValue().getBoxes());
+
+    this.selectedJobModel.getSelectedJob().observe(this, (Job job) -> {
+      this.adapter = new BoostBoxRecyclerAdapter(job.getBoxes());
+    });
   }
 }

@@ -70,14 +70,12 @@ public class JobFragment extends Fragment {
           CalculatorFragment tab_calculator = new CalculatorFragment();
           return  tab_calculator;
         case 1:
-          //BluetoothFragment tab_bluetooth = new BluetoothFragment();
-          //return tab_bluetooth;
-          MockBluetooth tab_mock = new MockBluetooth();
-          return tab_mock;
+          BluetoothFragment tab_bluetooth = new BluetoothFragment();
+          return tab_bluetooth;
+          //MockBluetooth tab_mock = new MockBluetooth();
+          //return tab_mock;
         default:
           return null;
-
-
       }
     }
 
