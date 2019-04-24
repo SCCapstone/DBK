@@ -106,7 +106,7 @@ public class NavigationActivity extends AppCompatActivity
 
     FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
     fab.setOnClickListener(this);
-    fab.setImageResource(R.drawable.add_profile2);// changes fab icon to add_profile image
+    fab.setImageResource(R.drawable.ic_business_center_black_24dp);// changes fab icon to add_profile image
 
     // Opens About us fragment on start up of the code
     FragmentManager fragmentManager = getSupportFragmentManager();

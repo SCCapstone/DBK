@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+import edu.sc.dbkdrymatic.internal.SiteInfo;
 
 public class JobFragment extends Fragment {
   private View view;
@@ -23,6 +24,9 @@ public class JobFragment extends Fragment {
   public View onCreateView(
       LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
     this.view = inflater.inflate(R.layout.job_layout, container, false);
+
+    //String jobname;
+    //jobname=SiteInfo.getName;
     getActivity().setTitle("Job");
     return this.view;
   }
