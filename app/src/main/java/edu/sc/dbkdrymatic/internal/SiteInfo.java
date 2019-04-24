@@ -251,8 +251,13 @@ public class SiteInfo {
     return 1-((surfaceTemp.doubleValue(SI.CELSIUS)+273)/647.096);
   }
 
+  public double getSurfaceTemp(Unit<Temperature> unit) {
+    return this.surfaceTemp.doubleValue(unit);
+  }
 
-
+  public double getInsideTemp(Unit<Temperature> unit) {
+    return this.insideTemp.doubleValue(unit);
+  }
 
 
 }
