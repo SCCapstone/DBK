@@ -183,10 +183,11 @@ public class NavigationActivity extends AppCompatActivity
         default:  // This is the case where they have clicked on a Job.
             // Error check for non-existent job.
            if (!itemJobMap.keySet().contains(item)) {
-           Toast.makeText(this, "No such job exists.", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        // Update the selected `Job`.
+             Toast.makeText(this, "No such job exists.", Toast.LENGTH_SHORT).show();
+               return false;
+           }
+
+           // Update the selected `Job`.
           selection.setSelectedJob(itemJobMap.get(item));
           fragmentManager.beginTransaction().replace(R.id.content_frame, new JobFragment()).commit();
     }
