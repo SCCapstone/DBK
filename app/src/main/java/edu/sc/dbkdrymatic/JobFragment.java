@@ -13,21 +13,30 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.room.Room;
 import androidx.viewpager.widget.ViewPager;
+import edu.sc.dbkdrymatic.internal.Job;
 import edu.sc.dbkdrymatic.internal.SiteInfo;
+import edu.sc.dbkdrymatic.internal.database.AppDatabase;
+import edu.sc.dbkdrymatic.internal.viewmodels.SelectedJobModel;
 
 public class JobFragment extends Fragment {
   private View view;
-
+  private SelectedJobModel model;
   @Nullable
   @Override
   public View onCreateView(
       LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
     this.view = inflater.inflate(R.layout.job_layout, container, false);
-
-    //String jobname;
-    //jobname=SiteInfo.getName;
-    getActivity().setTitle("Job");
+    AppDatabase appDb = Room.databaseBuilder(
+            this.getActivity().getApplicationContext(), AppDatabase.class, "dbk.db").build();
+    SelectedJobModel.Factory sjmFactory = new SelectedJobModel.Factory(appDb.siteInfoDao());
+    this.model = ViewModelProviders.of(this.getActivity(), sjmFactory).get(SelectedJobModel.class);
+    Job job = this.model.getSelectedJob().getValue();
+    String jobname;
+    jobname=job.getSiteInfo().name;
+    getActivity().setTitle(jobname);
     return this.view;
   }
 
