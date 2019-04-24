@@ -19,6 +19,7 @@ import org.mockito.Mockito;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -60,7 +61,7 @@ public class SelectedJobModelTest {
     );
     this.siteInfo.setId(1);
 
-    Job job = new Job(new HashSet<BoostBox>(), this.siteInfo);
+    Job job = new Job(new ArrayList<BoostBox>(), this.siteInfo);
     MutableLiveData<Job> jobData = new MutableLiveData<>();
     jobData.setValue(job);
 
@@ -91,7 +92,7 @@ public class SelectedJobModelTest {
 
   @Test
   public void setJob_setJobFirst() throws ExecutionException, InterruptedException {
-    Job job = new Job(new HashSet<BoostBox>(), this.siteInfo);
+    Job job = new Job(new ArrayList<BoostBox>(), this.siteInfo);
     SelectedJobModel model = new SelectedJobModel(this.siDao);
 
     model.setSelectedJob(job);
