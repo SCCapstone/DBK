@@ -15,6 +15,9 @@ public interface BoostBoxDao {
   @Query("SELECT * FROM BoostBox")
   List<BoostBox> getAll();
 
+  @Query("SELECT * FROM BoostBox WHERE jobId = :id")
+  List<BoostBox> getAllByJob(int id);
+
   @Query("SELECT * FROM BoostBox WHERE address LIKE :address LIMIT 1")
   BoostBox getByAddress(String address);
 

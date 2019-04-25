@@ -5,6 +5,9 @@ import android.bluetooth.BluetoothSocket;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 import androidx.annotation.NonNull;
@@ -27,10 +30,22 @@ import java.util.UUID;
 import edu.sc.dbkdrymatic.BluetoothFragment;
 import edu.sc.dbkdrymatic.internal.database.Converters;
 
+import static androidx.room.ForeignKey.CASCADE;
+
 /**
  * Representation of a DBK Drymatic Boost Box air heating unit, storing the information exposed
  * by the bluetooth connection to the device.
  */
+/*
+@Entity(
+    tableName = "BoostBox",
+    foreignKeys = @ForeignKey(
+      entity = SiteInfo.class,
+      parentColumns = "id",
+      childColumns = "jobId",
+      onDelete = CASCADE
+    ),
+    indices = @Index(value="jobId"))*/
 @Entity
 @TypeConverters(Converters.class)
 public class BoostBox {
@@ -42,7 +57,11 @@ public class BoostBox {
   private String address;
 
   // Primary key of the Job Site at which this BoostBox is located.
+  @NonNull
   private int jobId;
+
+
+  private String name;
 
   // Number of hours the Boost Box has been run since it was last reset.
   @ColumnInfo(name = "hours")
@@ -82,14 +101,24 @@ public class BoostBox {
   // Energy used by the device since it was last reset.
   private Amount<Energy> cumulativeEnergy;
 
+  public BoostBox(@NonNull String address, String name) {
+    this.address = address;
+    this.name = name;
+    this.airflow = false;
+    this.running = false;
+    this.autoRestart = false;
+  }
+
+  @Ignore
   public BoostBox(
-      String address, Amount<Duration> hours,
+      @NonNull String address, String name, Amount<Duration> hours,
       Amount<Temperature> airInTemp, Amount<Temperature> airOutTemp,
       Amount<Temperature> airOutTarget, Amount<Temperature> airOutThreshold,
       boolean airflow, boolean running, boolean autoRestart,
       Amount<ElectricPotential> voltage, Amount<ElectricCurrent> current,
       Amount<Power> power, Amount<Energy> cumulativeEnergy) {
     this.address = address;
+    this.name = name;
     this.hours = hours;
     this.airInTemp = airInTemp;
     this.airOutTemp = airOutTemp;
@@ -105,55 +134,107 @@ public class BoostBox {
   }
 
   public String getAddress() {
-    return address;
+    return this.address;
+  }
+
+  public void setAddress(String address) {
+    this.address = address;
   }
 
   public Amount<Duration> getHours() {
-    return hours;
+    return this.hours;
+  }
+
+  public void setHours(Amount<Duration> hours) {
+    this.hours = hours;
   }
 
   public Amount<ElectricPotential> getVoltage() {
     return voltage;
   }
 
+  public void setVoltage(Amount<ElectricPotential> voltage) {
+    this.voltage = voltage;
+  }
+
   public Amount<Energy> getCumulativeEnergy() {
     return cumulativeEnergy;
   }
 
+  public void setCumulativeEnergy(Amount<Energy> cumulativeEnergy) {
+    this.cumulativeEnergy = cumulativeEnergy;
+  }
+
   public Amount<Temperature> getAirInTemp() {
-    return airInTemp;
+    return this.airInTemp;
+  }
+
+  public void setAirInTemp(Amount<Temperature> airInTemp) {
+    this.airInTemp = airInTemp;
   }
 
   public Amount<Power> getPower() {
-    return power;
+    return this.power;
+  }
+
+  public void setPower(Amount<Power> power) {
+    this.power = power;
   }
 
   public Amount<ElectricCurrent> getCurrent() {
-    return current;
+    return this.current;
+  }
+
+  public void setCurrent(Amount<ElectricCurrent> current) {
+    this.current = current;
   }
 
   public Amount<Temperature> getAirOutTarget() {
-    return airOutTarget;
+    return this.airOutTarget;
+  }
+
+  public void setAirOutTarget(Amount<Temperature> airOutTarget) {
+    this.airOutTarget = airOutTarget;
   }
 
   public Amount<Temperature> getAirOutTemp() {
-    return airOutTemp;
+    return this.airOutTemp;
+  }
+
+  public void setAirOutTemp(Amount<Temperature> airOutTemp) {
+    this.airOutTemp = airOutTemp;
   }
 
   public Amount<Temperature> getAirOutThreshold() {
-    return airOutThreshold;
+    return this.airOutThreshold;
+  }
+
+  public void setAirOutThreshold(Amount<Temperature> airOutThreshold) {
+    this.airOutThreshold = airOutThreshold;
   }
 
   public boolean isAirflow() {
     return airflow;
   }
 
+  public void setAirflow(boolean airflow) {
+    this.airflow = airflow;
+  }
+
   public boolean isRunning() {
     return running;
   }
 
+  public void setRunning(boolean running) {
+    this.running = running;
+  }
+
   public boolean isAutoRestart() {
     return autoRestart;
+  }
+
+  public void setAutoRestart(boolean autoRestart) {
+    this.autoRestart = autoRestart;
   }
 
   public int getJobId() {
@@ -162,6 +243,14 @@ public class BoostBox {
 
   public void setJobId(int jobId) {
     this.jobId = jobId;
+  }
+
+  public String getName() {
+    return this.name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 
   /*** Commented out by hxtk (2019-02-12)
