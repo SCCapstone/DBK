@@ -72,17 +72,11 @@ public class CalculatorFragment extends Fragment {
   public void onViewCreated(View view, Bundle savedState) {
     super.onViewCreated(view, savedState);
 
-    this.settingsModel.getSettings().observe(this, new Observer<Settings>() {
-      @Override
-      public void onChanged(Settings settings) {
-        CalculatorFragment.this.updateView();
-      }
-    });
-
     // This has to be in onViewCreated (per #56)
     Job job = this.model.getSelectedJob().getValue();
     Settings settings = this.settingsModel.getSettings().getValue();
 
+    this.updateView();
 
     final EditText insideTempField = (EditText) (getView().findViewById(R.id.inside_temp));
     insideTempField.addTextChangedListener(new UpdateWatcher() {
@@ -123,15 +117,12 @@ public class CalculatorFragment extends Fragment {
     final SiteInfo siteInfo = job.getSiteInfo();
 
     final EditText insideTempField = (EditText) (getView().findViewById(R.id.inside_temp));
-    insideTempField.setText(
-        df.format(siteInfo.insideTemp.doubleValue(settings.getTemperatureUnit())));
+    insideTempField.setText(df.format(siteInfo.getInsideTemp(settings.getTemperatureUnit())));
 
     final EditText surfaceTempField = (EditText) (getView().findViewById(R.id.surface_temp));
-    surfaceTempField.setText(
-        df.format(siteInfo.surfaceTemp.doubleValue(settings.getTemperatureUnit())));
+    surfaceTempField.setText(df.format(siteInfo.getSurfaceTemp(settings.getTemperatureUnit())));
 
-    final EditText relativeHumidityField =
-        (EditText) (getView().findViewById(R.id.relative_humidity));
+    final EditText relativeHumidityField = (EditText) (getView().findViewById(R.id.relative_humidity));
     relativeHumidityField.setText(df.format(siteInfo.relativeHumidity));
 
     Button calculate = (Button) getView().findViewById(R.id.calculate);
