@@ -39,13 +39,6 @@ public class BluetoothFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
     this.view = inflater.inflate(R.layout.bluetooth_layout, container, false);
 
-    return this.view;
-  }
-
-  @Override
-  public void onCreate(Bundle savedState) {
-    super.onCreate(savedState);
-
     // Monitor for changes to the currently selected job and update the view as appropriate.
     AppDatabase appDb = Room.databaseBuilder(
         this.getActivity().getApplicationContext(), AppDatabase.class, "dbk.db").build();
@@ -53,7 +46,7 @@ public class BluetoothFragment extends Fragment {
     this.selectedJobModel = ViewModelProviders.of(
         this.getActivity(), sjmFactory).get(SelectedJobModel.class);
 
-    this.recyclerView = getView().findViewById(R.id.bluetooth_recycler);
+    this.recyclerView = this.view.findViewById(R.id.bluetooth_recycler);
 
     this.layoutManager = new LinearLayoutManager(this.getContext());
     this.recyclerView.setLayoutManager(this.layoutManager);
@@ -63,5 +56,12 @@ public class BluetoothFragment extends Fragment {
     this.selectedJobModel.getSelectedJob().observe(this, (Job job) -> {
       this.adapter = new BoostBoxRecyclerAdapter(job.getBoxes());
     });
+
+    return this.view;
+  }
+
+  @Override
+  public void onCreate(Bundle savedState) {
+    super.onCreate(savedState);
   }
 }
