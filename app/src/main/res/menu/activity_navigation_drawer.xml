@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:showIn="navigation_view"
-    android:background="@drawable/blackbackground"
     app:itemIconTint="@color/colorWhite"
     app:itemTextColor="@color/colorWhite">
 
