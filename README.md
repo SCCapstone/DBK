@@ -1,13 +1,14 @@
 DBK is a company that uses heat and air based equipment to dry out homes after floods. In order to make this process possible, certain numbers and equations are used to determine how much power and heat is needed to fully dry a home. This mobile app (for android using Java SDK) will be designed to make calculations for drying easier to compute for the customer. The goal of this project is for a customer to be able to use this app, and based off the calculations, graphs, and equations, be able to assess how much thermal energy is needed to dry out the water. It will also be used in conjunction with the drymatic equipment, connecting to it via Bluetooth.
 
 ## Video
+[<img src="https://user-images.githubusercontent.com/42427359/56709131-a8fdd300-66ed-11e9-9c3a-5b51ef882458.png" width="300">](https://Youtu.be/tOYG82a8-Cg)
 
 ## Screenshots
-<img src="https://user-images.githubusercontent.com/42427359/56622033-92c41a00-65fc-11e9-99b6-dd1ccd843879.png" width="500">
-<img src="https://user-images.githubusercontent.com/42427359/56622176-14b44300-65fd-11e9-96f6-eff72bdc8924.png" width="500">
-<img src="https://user-images.githubusercontent.com/42427359/56622195-1c73e780-65fd-11e9-8bcd-9635f59f4094.png" width="500">
-<img src="https://user-images.githubusercontent.com/42427359/56622215-2c8bc700-65fd-11e9-8eea-b4034f7966b2.png" width="500">
-<img src="https://user-images.githubusercontent.com/42427359/56622228-34e40200-65fd-11e9-9a71-4c48a77be3f6.png" width="500">
+<img src="https://user-images.githubusercontent.com/42427359/56622033-92c41a00-65fc-11e9-99b6-dd1ccd843879.png" width="400">
+<img src="https://user-images.githubusercontent.com/42427359/56622176-14b44300-65fd-11e9-96f6-eff72bdc8924.png" width="400">
+<img src="https://user-images.githubusercontent.com/42427359/56622195-1c73e780-65fd-11e9-8bcd-9635f59f4094.png" width="400">
+<img src="https://user-images.githubusercontent.com/42427359/56622215-2c8bc700-65fd-11e9-8eea-b4034f7966b2.png" width="400">
+<img src="https://user-images.githubusercontent.com/42427359/56622228-34e40200-65fd-11e9-9a71-4c48a77be3f6.png" width="400">
 
 ## Installation/ Getting Started
 - Download Android Studio
