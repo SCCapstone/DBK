@@ -33,12 +33,12 @@ public class CSV {
 
     private static final String CSV_File = "./DBK.csv";
 
-    public static void main(String[] args)
+    public void main(String[] args)
     {
        write(CSV_File);
     }
 
-    public static void write(String filePath){
+    public void write(String filePath){
 
         File file=new File(filePath);
         try{

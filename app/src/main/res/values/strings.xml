@@ -10,7 +10,7 @@
     <string name="new_job_title">New Job Name</string>
     <string name="create">Create</string>
     <string name="cancel">Cancel</string>
-
+    <string name="share">share</string>
     <!-- Job View -->
     <string name="calculator_tab">Calculator</string>
     <string name="bluetooth_tab">Boost Boxes</string>
