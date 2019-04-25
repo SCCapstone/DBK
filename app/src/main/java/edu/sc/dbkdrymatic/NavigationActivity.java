@@ -150,8 +150,23 @@ public class NavigationActivity extends AppCompatActivity
     } else if (this.fabMenuOpened) {
       this.closeFabMenu();
     } else {
-      super.onBackPressed();
+      /**
+       * alerts user if they want to exit app
+       *
+       * only used if navigation drawer or fab is not open
+       */
+      new AlertDialog.Builder(this)
+              .setMessage("Would you like to exit the app?")
+              .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                  NavigationActivity.super.onBackPressed();
+                }
+              })
+              .setNegativeButton("No", null)
+              .show();
     }
+
   }
 
   /**
