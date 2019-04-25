@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
+import edu.sc.dbkdrymatic.internal.BoostBox;
 import edu.sc.dbkdrymatic.internal.Job;
 import edu.sc.dbkdrymatic.internal.database.AppDatabase;
 import edu.sc.dbkdrymatic.internal.viewmodels.SelectedJobModel;
@@ -29,7 +30,7 @@ public class BluetoothFragment extends Fragment {
 
   private RecyclerView recyclerView;
   private RecyclerView.LayoutManager layoutManager;
-  private RecyclerView.Adapter adapter;
+  private BoostBoxRecyclerAdapter adapter;
   private SelectedJobModel selectedJobModel;
 
   View view;
@@ -53,10 +54,7 @@ public class BluetoothFragment extends Fragment {
     this.recyclerView.setLayoutManager(this.layoutManager);
     this.adapter = new BoostBoxRecyclerAdapter(
         this.selectedJobModel.getSelectedJob().getValue().getBoxes());
-
-    this.selectedJobModel.getSelectedJob().observe(this, (Job job) -> {
-      this.adapter = new BoostBoxRecyclerAdapter(job.getBoxes());
-    });
+    this.recyclerView.setAdapter(this.adapter);
 
     return this.view;
   }

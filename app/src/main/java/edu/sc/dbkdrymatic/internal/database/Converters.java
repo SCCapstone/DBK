@@ -23,71 +23,114 @@ import edu.sc.dbkdrymatic.internal.Damage;
 public class Converters {
   @TypeConverter
   public static double voltageToSi(Amount<ElectricPotential> value) {
+    if (value == null) {
+      return Double.NaN;
+    }
     return value.doubleValue(SI.VOLT);
   }
 
   @TypeConverter
   public static Amount<ElectricPotential> voltageFromSi(double value) {
+    if (value != value) {
+      return null;
+    }
     return Amount.valueOf(value, SI.VOLT);
   }
 
   @TypeConverter
   public static double currentToSi(Amount<ElectricCurrent> value) {
+    if (value == null) {
+      return Double.NaN;
+    }
     return value.doubleValue(SI.AMPERE);
   }
 
   @TypeConverter
   public static Amount<ElectricCurrent> currentFromSi(double value) {
+    if (value != value) {
+      return null;
+    }
     return Amount.valueOf(value, SI.AMPERE);
   }
 
   @TypeConverter
   public static double powerToSi(Amount<Power> value) {
+    if (value == null) {
+      return Double.NaN;
+    }
     return value.doubleValue(SI.WATT);
   }
 
   @TypeConverter
   public static Amount<Power> powerFromSi(double value) {
+    if (value != value) {
+      return null;
+    }
     return Amount.valueOf(value, SI.WATT);
   }
 
   @TypeConverter
   public static double energyToSi(Amount<Energy> value) {
+    if (value == null) {
+      return Double.NaN;
+    }
     return value.doubleValue(SI.JOULE);
   }
 
   @TypeConverter
   public static Amount<Energy> energyFromSi(double value) {
+    if (value != value) {
+      return null;
+    }
+
     return Amount.valueOf(value, SI.JOULE);
   }
 
   @TypeConverter
   public static double volumeToSi(Amount<Volume> value) {
+    if (value == null) {
+      return Double.NaN;
+    }
     return value.doubleValue(SI.CUBIC_METRE);
   }
 
   @TypeConverter
   public static Amount<Volume> volumeFromSi(double value) {
+    if (value != value) {
+      return null;
+    }
     return Amount.valueOf(value, SI.CUBIC_METRE);
   }
 
   @TypeConverter
   public static double tempToSi(Amount<Temperature> value) {
+    if (value == null) {
+      return Double.NaN;
+    }
     return value.doubleValue(SI.KELVIN);
   }
 
   @TypeConverter
   public static Amount<Temperature> tempFromSi(double value) {
+    if (value != value) {
+      return null;
+    }
     return Amount.valueOf(value, SI.KELVIN);
   }
 
   @TypeConverter
   public static double timeToSi(Amount<Duration> value) {
+    if (value == null) {
+      return Double.NaN;
+    }
     return value.doubleValue(SI.SECOND);
   }
 
   @TypeConverter
   public static Amount<Duration> timeFromSi(double value) {
+    if (value != value) {
+      return null;
+    }
     return Amount.valueOf(value, SI.SECOND);
   }
 

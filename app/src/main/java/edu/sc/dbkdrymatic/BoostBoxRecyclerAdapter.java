@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.measure.unit.NonSI;
@@ -23,8 +24,16 @@ public class BoostBoxRecyclerAdapter extends RecyclerView.Adapter {
 
   List<BoostBox> boostBoxes;
 
+  public BoostBoxRecyclerAdapter() {
+    this.boostBoxes = new ArrayList<>();
+  }
+
   public BoostBoxRecyclerAdapter(List<BoostBox> boostBoxes) {
     this.boostBoxes = boostBoxes;
+  }
+
+  public void setBoxes(List<BoostBox> boxes) {
+    this.boostBoxes = boxes;
   }
 
   @NonNull
