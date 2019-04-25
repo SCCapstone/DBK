@@ -39,7 +39,7 @@ import edu.sc.dbkdrymatic.internal.viewmodels.SelectedJobModel;
 import edu.sc.dbkdrymatic.internal.viewmodels.SettingsModel;
 
 public class NavigationActivity extends AppCompatActivity
-    implements NavigationView.OnNavigationItemSelectedListener, Observer<List<Job>>, View.OnClickListener {
+    implements NavigationView.OnNavigationItemSelectedListener, Observer<List<Job>> {
 
   private DataModel jobsModel;
   private SelectedJobModel selection;
@@ -105,7 +105,7 @@ public class NavigationActivity extends AppCompatActivity
     navigationView.setNavigationItemSelectedListener(this);
 
     FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-    fab.setOnClickListener(this);
+    fab.setOnClickListener(new CreateJobFabListener());
     fab.setImageResource(R.drawable.ic_business_center_black_24dp);// changes fab icon to add_profile image
 
     // Opens About us fragment on start up of the code
@@ -169,26 +169,29 @@ public class NavigationActivity extends AppCompatActivity
    */
   @Override
   public boolean onNavigationItemSelected(MenuItem item) {
-    androidx.fragment.app.FragmentManager fragmentManager = getSupportFragmentManager();
+    FragmentManager fragmentManager = getSupportFragmentManager();
+    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
     switch(item.getItemId()) {
-
-        case R.id.nav_about:
-            fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, new AboutUsFragment()).commit();
-            break;
-        case R.id.nav_settings:
-            fragmentManager.beginTransaction()
-                .replace(R.id.content_frame, new SettingsFragment()).commit();
-            break;
-        default:  // This is the case where they have clicked on a Job.
-            // Error check for non-existent job.
-           if (!itemJobMap.keySet().contains(item)) {
-           Toast.makeText(this, "No such job exists.", Toast.LENGTH_SHORT).show();
-            return false;
+      case R.id.nav_about:
+        fab.setOnClickListener(new CreateJobFabListener());
+        fragmentManager.beginTransaction()
+            .replace(R.id.content_frame, new AboutUsFragment()).commit();
+        break;
+      case R.id.nav_settings:
+        fab.setOnClickListener(new CreateJobFabListener());
+        fragmentManager.beginTransaction()
+            .replace(R.id.content_frame, new SettingsFragment()).commit();
+        break;
+      default:  // This is the case where they have clicked on a Job.
+        // Error check for non-existent job.
+        if (!itemJobMap.keySet().contains(item)) {
+          Toast.makeText(this, "No such job exists.", Toast.LENGTH_SHORT).show();
+          return false;
         }
         // Update the selected `Job`.
-          selection.setSelectedJob(itemJobMap.get(item));
-          fragmentManager.beginTransaction().replace(R.id.content_frame, new JobFragment()).commit();
+        selection.setSelectedJob(itemJobMap.get(item));
+        fab.setOnClickListener(new CreateJobFabListener());
+        fragmentManager.beginTransaction().replace(R.id.content_frame, new JobFragment()).commit();
     }
     DrawerLayout drawer = findViewById(R.id.drawer_layout);
     drawer.closeDrawer(GravityCompat.START);
@@ -224,29 +227,42 @@ public class NavigationActivity extends AppCompatActivity
     }
   }
 
-  @Override
-  public void onClick(View view) {
-    // Handle Floating Action Button
-    final EditText name = new EditText(this);
-    name.setInputType(InputType.TYPE_CLASS_TEXT);
+  /**
+   * This is the Floating Action Button's default click listener. When it is being observed by
+   * this listener, it will open a dialog for creating a new Job.
+   */
+  private class CreateJobFabListener implements View.OnClickListener {
+    @Override
+    public void onClick(View view) {
+      final EditText name = new EditText(NavigationActivity.this);
+      name.setInputType(InputType.TYPE_CLASS_TEXT);
 
-    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    builder
-        .setTitle(R.string.new_job_title)
-        .setView(name)
-        .setPositiveButton(R.string.create, new DialogInterface.OnClickListener() {
-          @Override
-          public void onClick(DialogInterface dialog, int i) {
+      AlertDialog.Builder builder = new AlertDialog.Builder(NavigationActivity.this);
+      builder
+          .setTitle(R.string.new_job_title)
+          .setView(name)
+          .setPositiveButton(R.string.create, (DialogInterface dialog, int i) -> {
             // TODO: Switch to the job after it is created.
             jobsModel.createWithName(name.getText().toString(), settings);
             dialog.dismiss();
-          }
-        })
-        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-          @Override
-          public void onClick(DialogInterface dialogInterface, int i) {
-            dialogInterface.cancel();
-          }
-        }).show();
+          })
+          .setNegativeButton(R.string.cancel, (DialogInterface dialog, int i) ->{
+            dialog.cancel();
+          }).show();
+    }
+  }
+
+  /**
+   * This is the FloatingActionButton's click listener for the Job view. Within the Job View,
+   * clicking the FAB should expose two other FABs: One will open a CreateJob dialog when clicked
+   * and the other will open an AddBoostBox dialog which will allow the user to add a BoostBox to
+   * the selected Job.
+   */
+  private class ExpandableMenuFabListener implements View.OnClickListener {
+
+    @Override
+    public void onClick(View view) {
+
+    }
   }
 }
