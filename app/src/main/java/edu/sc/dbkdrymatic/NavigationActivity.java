@@ -107,8 +107,14 @@ public class NavigationActivity extends AppCompatActivity
     NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(this);
 
+    // Set up FAB menus.
     FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
     fab.setOnClickListener(new CreateJobFabListener());
+
+    FloatingActionButton cjFab = findViewById(R.id.fab_create_job);
+    fab.setOnClickListener(new CreateJobFabListener());
+
+    //TODO: Boost Box FAB handler
 
     // Opens About us fragment on start up of the code
     FragmentManager fragmentManager = getSupportFragmentManager();
@@ -239,11 +245,21 @@ public class NavigationActivity extends AppCompatActivity
   }
 
   public void openFabMenu() {
+    findViewById(R.id.fab_create_job).setClickable(true);
+    findViewById(R.id.fab_create_job).setOnClickListener(new CreateJobFabListener());
+    findViewById(R.id.create_job_layout).setVisibility(View.VISIBLE);
 
+    findViewById(R.id.fab_add_box).setClickable(true);
+    findViewById(R.id.add_box_layout).setVisibility(View.VISIBLE);
     this.fabMenuOpened = true;
   }
 
   public void closeFabMenu() {
+    findViewById(R.id.fab_create_job).setClickable(false);
+    findViewById(R.id.create_job_layout).setVisibility(View.INVISIBLE);
+
+    findViewById(R.id.fab_add_box).setClickable(false);
+    findViewById(R.id.add_box_layout).setVisibility(View.INVISIBLE);
     this.fabMenuOpened = false;
   }
 
