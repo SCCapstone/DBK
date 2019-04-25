@@ -132,6 +132,8 @@ public class NavigationActivity extends AppCompatActivity
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     if (drawer.isDrawerOpen(GravityCompat.START)) {
       drawer.closeDrawer(GravityCompat.START);
+    } else if (this.fabMenuOpened) {
+      this.closeFabMenu();
     } else {
       super.onBackPressed();
     }
@@ -175,6 +177,7 @@ public class NavigationActivity extends AppCompatActivity
    */
   @Override
   public boolean onNavigationItemSelected(MenuItem item) {
+    this.closeFabMenu();
     FragmentManager fragmentManager = getSupportFragmentManager();
     FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
     switch(item.getItemId()) {
