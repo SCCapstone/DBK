@@ -31,7 +31,8 @@ public class JobFragment extends Fragment {
     this.view = inflater.inflate(R.layout.job_layout, container, false);
     AppDatabase appDb = Room.databaseBuilder(
             this.getActivity().getApplicationContext(), AppDatabase.class, "dbk.db").build();
-    SelectedJobModel.Factory sjmFactory = new SelectedJobModel.Factory(appDb.siteInfoDao());
+    SelectedJobModel.Factory sjmFactory
+        = new SelectedJobModel.Factory(appDb.siteInfoDao(), appDb.boostBoxDao());
     this.model = ViewModelProviders.of(this.getActivity(), sjmFactory).get(SelectedJobModel.class);
     Job job = this.model.getSelectedJob().getValue();
     String jobname;

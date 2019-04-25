@@ -57,9 +57,7 @@ public class BoostBox {
   private String address;
 
   // Primary key of the Job Site at which this BoostBox is located.
-  @NonNull
   private int jobId;
-
 
   private String name;
 
@@ -101,9 +99,10 @@ public class BoostBox {
   // Energy used by the device since it was last reset.
   private Amount<Energy> cumulativeEnergy;
 
-  public BoostBox(@NonNull String address, String name) {
+  public BoostBox(@NonNull String address, String name, int jobId) {
     this.address = address;
     this.name = name;
+    this.jobId = jobId;
     this.airflow = false;
     this.running = false;
     this.autoRestart = false;
@@ -251,6 +250,10 @@ public class BoostBox {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public static BoostBox getInstance(Job job, BluetoothDevice device) {
+    return new BoostBox(device.getAddress(), device.getName(), job.getSiteInfo().getId());
   }
 
   /*** Commented out by hxtk (2019-02-12)

@@ -1,5 +1,6 @@
 package edu.sc.dbkdrymatic.internal.viewmodels;
 
+import android.bluetooth.BluetoothDevice;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
@@ -11,18 +12,22 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import edu.sc.dbkdrymatic.internal.BoostBox;
 import edu.sc.dbkdrymatic.internal.Job;
+import edu.sc.dbkdrymatic.internal.database.BoostBoxDao;
 import edu.sc.dbkdrymatic.internal.database.SiteInfoDao;
 
 public class SelectedJobModel extends ViewModel implements Observer<Job> {
 
   private SiteInfoDao siDao;
+  private BoostBoxDao bbDao;
 
   private MutableLiveData<Job> selectedJob;
   private int selectedJobId;
 
-  public SelectedJobModel(SiteInfoDao siDao) {
+  public SelectedJobModel(SiteInfoDao siDao, BoostBoxDao bbDao) {
     this.siDao = siDao;
+    this.bbDao = bbDao;
   }
 
   /**
@@ -71,6 +76,13 @@ public class SelectedJobModel extends ViewModel implements Observer<Job> {
     return this.selectedJob;
   }
 
+  public void addBoostBox(BluetoothDevice device) {
+    BoostBox box = BoostBox.getInstance(selectedJob.getValue(), device);
+    AsyncTask.execute(() -> {
+      this.bbDao.insertAll(box);
+    });
+  }
+
   @Override
   public void onChanged(@Nullable Job job) {
     selectedJob.postValue(job);
@@ -86,14 +98,17 @@ public class SelectedJobModel extends ViewModel implements Observer<Job> {
 
     @NonNull
     private final SiteInfoDao siteInfoDao;
+    @NonNull
+    private final BoostBoxDao bbDao;
 
-    public Factory(SiteInfoDao siteInfoDao) {
+    public Factory(@NonNull SiteInfoDao siteInfoDao, @NonNull BoostBoxDao bbDao) {
       this.siteInfoDao = siteInfoDao;
+      this.bbDao = bbDao;
     }
 
     @Override
     public <T extends ViewModel> T create(Class<T> modelClass) {
-      return (T) new SelectedJobModel(siteInfoDao);
+      return (T) new SelectedJobModel(siteInfoDao, bbDao);
     }
   }
 }

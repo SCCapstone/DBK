@@ -33,6 +33,7 @@ import edu.sc.dbkdrymatic.internal.Damage;
 import edu.sc.dbkdrymatic.internal.Job;
 import edu.sc.dbkdrymatic.internal.SiteInfo;
 import edu.sc.dbkdrymatic.internal.database.AppDatabase;
+import edu.sc.dbkdrymatic.internal.database.BoostBoxDao;
 import edu.sc.dbkdrymatic.internal.database.SiteInfoDao;
 import edu.sc.dbkdrymatic.test.Utils;
 
@@ -41,6 +42,7 @@ public class SelectedJobModelTest {
   @Rule
   public InstantTaskExecutorRule rule = new InstantTaskExecutorRule();
 
+  private BoostBoxDao bbDao;
   private SiteInfoDao siDao;
   private SiteInfo siteInfo;
   private LifecycleOwner owner;
@@ -71,11 +73,13 @@ public class SelectedJobModelTest {
     this.owner = Mockito.mock(LifecycleOwner.class);
     this.registry = new LifecycleRegistry(owner);
     Mockito.when(this.owner.getLifecycle()).thenReturn(this.registry);
+
+    this.bbDao = Mockito.mock(BoostBoxDao.class);
   }
 
   @Test
   public void getSelectedJob_liveDataNotNull() throws ExecutionException, InterruptedException {
-    SelectedJobModel model = new SelectedJobModel(this.siDao);
+    SelectedJobModel model = new SelectedJobModel(this.siDao, this.bbDao);
     LiveData<Job> data = model.getSelectedJob();
 
     Assert.assertNotNull(data);
@@ -83,7 +87,7 @@ public class SelectedJobModelTest {
 
   @Test
   public void getSelectedJob_jobInitiallyNull() throws ExecutionException, InterruptedException {
-    SelectedJobModel model = new SelectedJobModel(this.siDao);
+    SelectedJobModel model = new SelectedJobModel(this.siDao, this.bbDao);
     LiveData<Job> data = model.getSelectedJob();
 
     Utils.observe(data, this.owner, Mockito.mock(Observer.class));
@@ -93,7 +97,7 @@ public class SelectedJobModelTest {
   @Test
   public void setJob_setJobFirst() throws ExecutionException, InterruptedException {
     Job job = new Job(new ArrayList<BoostBox>(), this.siteInfo);
-    SelectedJobModel model = new SelectedJobModel(this.siDao);
+    SelectedJobModel model = new SelectedJobModel(this.siDao, this.bbDao);
 
     model.setSelectedJob(job);
     LiveData<Job> data = model.getSelectedJob();

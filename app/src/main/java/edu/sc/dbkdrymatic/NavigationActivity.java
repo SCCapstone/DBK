@@ -82,7 +82,8 @@ public class NavigationActivity extends AppCompatActivity
     DataModel.Factory jobsFactory = new DataModel.Factory(appDb.siteInfoDao());
     this.jobsModel = ViewModelProviders.of(this, jobsFactory).get(DataModel.class);
 
-    SelectedJobModel.Factory selectionFactory = new SelectedJobModel.Factory(appDb.siteInfoDao());
+    SelectedJobModel.Factory selectionFactory
+        = new SelectedJobModel.Factory(appDb.siteInfoDao(), appDb.boostBoxDao());
     this.selection = ViewModelProviders.of(
         this, selectionFactory).get(SelectedJobModel.class);
 
@@ -365,9 +366,12 @@ public class NavigationActivity extends AppCompatActivity
                   .show();
               return;
             }
-            BluetoothDevice selection = nameDeviceMap.get(deviceSelector.getSelectedItem());
-            BoostBox box = new BoostBox(selection.getAddress(), selection.getName());
-            NavigationActivity.this.selection.getSelectedJob().getValue().AddBox(box);
+
+            System.out.println(deviceSelector.getSelectedItem());
+            BluetoothDevice selection = nameDeviceMap.get(
+                (String) deviceSelector.getSelectedItem());
+            NavigationActivity.this.selection.addBoostBox(selection);
+
             dialog.dismiss();
           })
           .setNegativeButton(R.string.cancel, (DialogInterface dialog, int i) ->{

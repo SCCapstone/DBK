@@ -48,7 +48,8 @@ public class CalculatorFragment extends Fragment {
     // Monitor for changes to the currently selected job and update the view as appropriate.
     AppDatabase appDb = Room.databaseBuilder(
         this.getActivity().getApplicationContext(), AppDatabase.class, "dbk.db").build();
-    SelectedJobModel.Factory sjmFactory = new SelectedJobModel.Factory(appDb.siteInfoDao());
+    SelectedJobModel.Factory sjmFactory
+        = new SelectedJobModel.Factory(appDb.siteInfoDao(), appDb.boostBoxDao());
     this.model = ViewModelProviders.of(this.getActivity(), sjmFactory).get(SelectedJobModel.class);
 
     // Monitor for changes to the application preferences.
