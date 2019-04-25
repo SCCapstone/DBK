@@ -174,11 +174,13 @@ public class NavigationActivity extends AppCompatActivity
     switch(item.getItemId()) {
       case R.id.nav_about:
         fab.setOnClickListener(new CreateJobFabListener());
+        fab.setImageResource(R.drawable.ic_business_center_black_24dp);
         fragmentManager.beginTransaction()
             .replace(R.id.content_frame, new AboutUsFragment()).commit();
         break;
       case R.id.nav_settings:
         fab.setOnClickListener(new CreateJobFabListener());
+        fab.setImageResource(R.drawable.ic_business_center_black_24dp);
         fragmentManager.beginTransaction()
             .replace(R.id.content_frame, new SettingsFragment()).commit();
         break;
@@ -190,7 +192,8 @@ public class NavigationActivity extends AppCompatActivity
         }
         // Update the selected `Job`.
         selection.setSelectedJob(itemJobMap.get(item));
-        fab.setOnClickListener(new CreateJobFabListener());
+        fab.setOnClickListener(new ExpandableMenuFabListener());
+        fab.setImageResource(R.drawable.ic_menu_black_24dp);
         fragmentManager.beginTransaction().replace(R.id.content_frame, new JobFragment()).commit();
     }
     DrawerLayout drawer = findViewById(R.id.drawer_layout);
