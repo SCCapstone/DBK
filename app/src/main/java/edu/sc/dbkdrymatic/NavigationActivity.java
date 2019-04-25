@@ -9,6 +9,8 @@ import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -45,6 +47,7 @@ public class NavigationActivity extends AppCompatActivity
   private SelectedJobModel selection;
   private Map<MenuItem, Job> itemJobMap;
   private Settings settings;
+  private boolean fabMenuOpened = false;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -106,13 +109,10 @@ public class NavigationActivity extends AppCompatActivity
 
     FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
     fab.setOnClickListener(new CreateJobFabListener());
-    fab.setImageResource(R.drawable.ic_business_center_black_24dp);// changes fab icon to add_profile image
 
     // Opens About us fragment on start up of the code
     FragmentManager fragmentManager = getSupportFragmentManager();
     fragmentManager.beginTransaction().replace(R.id.content_frame, new AboutUsFragment()).commit();
-
-
   }
 
   /**
@@ -227,6 +227,23 @@ public class NavigationActivity extends AppCompatActivity
     }
   }
 
+  public void toggleFabMenu() {
+    if (this.fabMenuOpened) {
+      this.closeFabMenu();
+    } else {
+      this.openFabMenu();
+    }
+  }
+
+  public void openFabMenu() {
+
+    this.fabMenuOpened = true;
+  }
+
+  public void closeFabMenu() {
+    this.fabMenuOpened = false;
+  }
+
   /**
    * This is the Floating Action Button's default click listener. When it is being observed by
    * this listener, it will open a dialog for creating a new Job.
@@ -262,7 +279,7 @@ public class NavigationActivity extends AppCompatActivity
 
     @Override
     public void onClick(View view) {
-
+      NavigationActivity.this.toggleFabMenu();
     }
   }
 }
