@@ -8,6 +8,7 @@
     <string name="action_about">About Us</string>
     <string name="action_settings">Settings</string>
     <string name="new_job_title">New Job Name</string>
+    <string name="boost_box_select">Select Boost Box</string>
     <string name="create">Create</string>
     <string name="cancel">Cancel</string>
     <string name="share">share</string>

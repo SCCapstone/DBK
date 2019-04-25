@@ -1,6 +1,10 @@
 package edu.sc.dbkdrymatic;
 
 import android.app.AlertDialog;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -11,7 +15,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -29,10 +36,13 @@ import androidx.room.Room;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import edu.sc.dbkdrymatic.internal.BoostBox;
 import edu.sc.dbkdrymatic.internal.Settings;
 import edu.sc.dbkdrymatic.internal.database.AppDatabase;
 import edu.sc.dbkdrymatic.internal.Job;
@@ -43,6 +53,7 @@ import edu.sc.dbkdrymatic.internal.viewmodels.SettingsModel;
 public class NavigationActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener, Observer<List<Job>> {
 
+  private BluetoothAdapter btAdapter;
   private DataModel jobsModel;
   private SelectedJobModel selection;
   private Map<MenuItem, Job> itemJobMap;
@@ -115,6 +126,9 @@ public class NavigationActivity extends AppCompatActivity
     fab.setOnClickListener(new CreateJobFabListener());
 
     //TODO: Boost Box FAB handler
+    BluetoothManager btManager = (BluetoothManager) this.getSystemService(
+        Context.BLUETOOTH_SERVICE);
+    this.btAdapter = btManager.getAdapter();
 
     // Opens About us fragment on start up of the code
     FragmentManager fragmentManager = getSupportFragmentManager();
@@ -253,6 +267,7 @@ public class NavigationActivity extends AppCompatActivity
     findViewById(R.id.create_job_layout).setVisibility(View.VISIBLE);
 
     findViewById(R.id.fab_add_box).setClickable(true);
+    findViewById(R.id.fab_add_box).setOnClickListener(new AddBoostBoxListener());
     findViewById(R.id.add_box_layout).setVisibility(View.VISIBLE);
     this.fabMenuOpened = true;
   }
@@ -302,6 +317,62 @@ public class NavigationActivity extends AppCompatActivity
     @Override
     public void onClick(View view) {
       NavigationActivity.this.toggleFabMenu();
+    }
+  }
+
+  private class AddBoostBoxListener implements View.OnClickListener {
+
+    @Override
+    public void onClick(View view) {
+      final Spinner deviceSelector = new Spinner(
+          NavigationActivity.this, Spinner.MODE_DROPDOWN);
+      Set<BluetoothDevice> devices = NavigationActivity.this.btAdapter.getBondedDevices();
+
+      if (devices.size() == 0) {
+        Toast
+            .makeText(
+                NavigationActivity.this,
+                "No paired devices found. Is Bluetooth enabled?",
+                Toast.LENGTH_LONG)
+            .show();
+      }
+
+      HashMap<String, BluetoothDevice> nameDeviceMap = new HashMap<>();
+      for (BluetoothDevice device: devices) {
+        if (device.getName() != null && !nameDeviceMap.containsKey(device.getName())) {
+          nameDeviceMap.put(device.getName(), device);
+        } else {
+          nameDeviceMap.put(device.toString(), device);
+        }
+      }
+
+      ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+          NavigationActivity.this, R.layout.support_simple_spinner_dropdown_item);
+      adapter.addAll(nameDeviceMap.keySet());
+      deviceSelector.setAdapter(adapter);
+
+      AlertDialog.Builder builder = new AlertDialog.Builder(NavigationActivity.this);
+      builder
+          .setTitle(R.string.boost_box_select)
+          .setView(deviceSelector)
+          .setPositiveButton(R.string.create, (DialogInterface dialog, int i) -> {
+            if (deviceSelector.getSelectedItem() == null) {
+              Toast
+                  .makeText(
+                      NavigationActivity.this,
+                      "Please Select a Bluetooth Device.",
+                      Toast.LENGTH_SHORT)
+                  .show();
+              return;
+            }
+            BluetoothDevice selection = nameDeviceMap.get(deviceSelector.getSelectedItem());
+            BoostBox box = new BoostBox(selection.getAddress(), selection.getName());
+            NavigationActivity.this.selection.getSelectedJob().getValue().AddBox(box);
+            dialog.dismiss();
+          })
+          .setNegativeButton(R.string.cancel, (DialogInterface dialog, int i) ->{
+            dialog.cancel();
+          }).show();
     }
   }
 }
