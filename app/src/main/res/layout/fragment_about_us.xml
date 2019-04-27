@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@drawable/blackbackground"
 
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="visible"
         android:background="@drawable/blackbackground">
         tools:context=".AboutUsFragment"><![CDATA[
     android:orientation="vertical">
     ]]>
 
-    <ImageButton
+
+
+
+        <ImageButton
         android:id="@+id/fb_btn"
         android:layout_width="75dp"
         android:layout_height="75dp"
@@ -139,3 +148,4 @@
         app:layout_constraintTop_toBottomOf="@+id/dbk_btn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
