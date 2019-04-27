@@ -29,9 +29,9 @@ public class CSV {
     /**
      * this class is to be used for creating the CSV file that contains all the data related to
      * the boost boxes
-     */
 
-    private static final String CSV_File = "./DBK.csv";
+
+    private final String CSV_File = "./DBK.csv";
 
     public void main(String[] args)
     {
@@ -68,7 +68,7 @@ public class CSV {
         }
         }
 
-    public static void read (String file)
+    public void read (String file)
     {
 
         try {
@@ -92,5 +92,5 @@ public class CSV {
             e.printStackTrace();
         }
     }
-
+     */
 }
