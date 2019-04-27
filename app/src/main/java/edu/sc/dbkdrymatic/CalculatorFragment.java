@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ArrayAdapter;
@@ -87,6 +88,16 @@ public class CalculatorFragment extends Fragment {
         model.update(job);
       }
     });
+    //click anywhere else on screen to hide keyboard when on edit text
+    insideTempField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+      @Override
+      public void onFocusChange(View v, boolean hasFocus) {
+        if (!hasFocus) {
+          hideKeyboard(v);
+        }
+      }
+    });
+
 
     final EditText surfaceTempField = (EditText) (getView().findViewById(R.id.surface_temp));
     surfaceTempField.addTextChangedListener(new UpdateWatcher() {
@@ -94,6 +105,14 @@ public class CalculatorFragment extends Fragment {
       public void update(double value) {
         job.getSiteInfo().surfaceTemp = Amount.valueOf(value, settings.getTemperatureUnit());
         model.update(job);
+      }
+    });
+    surfaceTempField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+      @Override
+      public void onFocusChange(View v, boolean hasFocus) {
+        if (!hasFocus) {
+          hideKeyboard(v);
+        }
       }
     });
 
@@ -107,7 +126,14 @@ public class CalculatorFragment extends Fragment {
 
       }
     });
-
+    relativeHumidityField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+      @Override
+      public void onFocusChange(View v, boolean hasFocus) {
+        if (!hasFocus) {
+          hideKeyboard(v);
+        }
+      }
+    });
   }
 
   public void updateView() {
@@ -177,5 +203,10 @@ public class CalculatorFragment extends Fragment {
     public void afterTextChanged(Editable editable) {
 
     }
+  }
+  //function to hide keyboard
+  public void hideKeyboard(View view){
+    InputMethodManager inputMethodManager=(InputMethodManager)getActivity().getSystemService(NavigationActivity.INPUT_METHOD_SERVICE);
+    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
   }
 }

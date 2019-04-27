@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -234,6 +235,8 @@ public class NavigationActivity extends AppCompatActivity
         fab.setOnClickListener(new ExpandableMenuFabListener());
         fab.setImageResource(R.drawable.ic_menu_black_24dp);
         fragmentManager.beginTransaction().replace(R.id.content_frame, new JobFragment()).commit();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setCheckedItem(item);
     }
     DrawerLayout drawer = findViewById(R.id.drawer_layout);
     drawer.closeDrawer(GravityCompat.START);
@@ -394,4 +397,5 @@ public class NavigationActivity extends AppCompatActivity
           }).show();
     }
   }
+
 }
