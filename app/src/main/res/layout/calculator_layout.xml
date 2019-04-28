@@ -25,7 +25,6 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="60dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/krona_one"
         android:text="@string/calculator_title"
