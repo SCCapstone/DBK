@@ -4,16 +4,17 @@
     android:layout_height="wrap_content"
     android:fillViewport="true"
     xmlns:cardview="http://schemas.android.com/apk/res-auto"
-    cardview:cardBackgroundColor="@color/colorDarkGrey"
+    cardview:cardBackgroundColor="@color/colorGrey"
     cardview:cardCornerRadius="6dp"
     cardview:cardElevation="6dp"
+    android:padding="8dp"
     >
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp"
+
         >
 
         <TextView
