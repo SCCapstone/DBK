@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:fillViewport="true"
@@ -23,7 +24,7 @@
 
             <TextView
                 android:id="@+id/bluetooth_title"
-                android:layout_width="295dp"
+                android:layout_width="323dp"
                 android:layout_height="wrap_content"
                 android:padding="1dp"
                 android:text="Sample Title"
@@ -34,10 +35,11 @@
                 android:id="@+id/refreshButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginRight="5dp"
-                cardview:srcCompat="@drawable/ic_refresh"
-                cardview:itemIconTint="@color/colorWhite"/>
+                android:layout_weight="1"
+                android:background="@color/colorDarkGrey"
+                cardview:tint="@color/colorWhite"
+                cardview:srcCompat="@drawable/ic_refresh" />
         </LinearLayout>
 
         <LinearLayout
