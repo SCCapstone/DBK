@@ -332,11 +332,13 @@ public class NavigationActivity extends AppCompatActivity
           }).show();
     }
   }
-/**
+/** // this is going to be the delete job button functionality. CUrrently is a copy/paste
+ * of the create job functionality.
+ *
   private class DeleteJobFabListener implements View.OnClickListener {
     @Override
     public void onClick(View view) {
-      final EditText name = new EditText(NavigationActivity.this);
+      final EditText name = new EditText(NavigationActivity.this); //probably not necessary for delete
       name.setInputType(InputType.TYPE_CLASS_TEXT);
 
       AlertDialog.Builder builder = new AlertDialog.Builder(NavigationActivity.this);
