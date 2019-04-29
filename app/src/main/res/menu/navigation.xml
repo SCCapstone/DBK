@@ -10,7 +10,7 @@
         app:showAsAction="ifRoom"
         android:orderInCategory="1"
         android:menuCategory="secondary"
-        app:actionProviderClass="android.widget.ShareActionProvider"
+        android:actionProviderClass="android.widget.ShareActionProvider"
 
         />
 
