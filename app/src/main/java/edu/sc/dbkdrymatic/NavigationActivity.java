@@ -288,6 +288,10 @@ public class NavigationActivity extends AppCompatActivity
     findViewById(R.id.fab_add_box).setClickable(true);
     findViewById(R.id.fab_add_box).setOnClickListener(new AddBoostBoxListener());
     findViewById(R.id.add_box_layout).setVisibility(View.VISIBLE);
+
+    findViewById(R.id.fab_del_job).setClickable(true);
+    findViewById(R.id.fab_del_job).setOnClickListener(new CreateJobFabListener());//change this to delete job
+    findViewById(R.id.delete_job_layout).setVisibility(View.VISIBLE);
     this.fabMenuOpened = true;
   }
 
@@ -297,6 +301,10 @@ public class NavigationActivity extends AppCompatActivity
 
     findViewById(R.id.fab_add_box).setClickable(false);
     findViewById(R.id.add_box_layout).setVisibility(View.INVISIBLE);
+
+    findViewById(R.id.fab_del_job).setClickable(false);
+    findViewById(R.id.delete_job_layout).setVisibility(View.INVISIBLE);
+
     this.fabMenuOpened = false;
   }
 
@@ -324,7 +332,28 @@ public class NavigationActivity extends AppCompatActivity
           }).show();
     }
   }
+/**
+  private class DeleteJobFabListener implements View.OnClickListener {
+    @Override
+    public void onClick(View view) {
+      final EditText name = new EditText(NavigationActivity.this);
+      name.setInputType(InputType.TYPE_CLASS_TEXT);
 
+      AlertDialog.Builder builder = new AlertDialog.Builder(NavigationActivity.this);
+      builder
+              .setTitle(R.string.new_job_title)
+              .setView(name)
+              .setPositiveButton(R.string.create, (DialogInterface dialog, int i) -> {
+                // TODO: Switch to the job after it is created.
+                jobsModel.createWithName(name.getText().toString(), settings);
+                dialog.dismiss();
+              })
+              .setNegativeButton(R.string.cancel, (DialogInterface dialog, int i) ->{
+                dialog.cancel();
+              }).show();
+    }
+  }
+  */
   /**
    * This is the FloatingActionButton's click listener for the Job view. Within the Job View,
    * clicking the FAB should expose two other FABs: One will open a CreateJob dialog when clicked
