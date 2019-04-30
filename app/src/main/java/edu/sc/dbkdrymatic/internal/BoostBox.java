@@ -20,10 +20,13 @@ import javax.measure.quantity.ElectricPotential;
 import javax.measure.quantity.Energy;
 import javax.measure.quantity.Power;
 import javax.measure.quantity.Temperature;
+import javax.measure.unit.SI;
+import javax.measure.unit.Unit;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -49,6 +52,9 @@ import static androidx.room.ForeignKey.CASCADE;
 @Entity
 @TypeConverters(Converters.class)
 public class BoostBox {
+  public static final Unit<Energy> KWH = SI.KILO(SI.JOULE).times(3600);
+  public static final Unit<Energy> WH = SI.JOULE.times(3600);
+
   // Bluetooth hardware address of the BoostBox represented by this object.
   @NonNull
   @PrimaryKey
@@ -275,7 +281,35 @@ public class BoostBox {
    * Take in a string containing a line of Bluetooth data and update the corresponding field.
    */
   public void parse(String line) {
+    String[] tokens = line.split(" ");
+    System.out.println(Arrays.toString(tokens));
 
+    if (tokens.length == 3) {
+      String key = tokens[0];
+      int value = Integer.parseInt(tokens[2]);
+      switch (key) {
+        case "Time":
+          break;
+        case "HoursRun":
+          this.setHours(Amount.valueOf(value, SI.SECOND));
+          break;
+        case "kWh": {
+          int energy = (int) this.getCumulativeEnergy().doubleValue(WH);
+          energy = value * 1000 + (energy % 1000);
+          this.setCumulativeEnergy(Amount.valueOf(energy, WH));
+        }
+        break;
+        case "Wh": {
+          int energy = (int) this.getCumulativeEnergy().doubleValue(WH) / 1000;
+          energy = value + (energy * 1000);
+          this.setCumulativeEnergy(Amount.valueOf(energy, WH));
+        }
+        break;
+        default:
+          break;
+      }
+      this.
+    }
   }
 
   /*** Commented out by hxtk (2019-02-12)

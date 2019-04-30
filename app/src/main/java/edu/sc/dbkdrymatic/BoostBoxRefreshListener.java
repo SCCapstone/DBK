@@ -39,10 +39,11 @@ public class BoostBoxRefreshListener implements View.OnClickListener {
         BluetoothSocket socket = (BluetoothSocket) m.invoke(device, 1);
         socket.connect();
         Scanner scanner = new Scanner(socket.getInputStream());
-        scanner.useDelimiter("\n");
+        scanner.useDelimiter("(\r\n)");
 
         while (true) {
           box.parse(scanner.next());
+          System.out.println("BBRL: Read line");
           sjm.updateBoostBox(box);
         }
       } catch (NoSuchMethodException e) {

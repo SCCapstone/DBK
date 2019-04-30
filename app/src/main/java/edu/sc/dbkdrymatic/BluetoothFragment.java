@@ -62,6 +62,7 @@ public class BluetoothFragment extends Fragment {
     this.recyclerView.setAdapter(this.adapter);
 
     this.selectedJobModel.getSelectedJob().observe(this, (Job job) -> {
+      System.out.println("Updating boost boxes in view");
       this.adapter.setBoxes(job.getBoxes());
     });
 

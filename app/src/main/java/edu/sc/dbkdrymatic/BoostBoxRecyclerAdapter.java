@@ -67,7 +67,7 @@ public class BoostBoxRecyclerAdapter extends RecyclerView.Adapter {
 
     TextView energy = holder.getView().findViewById(R.id.boost_box_energy);
     double kilowattHours = boostBoxes.get(position).getCumulativeEnergy().doubleValue(KWH);
-    energy.setText(df.format(kilowattHours) + "kWh");
+    energy.setText(df.format(kilowattHours) + " kWh");
 
     TextView hours = holder.getView().findViewById(R.id.boost_box_hours);
     double hoursRun = boostBoxes.get(position).getHours().doubleValue(NonSI.HOUR);
