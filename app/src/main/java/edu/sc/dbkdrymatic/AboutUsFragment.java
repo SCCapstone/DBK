@@ -27,7 +27,7 @@ public class AboutUsFragment extends Fragment {
     super.onCreate(savedInstance);
 
     SharedPreferences preferences = PreferenceManager
-        .getDefaultSharedPreferences(this.getContext());
+            .getDefaultSharedPreferences(this.getContext());
 
   }
 
@@ -35,7 +35,7 @@ public class AboutUsFragment extends Fragment {
   @Nullable
   @Override
   public View onCreateView(
-      LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+          LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
     myView = inflater.inflate(R.layout.fragment_about_us, container, false);
     getActivity().setTitle("About Us");
     return myView;

@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -46,8 +47,11 @@ import java.util.Set;
 
 import edu.sc.dbkdrymatic.internal.BoostBox;
 import edu.sc.dbkdrymatic.internal.Settings;
+import edu.sc.dbkdrymatic.internal.SiteInfo;
 import edu.sc.dbkdrymatic.internal.database.AppDatabase;
 import edu.sc.dbkdrymatic.internal.Job;
+import edu.sc.dbkdrymatic.internal.database.BoostBoxDao;
+import edu.sc.dbkdrymatic.internal.database.SiteInfoDao;
 import edu.sc.dbkdrymatic.internal.viewmodels.DataModel;
 import edu.sc.dbkdrymatic.internal.viewmodels.SelectedJobModel;
 import edu.sc.dbkdrymatic.internal.viewmodels.SettingsModel;
@@ -97,7 +101,7 @@ public class NavigationActivity extends AppCompatActivity
 
     /** Commented out by hxtk (2019-02-28):
      * Deprecated and takes different arguments than what we supply.
-     * Uncomment or replace when we figure out how (Google's documentation us currently lacking).
+     * Uncomment or replace when we figure out how (Google's documentation is currently lacking).
      */
 
     /**comment by lanerass (3-12-19)
@@ -292,9 +296,15 @@ public class NavigationActivity extends AppCompatActivity
 
     findViewById(R.id.fab_del_job).setClickable(true);
     findViewById(R.id.fab_del_job).setOnClickListener(new CreateJobFabListener());//change this to delete job
-    findViewById(R.id.delete_job_layout).setVisibility(View.VISIBLE);
+    findViewById(R.id.delete_job_layout).setVisibility(View.INVISIBLE); // change to visible once button functionality done
+
+    findViewById(R.id.fab_edit_job).setClickable(true);
+    findViewById(R.id.fab_edit_job).setOnClickListener(new AddBoostBoxListener());//change this to edit job
+    findViewById(R.id.edit_job_layout).setVisibility(View.INVISIBLE);
+
     this.fabMenuOpened = true;
   }
+
 
   public void closeFabMenu() {
     findViewById(R.id.fab_create_job).setClickable(false);
@@ -306,6 +316,8 @@ public class NavigationActivity extends AppCompatActivity
     findViewById(R.id.fab_del_job).setClickable(false);
     findViewById(R.id.delete_job_layout).setVisibility(View.INVISIBLE);
 
+    findViewById(R.id.fab_edit_job).setClickable(false);
+    findViewById(R.id.edit_job_layout).setVisibility(View.INVISIBLE);
     this.fabMenuOpened = false;
   }
 
@@ -344,13 +356,14 @@ public class NavigationActivity extends AppCompatActivity
           }).show();
     }
   }
-/** // this is going to be the delete job button functionality. CUrrently is a copy/paste
- * of the create job functionality.
- *
-  private class DeleteJobFabListener implements View.OnClickListener {
+
+  // this is going to be the delete job button functionality. Currently this is a copy/paste
+  // of the create_job functionality.
+
+ private class DeleteJobFabListener implements View.OnClickListener  {
     @Override
     public void onClick(View view) {
-      final EditText name = new EditText(NavigationActivity.this); //probably not necessary for delete
+      final EditText name = new EditText(NavigationActivity.this);
       name.setInputType(InputType.TYPE_CLASS_TEXT);
 
       AlertDialog.Builder builder = new AlertDialog.Builder(NavigationActivity.this);
@@ -367,7 +380,28 @@ public class NavigationActivity extends AppCompatActivity
               }).show();
     }
   }
-  */
+
+  private class EditJobFabListener implements View.OnClickListener  {
+    @Override
+    public void onClick(View view) {
+      final EditText name = new EditText(NavigationActivity.this);
+      name.setInputType(InputType.TYPE_CLASS_TEXT);
+
+      AlertDialog.Builder builder = new AlertDialog.Builder(NavigationActivity.this);
+      builder
+              .setTitle(R.string.new_job_title)
+              .setView(name)
+              .setPositiveButton(R.string.create, (DialogInterface dialog, int i) -> {
+                // TODO: Switch to the job after it is created.
+                jobsModel.createWithName(name.getText().toString(), settings);
+                dialog.dismiss();
+              })
+              .setNegativeButton(R.string.cancel, (DialogInterface dialog, int i) ->{
+                dialog.cancel();
+              }).show();
+    }
+  }
+
   /**
    * This is the FloatingActionButton's click listener for the Job view. Within the Job View,
    * clicking the FAB should expose two other FABs: One will open a CreateJob dialog when clicked

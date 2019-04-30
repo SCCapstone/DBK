@@ -45,4 +45,6 @@ public class Job {
   public void setSiteInfo(SiteInfo siteInfo) {
     this.siteInfo = siteInfo;
   }
+
+  //public void RemoveJob()
 }
