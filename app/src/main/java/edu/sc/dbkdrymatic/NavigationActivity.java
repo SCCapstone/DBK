@@ -31,6 +31,8 @@ import androidx.core.view.GravityCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.lifecycle.Observer;
 import androidx.room.Room;
@@ -321,15 +323,16 @@ public class NavigationActivity extends AppCompatActivity
     this.fabMenuOpened = false;
   }
 
-  private Set<String> getDevicesInUse() {
-    Set<String> res = new HashSet<>();
-    List<Job> jobs = this.jobsModel.getJobs().getValue();
-    for (Job job: jobs) {
-      for (BoostBox box: job.getBoxes()) {
-        res.add(box.getAddress());
+  private LiveData<Set<String>> getDevicesInUse() {
+    return Transformations.map(this.jobsModel.getJobs(), (List<Job> jobs) -> {
+      Set<String> res = new HashSet<>();
+      for (Job job: jobs) {
+        for (BoostBox box: job.getBoxes()) {
+          res.add(box.getAddress());
+        }
       }
-    }
-    return res;
+      return res;
+    });
   }
 
   /**
@@ -433,50 +436,51 @@ public class NavigationActivity extends AppCompatActivity
             .show();
       }
 
-      Set<String> inUseDevices = NavigationActivity.this.getDevicesInUse();
-
-      HashMap<String, BluetoothDevice> nameDeviceMap = new HashMap<>();
-      for (BluetoothDevice device: devices) {
-        if (inUseDevices.contains(device.getAddress())) {
-          continue;
-        }
-        if (device.getName() != null && !nameDeviceMap.containsKey(device.getName())) {
-          nameDeviceMap.put(device.getName(), device);
-        } else {
-          nameDeviceMap.put(device.toString(), device);
-        }
-      }
-
-      ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-          NavigationActivity.this, R.layout.support_simple_spinner_dropdown_item);
-      adapter.addAll(nameDeviceMap.keySet());
-      deviceSelector.setAdapter(adapter);
-
-      AlertDialog.Builder builder = new AlertDialog.Builder(NavigationActivity.this);
-      builder
-          .setTitle(R.string.boost_box_select)
-          .setView(deviceSelector)
-          .setPositiveButton(R.string.create, (DialogInterface dialog, int i) -> {
-            if (deviceSelector.getSelectedItem() == null) {
-              Toast
-                  .makeText(
-                      NavigationActivity.this,
-                      "Please Select a Bluetooth Device.",
-                      Toast.LENGTH_SHORT)
-                  .show();
-              return;
+      NavigationActivity.this.getDevicesInUse()
+          .observe(NavigationActivity.this, (Set<String> inUseDevices) -> {
+            HashMap<String, BluetoothDevice> nameDeviceMap = new HashMap<>();
+            for (BluetoothDevice device: devices) {
+              if (inUseDevices.contains(device.getAddress())) {
+                continue;
+              }
+              if (device.getName() != null && !nameDeviceMap.containsKey(device.getName())) {
+                nameDeviceMap.put(device.getName(), device);
+              } else {
+                nameDeviceMap.put(device.toString(), device);
+              }
             }
 
-            System.out.println(deviceSelector.getSelectedItem());
-            BluetoothDevice selection = nameDeviceMap.get(
-                (String) deviceSelector.getSelectedItem());
-            NavigationActivity.this.selection.addBoostBox(selection);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                NavigationActivity.this, R.layout.support_simple_spinner_dropdown_item);
+            adapter.addAll(nameDeviceMap.keySet());
+            deviceSelector.setAdapter(adapter);
 
-            dialog.dismiss();
-          })
-          .setNegativeButton(R.string.cancel, (DialogInterface dialog, int i) ->{
-            dialog.cancel();
-          }).show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(NavigationActivity.this);
+            builder
+                .setTitle(R.string.boost_box_select)
+                .setView(deviceSelector)
+                .setPositiveButton(R.string.create, (DialogInterface dialog, int i) -> {
+                  if (deviceSelector.getSelectedItem() == null) {
+                    Toast
+                        .makeText(
+                            NavigationActivity.this,
+                            "Please Select a Bluetooth Device.",
+                            Toast.LENGTH_SHORT)
+                        .show();
+                    return;
+                  }
+
+                  System.out.println(deviceSelector.getSelectedItem());
+                  BluetoothDevice selection = nameDeviceMap.get(
+                      (String) deviceSelector.getSelectedItem());
+                  NavigationActivity.this.selection.addBoostBox(selection);
+
+                  dialog.dismiss();
+                })
+                .setNegativeButton(R.string.cancel, (DialogInterface dialog, int i) ->{
+                  dialog.cancel();
+                }).show();
+      });
     }
   }
 
