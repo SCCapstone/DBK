@@ -264,6 +264,15 @@ public class BoostBox {
     return this.address;
   }
 
+  @Override
+  public boolean equals(Object other) {
+    if (other.getClass() != BoostBox.class) {
+      return false;
+    }
+
+    return ((BoostBox) other).address.equals(this.address);
+  }
+
   /*** Commented out by hxtk (2019-02-12)
    * This code requires a major rework anyway and blocks changes that are being made to the
    * BoostBox class. It will be uncommented and fixed following resolution of Issue #41.

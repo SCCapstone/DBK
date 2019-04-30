@@ -52,9 +52,12 @@ public class BluetoothFragment extends Fragment {
 
     this.layoutManager = new LinearLayoutManager(this.getContext());
     this.recyclerView.setLayoutManager(this.layoutManager);
-    this.adapter = new BoostBoxRecyclerAdapter(
-        this.selectedJobModel.getSelectedJob().getValue().getBoxes());
+    this.adapter = new BoostBoxRecyclerAdapter();
     this.recyclerView.setAdapter(this.adapter);
+
+    this.selectedJobModel.getSelectedJob().observe(this, (Job job) -> {
+      this.adapter.setBoxes(job.getBoxes());
+    });
 
     return this.view;
   }
