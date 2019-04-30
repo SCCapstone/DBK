@@ -55,6 +55,20 @@ public class DataModel extends ViewModel {
     }.start();
   }
 
+
+
+  public void deleteJob(String name, Settings settings) {
+
+
+
+
+
+
+
+
+
+
+  }
   /**
    * Factory for creating {@code DataModel}s with the DAOs they require.
    *
@@ -75,4 +89,5 @@ public class DataModel extends ViewModel {
       return (T) new DataModel(siteInfoDao);
     }
   }
+
 }
