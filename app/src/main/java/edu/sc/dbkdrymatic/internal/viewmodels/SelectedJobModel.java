@@ -83,6 +83,12 @@ public class SelectedJobModel extends ViewModel implements Observer<Job> {
     });
   }
 
+  public void updateBoostBox(BoostBox box) {
+    AsyncTask.execute(() -> {
+      bbDao.update(box);
+    });
+  }
+
   @Override
   public void onChanged(@Nullable Job job) {
     selectedJob.postValue(job);
