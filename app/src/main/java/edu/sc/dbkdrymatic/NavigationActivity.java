@@ -136,11 +136,12 @@ public class NavigationActivity extends AppCompatActivity
     FloatingActionButton cjFab = findViewById(R.id.fab_create_job);
     fab.setOnClickListener(new CreateJobFabListener());
 
-    FloatingActionButton fab2 = (FloatingActionButton) findViewById(R.id.fab2);
+    /*FloatingActionButton fab2 = (FloatingActionButton) findViewById(R.id.fab2);
     fab.setOnClickListener(new DeleteJobFabListener());
 
     FloatingActionButton djFab = findViewById(R.id.fab_delete_job);
     fab.setOnClickListener(new DeleteJobFabListener());
+    */
 
     //TODO: Boost Box FAB handler
     BluetoothManager btManager = (BluetoothManager) this.getSystemService(
