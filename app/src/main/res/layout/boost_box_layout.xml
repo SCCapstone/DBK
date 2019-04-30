@@ -32,7 +32,7 @@
                 android:textSize="20sp" />
 
             <ImageButton
-                android:id="@+id/refreshButton"
+                android:id="@+id/refresh_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
