@@ -38,4 +38,5 @@ public interface SiteInfoDao {
 
   @Delete
   void delete(SiteInfo siteInfo);
+  //
 }

@@ -136,6 +136,15 @@ public class CalculatorFragment extends Fragment {
     });
   }
 
+  private String getInput(double value){
+    String sValue;
+    if(value != 0 && (value > 0.0001 || value < -0.0001)){
+      sValue = Double.toString(value);
+      return sValue;
+    }
+    else return " ";
+  }
+
   public void updateView() {
     Job job = this.model.getSelectedJob().getValue();
     Settings settings = this.settingsModel.getSettings().getValue();
@@ -144,13 +153,13 @@ public class CalculatorFragment extends Fragment {
     final SiteInfo siteInfo = job.getSiteInfo();
 
     final EditText insideTempField = (EditText) (getView().findViewById(R.id.inside_temp));
-    insideTempField.setText(df.format(siteInfo.getInsideTemp(settings.getTemperatureUnit())));
+    insideTempField.setText(this.getInput(siteInfo.getInsideTemp(settings.getTemperatureUnit())));
 
     final EditText surfaceTempField = (EditText) (getView().findViewById(R.id.surface_temp));
-    surfaceTempField.setText(df.format(siteInfo.getSurfaceTemp(settings.getTemperatureUnit())));
+    surfaceTempField.setText(this.getInput(siteInfo.getSurfaceTemp(settings.getTemperatureUnit())));
 
     final EditText relativeHumidityField = (EditText) (getView().findViewById(R.id.relative_humidity));
-    relativeHumidityField.setText(df.format(siteInfo.relativeHumidity));
+    relativeHumidityField.setText(this.getInput(siteInfo.relativeHumidity));
 
     Button calculate = (Button) getView().findViewById(R.id.calculate);
     calculate.setOnClickListener(new View.OnClickListener() {//when user clicks calculate button
