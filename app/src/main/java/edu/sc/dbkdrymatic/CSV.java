@@ -26,6 +26,31 @@ import com.opencsv.CSVWriter;
 
 public class CSV {
 
+/**public static void writeDataLine(String Filepath) //todo add filepath then delete later
+{
+ File ToSend = new File(Filepath );
 
+         try{
+            FileWriter outputfile = new FileWriter(ToSend); //Todo fix ToSend needs to be written to a file to be emailed
+
+            CSVWriter writer = new CSVWriter(outputfile);
+
+            List<String[]> data = new ArrayList<String []>();
+            data.add(new String[]{"VALUE","DATA"});//for header
+            data.add(new String[]{"ARBdata"});//
+            data.add(new String[]{"ARBname","ARBdata"});//
+            data.add(new String[]{"ARBname","ARBdata"});//
+            data.add(new String[]{"ARBname","ARBdata"});//
+            data.add(new String[]{"ARBname","ARBdata"});//
+            data.add(new String[]{"ARBname","ARBdata"});//
+            data.add(new String[]{"ARBname","ARBdata"});//
+            data.add(new String[]{"ARBname","ARBdata"});//
+            data.add(new String[]{"ARBname","ARBdata"});//
+            data.add(new String[]{"ARBname","ARBdata"});//
+            data.add(new String[]{"ARBname","ARBdata"});//
+            data.add(new String[]{"ARBname","ARBdata"});//
+            data.add(new String[]{"ARBname","ARBdata"});//
+         }
+}**/
 }
 
