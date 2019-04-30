@@ -1,9 +1,13 @@
 package edu.sc.dbkdrymatic;
 
+import android.bluetooth.BluetoothAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -18,18 +22,19 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import edu.sc.dbkdrymatic.internal.BoostBox;
+import edu.sc.dbkdrymatic.internal.viewmodels.SelectedJobModel;
 
 public class BoostBoxRecyclerAdapter extends RecyclerView.Adapter {
   private final Unit KWH = SI.KILO(SI.WATT).times(NonSI.HOUR);
 
   List<BoostBox> boostBoxes;
+  BluetoothAdapter adapter;
+  SelectedJobModel sjm;
 
-  public BoostBoxRecyclerAdapter() {
+  public BoostBoxRecyclerAdapter(BluetoothAdapter adapter, SelectedJobModel sjm) {
     this.boostBoxes = new ArrayList<>();
-  }
-
-  public BoostBoxRecyclerAdapter(List<BoostBox> boostBoxes) {
-    this.boostBoxes = boostBoxes;
+    this.adapter = adapter;
+    this.sjm = sjm;
   }
 
   public void setBoxes(List<BoostBox> boxes) {
@@ -57,13 +62,20 @@ public class BoostBoxRecyclerAdapter extends RecyclerView.Adapter {
     final DecimalFormat df = new DecimalFormat("#.#");
     Holder holder = (Holder) viewHolder;
 
+    TextView title = holder.getView().findViewById(R.id.bluetooth_title);
+    title.setText(boostBoxes.get(position).getName());
+
     TextView energy = holder.getView().findViewById(R.id.boost_box_energy);
     double kilowattHours = boostBoxes.get(position).getCumulativeEnergy().doubleValue(KWH);
-    energy.setText(df.format(kilowattHours) + "kWh");
+    energy.setText(df.format(kilowattHours) + " kWh");
 
     TextView hours = holder.getView().findViewById(R.id.boost_box_hours);
     double hoursRun = boostBoxes.get(position).getHours().doubleValue(NonSI.HOUR);
     hours.setText(df.format(hoursRun) + "h");
+
+    ImageButton refresh = holder.getView().findViewById(R.id.refresh_button);
+    refresh.setOnClickListener(
+        new BoostBoxRefreshListener(boostBoxes.get(position), this.adapter, this.sjm));
   }
 
   @Override

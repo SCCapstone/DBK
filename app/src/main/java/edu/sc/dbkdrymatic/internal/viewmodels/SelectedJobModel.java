@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 
 import edu.sc.dbkdrymatic.internal.BoostBox;
 import edu.sc.dbkdrymatic.internal.Job;
+import edu.sc.dbkdrymatic.internal.SiteInfo;
 import edu.sc.dbkdrymatic.internal.database.BoostBoxDao;
 import edu.sc.dbkdrymatic.internal.database.SiteInfoDao;
 
@@ -83,6 +84,12 @@ public class SelectedJobModel extends ViewModel implements Observer<Job> {
     });
   }
 
+  public void updateBoostBox(BoostBox box) {
+    System.out.println("SJM: Updating boostbox");
+    System.out.println(box.getCumulativeEnergy().doubleValue(BoostBox.WH));
+    bbDao.update(box);
+  }
+
   @Override
   public void onChanged(@Nullable Job job) {
     selectedJob.postValue(job);
@@ -111,4 +118,19 @@ public class SelectedJobModel extends ViewModel implements Observer<Job> {
       return (T) new SelectedJobModel(siteInfoDao, bbDao);
     }
   }
+
+    /*
+    //Deletes the selected job from the SiteInfoDao, and removes it from the UI so the
+    //user doesn't see it.
+    public void deleteJob (SiteInfoDao delete) {
+      this.selectedJob = null;
+
+    }
+
+    //Updates the name of the job, allowing the user to change how they see their job
+    public void updateJob (SiteInfoDao update) {
+      this.selectedJob(siDao.update);
+      return this.selectedJob;
+    }
+    */
 }

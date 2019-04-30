@@ -23,6 +23,7 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -135,6 +136,13 @@ public class NavigationActivity extends AppCompatActivity
     FloatingActionButton cjFab = findViewById(R.id.fab_create_job);
     fab.setOnClickListener(new CreateJobFabListener());
 
+    /*FloatingActionButton fab2 = (FloatingActionButton) findViewById(R.id.fab2);
+    fab.setOnClickListener(new DeleteJobFabListener());
+
+    FloatingActionButton djFab = findViewById(R.id.fab_delete_job);
+    fab.setOnClickListener(new DeleteJobFabListener());
+    */
+
     //TODO: Boost Box FAB handler
     BluetoothManager btManager = (BluetoothManager) this.getSystemService(
         Context.BLUETOOTH_SERVICE);
@@ -145,12 +153,7 @@ public class NavigationActivity extends AppCompatActivity
     fragmentManager.beginTransaction().replace(R.id.content_frame, new AboutUsFragment()).commit();
   }
 
-  /**
-   * Handle press of the System UI back button.
-   *
-   * <p>If the navigation drawer is opened, we close the drawer. Otherwise, the system default
-   * action is used.
-   */
+
   @Override
   public void onBackPressed() {
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -368,7 +371,8 @@ public class NavigationActivity extends AppCompatActivity
   // this is going to be the delete job button functionality. Currently this is a copy/paste
   // of the create_job functionality.
 
- private class DeleteJobFabListener implements View.OnClickListener  {
+ /*
+  private class DeleteJobFabListener implements View.OnClickListener  {
     @Override
     public void onClick(View view) {
       final EditText name = new EditText(NavigationActivity.this);
@@ -379,7 +383,6 @@ public class NavigationActivity extends AppCompatActivity
               .setTitle(R.string.new_job_title)
               .setView(name)
               .setPositiveButton(R.string.create, (DialogInterface dialog, int i) -> {
-                // TODO: Switch to the job after it is created.
                 jobsModel.createWithName(name.getText().toString(), settings);
                 dialog.dismiss();
               })
@@ -388,55 +391,48 @@ public class NavigationActivity extends AppCompatActivity
               }).show();
     }
   }
+  */
 
+  /*
+  private class DeleteJobFabListener implements View.OnClickListener  {
+    @Override
+    public void onClick(View view) {
+      final deleteJob name = new SiteInfo.delete(NavigationActivity.this);
 
-  //code for when they press delete_jbo, a pop up should come up and ask them
-  // to confirm the choice.
-/*  private class delete_job_confirmation {
-    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-     builder.setTitle("Confirm");
-      builder.setMessage("Are you sure?");
-      builder.setPositiveButton("YES",new DialogInterface.OnClickListener()
-    {
-      public void onClick (DialogInterface dialog,int which){
-      // Do nothing but close the dialog
-      dialog.dismiss();
+      AlertDialog.Builder builder = new AlertDialog.Builder(NavigationActivity.this);
+      builder
+              .setTitle(R.string.delete_job_title)
+              .setView(name)
+              .setPositiveButton(R.string.delete, (DialogInterface dialog, int i) -> {
+                //call delete function here for the job
+                SiteInfo.delete(selectedJob.isDao);
+                dialog.dismiss();
+              })
+              .setNegativeButton(R.string.cancel, (DialogInterface dialog, int i) ->{
+                dialog.cancel();
+              }).show();
     }
-    });
-      builder.setNegativeButton("NO",new DialogInterface.OnClickListener()
-    {
-      @Override
-      public void onClick (DialogInterface dialog,int which){
-      // Do nothing
-      dialog.dismiss();
+  }
+
+  private class UpdateJobFabListener implements View.OnClickListener  {
+    @Override
+    public void onClick(View view) {
+      final EditText name = new EditText(NavigationActivity.this);
+      name.setInputType(InputType.TYPE_CLASS_TEXT);
+
+      AlertDialog.Builder builder = new AlertDialog.Builder(NavigationActivity.this);
+      builder
+              .setTitle(R.string.update_job_title)
+              .setView(name)
+              .setPositiveButton(R.string.create, (DialogInterface dialog, int i) -> {
+                jobsModel.createWithName(name.getText().toString(), settings);
+                dialog.dismiss();
+              })
+              .setNegativeButton(R.string.cancel, (DialogInterface dialog, int i) ->{
+                dialog.cancel();
+              }).show();
     }
-    });
-    AlertDialog alert = builder.create();
-      alert.show();
   }*/
-
-
-
-  private class EditJobFabListener implements View.OnClickListener  {
-    @Override
-    public void onClick(View view) {
-      final EditText name = new EditText(NavigationActivity.this);
-      name.setInputType(InputType.TYPE_CLASS_TEXT);
-
-      AlertDialog.Builder builder = new AlertDialog.Builder(NavigationActivity.this);
-      builder
-              .setTitle(R.string.new_job_title)
-              .setView(name)
-              .setPositiveButton(R.string.create, (DialogInterface dialog, int i) -> {
-                // TODO: Switch to the job after it is created.
-                jobsModel.createWithName(name.getText().toString(), settings);
-                dialog.dismiss();
-              })
-              .setNegativeButton(R.string.cancel, (DialogInterface dialog, int i) ->{
-                dialog.cancel();
-              }).show();
-    }
-  }
 
 
   /**
@@ -450,6 +446,7 @@ public class NavigationActivity extends AppCompatActivity
     @Override
     public void onClick(View view) {
       NavigationActivity.this.toggleFabMenu();
+     // floatingActionMenu.setClosedOnTouchOutside(true);
     }
   }
 }
