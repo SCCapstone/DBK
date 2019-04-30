@@ -282,7 +282,6 @@ public class BoostBox {
    */
   public void parse(String line) {
     String[] tokens = line.split(" ");
-    System.out.println(Arrays.toString(tokens));
 
     if (tokens.length == 3) {
       String key = tokens[0];

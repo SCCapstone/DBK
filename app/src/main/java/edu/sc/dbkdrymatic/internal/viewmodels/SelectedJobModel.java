@@ -85,8 +85,6 @@ public class SelectedJobModel extends ViewModel implements Observer<Job> {
   }
 
   public void updateBoostBox(BoostBox box) {
-    System.out.println("SJM: Updating boostbox");
-    System.out.println(box.getCumulativeEnergy().doubleValue(BoostBox.WH));
     bbDao.update(box);
   }
 

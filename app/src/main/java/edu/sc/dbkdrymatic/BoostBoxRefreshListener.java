@@ -43,7 +43,6 @@ public class BoostBoxRefreshListener implements View.OnClickListener {
 
         while (true) {
           box.parse(scanner.next());
-          System.out.println("BBRL: Read line");
           sjm.updateBoostBox(box);
         }
       } catch (NoSuchMethodException e) {
