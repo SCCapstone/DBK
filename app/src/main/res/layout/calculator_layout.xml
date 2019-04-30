@@ -44,6 +44,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="@string/calculator_button"
+        android:textColor="@color/colorWhite"
+        android:backgroundTint="@color/colorGrey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
@@ -88,6 +90,7 @@
         android:singleLine="false"
         android:textColor="@color/white"
         android:textSize="18sp"
+        android:backgroundTint="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -101,6 +104,7 @@
         android:inputType="numberDecimal"
         android:textColor="@color/colorWhite"
         android:textSize="18sp"
+        android:backgroundTint="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inside_temp" />
 
@@ -116,6 +120,7 @@
         android:inputType="numberDecimal"
         android:textColor="@color/colorWhite"
         android:textSize="18sp"
+        android:backgroundTint="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/surface_temp" />
 
