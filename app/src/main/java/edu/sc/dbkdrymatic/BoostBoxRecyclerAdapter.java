@@ -33,7 +33,9 @@ public class BoostBoxRecyclerAdapter extends RecyclerView.Adapter {
   }
 
   public void setBoxes(List<BoostBox> boxes) {
-    this.boostBoxes = boxes;
+    this.boostBoxes.clear();
+    this.boostBoxes.addAll(boxes);
+    this.notifyDataSetChanged();
   }
 
   @NonNull
