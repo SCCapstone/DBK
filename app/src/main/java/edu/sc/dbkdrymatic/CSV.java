@@ -4,6 +4,7 @@ package edu.sc.dbkdrymatic;
 
 
 import android.view.MenuItem;
+import android.view.View;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -27,7 +28,7 @@ import edu.sc.dbkdrymatic.internal.Job;
 import edu.sc.dbkdrymatic.internal.Settings;
 import edu.sc.dbkdrymatic.internal.viewmodels.SelectedJobModel;
 
-public class CSV implements MenuItem.OnMenuItemClickListener {
+public class CSV implements View.OnClickListener {
 
     private NavigationActivity activity;
     private Settings settings;
@@ -78,7 +79,7 @@ public class CSV implements MenuItem.OnMenuItemClickListener {
     }
 
     @Override
-    public boolean onMenuItemClick(MenuItem menuItem) {
+    public void onClick(View v) {
         this.selectedJobModel.getSelectedJob().observe(this.activity, (Job job) -> {
             try {
                 File file = exportCSV(job.getBoxes());
@@ -87,7 +88,5 @@ public class CSV implements MenuItem.OnMenuItemClickListener {
             }
 
         });
-
-        return true;
     }
 }
