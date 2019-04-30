@@ -3,6 +3,9 @@ package edu.sc.dbkdrymatic;
 
 
 
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Environment;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -82,11 +85,15 @@ public class CSV implements View.OnClickListener {
     public void onClick(View v) {
         this.selectedJobModel.getSelectedJob().observe(this.activity, (Job job) -> {
             try {
+                Intent share = new Intent(Intent.ACTION_SEND);
+                share.setType("text/csv");
                 File file = exportCSV(job.getBoxes());
+                System.out.println(file.toURI().toString());
+                share.putExtra(Intent.EXTRA_STREAM, Uri.parse(file.toURI().toString()));
+                this.activity.startActivity(share);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         });
     }
 }
