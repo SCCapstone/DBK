@@ -52,10 +52,10 @@ public class CSV implements View.OnClickListener {
 
         // Write header
         String[] header = {
-                "name", "airInTemp", "airOutTarget", "airOutThreshold",
-                 "current", "address",
-                "cumulativeEnergy","hours", "airOutTemp",
-                "power", "voltage"
+                "name", //"airInTemp", "airOutTarget", "airOutThreshold",
+                 //"current", "address",
+                "cumulativeEnergy","hours", //"airOutTemp",
+                //"power", "voltage"
         };
         writer.writeNext(header);
 
@@ -63,16 +63,16 @@ public class CSV implements View.OnClickListener {
         for (BoostBox box: boxes) {
             String[] row = new String[]{
                     box.getName(),
-                    Double.toString(box.getAirInTemp().doubleValue(settings.getTemperatureUnit())) + settings.getTemperatureUnit().toString(),
-                    Double.toString(box.getAirOutTarget().doubleValue(settings.getTemperatureUnit())) + settings.getTemperatureUnit().toString(),
-                    Double.toString(box.getAirOutThreshold().doubleValue(settings.getTemperatureUnit())) + settings.getTemperatureUnit().toString(),
-                    Double.toString(box.getCurrent().doubleValue(SI.AMPERE)) + SI.AMPERE.getSymbol(),
-                    box.getAddress(),
+                    //Double.toString(box.getAirInTemp().doubleValue(settings.getTemperatureUnit())) + settings.getTemperatureUnit().toString(),
+                    //Double.toString(box.getAirOutTarget().doubleValue(settings.getTemperatureUnit())) + settings.getTemperatureUnit().toString(),
+                    //Double.toString(box.getAirOutThreshold().doubleValue(settings.getTemperatureUnit())) + settings.getTemperatureUnit().toString(),
+                    //Double.toString(box.getCurrent().doubleValue(SI.AMPERE)) + SI.AMPERE.getSymbol(),
+                    //box.getAddress(),
                     Double.toString(box.getCumulativeEnergy().doubleValue(SI.JOULE.times(3600000))) + "kWh",
                     Double.toString(box.getHours().doubleValue(NonSI.HOUR)) + "hours",
-                    Double.toString(box.getAirOutTarget().doubleValue(settings.getTemperatureUnit())) + settings.getTemperatureUnit().toString(),
-                    Double.toString(box.getPower().doubleValue(SI.WATT)) + SI.WATT.getSymbol(),
-                    Double.toString(box.getVoltage().doubleValue(SI.VOLT)) + SI.VOLT.getSymbol()
+                    //Double.toString(box.getAirOutTarget().doubleValue(settings.getTemperatureUnit())) + settings.getTemperatureUnit().toString(),
+                    //Double.toString(box.getPower().doubleValue(SI.WATT)) + SI.WATT.getSymbol(),
+                    //Double.toString(box.getVoltage().doubleValue(SI.VOLT)) + SI.VOLT.getSymbol()
             };
             writer.writeNext(row);
         }
