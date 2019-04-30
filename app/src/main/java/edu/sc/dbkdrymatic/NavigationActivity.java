@@ -222,14 +222,19 @@ public class NavigationActivity extends AppCompatActivity
     this.closeFabMenu();
     FragmentManager fragmentManager = getSupportFragmentManager();
     FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+    ActionMenuItemView shareButton = findViewById(R.id.share_btn);
     switch(item.getItemId()) {
       case R.id.nav_about:
+        shareButton.setClickable(false);
+        shareButton.setOnClickListener(null);
         fab.setOnClickListener(new CreateJobFabListener());
         fab.setImageResource(R.drawable.ic_business_center_black_24dp);
         fragmentManager.beginTransaction()
             .replace(R.id.content_frame, new AboutUsFragment()).commit();
         break;
       case R.id.nav_settings:
+        shareButton.setClickable(false);
+        shareButton.setOnClickListener(null);
         fab.setOnClickListener(new CreateJobFabListener());
         fab.setImageResource(R.drawable.ic_business_center_black_24dp);
         fragmentManager.beginTransaction()
@@ -245,11 +250,12 @@ public class NavigationActivity extends AppCompatActivity
         selection.setSelectedJob(itemJobMap.get(item));
         fab.setOnClickListener(new ExpandableMenuFabListener());
         fab.setImageResource(R.drawable.ic_menu_black_24dp);
-        ActionMenuItemView shareButton = findViewById(R.id.share_btn);
-        shareButton.setOnClickListener(new CSV(this, this.selection));
         fragmentManager.beginTransaction().replace(R.id.content_frame, new JobFragment()).commit();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setCheckedItem(item);
+
+        shareButton.setClickable(true);
+        shareButton.setOnClickListener(new CSV(this, this.selection));
     }
     DrawerLayout drawer = findViewById(R.id.drawer_layout);
     drawer.closeDrawer(GravityCompat.START);
