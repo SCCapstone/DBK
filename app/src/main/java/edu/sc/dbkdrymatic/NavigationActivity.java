@@ -241,6 +241,8 @@ public class NavigationActivity extends AppCompatActivity
         selection.setSelectedJob(itemJobMap.get(item));
         fab.setOnClickListener(new ExpandableMenuFabListener());
         fab.setImageResource(R.drawable.ic_menu_black_24dp);
+        MenuItem shareButton = findViewById(R.id.share_btn);
+        shareButton.setOnMenuItemClickListener(new CSV(this, this.selection));
         fragmentManager.beginTransaction().replace(R.id.content_frame, new JobFragment()).commit();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setCheckedItem(item);
@@ -406,6 +408,7 @@ public class NavigationActivity extends AppCompatActivity
               }).show();
     }
   }
+
 
   /**
    * This is the FloatingActionButton's click listener for the Job view. Within the Job View,
