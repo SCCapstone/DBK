@@ -293,7 +293,8 @@ public class NavigationActivity extends AppCompatActivity
     findViewById(R.id.create_job_layout).setVisibility(View.VISIBLE);
 
     findViewById(R.id.fab_add_box).setClickable(true);
-    findViewById(R.id.fab_add_box).setOnClickListener(new AddBoostBoxListener(this, this.btAdapter));
+    findViewById(R.id.fab_add_box).setOnClickListener(new AddBoostBoxListener(
+        this, this.btAdapter, this.selection));
     findViewById(R.id.add_box_layout).setVisibility(View.VISIBLE);
 
     findViewById(R.id.fab_del_job).setClickable(true);
@@ -301,7 +302,8 @@ public class NavigationActivity extends AppCompatActivity
     findViewById(R.id.delete_job_layout).setVisibility(View.INVISIBLE); // change to visible once button functionality done
 
     findViewById(R.id.fab_edit_job).setClickable(true);
-    findViewById(R.id.fab_edit_job).setOnClickListener(new AddBoostBoxListener(this, this.btAdapter));//change this to edit job
+    findViewById(R.id.fab_edit_job).setOnClickListener(new AddBoostBoxListener(
+        this, this.btAdapter, this.selection));//change this to edit job
     findViewById(R.id.edit_job_layout).setVisibility(View.INVISIBLE);
 
     this.fabMenuOpened = true;
