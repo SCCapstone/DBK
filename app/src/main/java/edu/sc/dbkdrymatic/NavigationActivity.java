@@ -39,6 +39,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -308,6 +309,17 @@ public class NavigationActivity extends AppCompatActivity
     this.fabMenuOpened = false;
   }
 
+  private Set<String> getDevicesInUse() {
+    Set<String> res = new HashSet<>();
+    List<Job> jobs = this.jobsModel.getJobs().getValue();
+    for (Job job: jobs) {
+      for (BoostBox box: job.getBoxes()) {
+        res.add(box.getAddress());
+      }
+    }
+    return res;
+  }
+
   /**
    * This is the Floating Action Button's default click listener. When it is being observed by
    * this listener, it will open a dialog for creating a new Job.
@@ -385,8 +397,13 @@ public class NavigationActivity extends AppCompatActivity
             .show();
       }
 
+      Set<String> inUseDevices = NavigationActivity.this.getDevicesInUse();
+
       HashMap<String, BluetoothDevice> nameDeviceMap = new HashMap<>();
       for (BluetoothDevice device: devices) {
+        if (inUseDevices.contains(device.getAddress())) {
+          continue;
+        }
         if (device.getName() != null && !nameDeviceMap.containsKey(device.getName())) {
           nameDeviceMap.put(device.getName(), device);
         } else {
