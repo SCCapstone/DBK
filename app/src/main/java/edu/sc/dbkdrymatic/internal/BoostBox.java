@@ -308,7 +308,6 @@ public class BoostBox {
         default:
           break;
       }
-      this.
     }
   }
 
