@@ -386,6 +386,34 @@ public class NavigationActivity extends AppCompatActivity
     }
   }
 
+
+  //code for when they press delete_jbo, a pop up should come up and ask them
+  // to confirm the choice.
+/*  private class delete_job_confirmation {
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+     builder.setTitle("Confirm");
+      builder.setMessage("Are you sure?");
+      builder.setPositiveButton("YES",new DialogInterface.OnClickListener()
+    {
+      public void onClick (DialogInterface dialog,int which){
+      // Do nothing but close the dialog
+      dialog.dismiss();
+    }
+    });
+      builder.setNegativeButton("NO",new DialogInterface.OnClickListener()
+    {
+      @Override
+      public void onClick (DialogInterface dialog,int which){
+      // Do nothing
+      dialog.dismiss();
+    }
+    });
+    AlertDialog alert = builder.create();
+      alert.show();
+  }*/
+
+
+
   private class EditJobFabListener implements View.OnClickListener  {
     @Override
     public void onClick(View view) {
