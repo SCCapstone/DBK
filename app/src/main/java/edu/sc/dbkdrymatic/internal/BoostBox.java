@@ -49,8 +49,6 @@ import static androidx.room.ForeignKey.CASCADE;
 @Entity
 @TypeConverters(Converters.class)
 public class BoostBox {
-  private static final String serialUuidString = "00001101-0000-1000-8000-00805F9B34FB";
-
   // Bluetooth hardware address of the BoostBox represented by this object.
   @NonNull
   @PrimaryKey
@@ -271,6 +269,13 @@ public class BoostBox {
     }
 
     return ((BoostBox) other).address.equals(this.address);
+  }
+
+  /**
+   * Take in a string containing a line of Bluetooth data and update the corresponding field.
+   */
+  public void parse(String line) {
+
   }
 
   /*** Commented out by hxtk (2019-02-12)

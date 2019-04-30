@@ -28,6 +28,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -243,6 +244,8 @@ public class NavigationActivity extends AppCompatActivity
         selection.setSelectedJob(itemJobMap.get(item));
         fab.setOnClickListener(new ExpandableMenuFabListener());
         fab.setImageResource(R.drawable.ic_menu_black_24dp);
+        ActionMenuItemView shareButton = findViewById(R.id.share_btn);
+        shareButton.setOnClickListener(new CSV(this, this.selection));
         fragmentManager.beginTransaction().replace(R.id.content_frame, new JobFragment()).commit();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setCheckedItem(item);
@@ -429,6 +432,7 @@ public class NavigationActivity extends AppCompatActivity
               }).show();
     }
   }*/
+
 
   /**
    * This is the FloatingActionButton's click listener for the Job view. Within the Job View,

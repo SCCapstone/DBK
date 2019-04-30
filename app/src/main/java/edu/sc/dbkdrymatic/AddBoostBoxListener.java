@@ -21,7 +21,6 @@ public class AddBoostBoxListener implements View.OnClickListener, Observer<Set<S
   private NavigationActivity activity;
   private BluetoothAdapter btAdapter;
   private SelectedJobModel selectedJobModel;
-
   private LiveData<Set<String>> inUse;
 
   public AddBoostBoxListener(NavigationActivity activity,

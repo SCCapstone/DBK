@@ -2,6 +2,8 @@ package edu.sc.dbkdrymatic;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -52,7 +54,11 @@ public class BluetoothFragment extends Fragment {
 
     this.layoutManager = new LinearLayoutManager(this.getContext());
     this.recyclerView.setLayoutManager(this.layoutManager);
-    this.adapter = new BoostBoxRecyclerAdapter();
+
+    BluetoothManager manager = (BluetoothManager) this.getActivity()
+        .getSystemService(Context.BLUETOOTH_SERVICE);
+    BluetoothAdapter btAdapter = manager.getAdapter();
+    this.adapter = new BoostBoxRecyclerAdapter(btAdapter, this.selectedJobModel);
     this.recyclerView.setAdapter(this.adapter);
 
     this.selectedJobModel.getSelectedJob().observe(this, (Job job) -> {
