@@ -293,7 +293,7 @@ public class NavigationActivity extends AppCompatActivity
     findViewById(R.id.create_job_layout).setVisibility(View.VISIBLE);
 
     findViewById(R.id.fab_add_box).setClickable(true);
-    findViewById(R.id.fab_add_box).setOnClickListener(new AddBoostBoxListener());
+    findViewById(R.id.fab_add_box).setOnClickListener(new AddBoostBoxListener(this, this.btAdapter));
     findViewById(R.id.add_box_layout).setVisibility(View.VISIBLE);
 
     findViewById(R.id.fab_del_job).setClickable(true);
@@ -301,7 +301,7 @@ public class NavigationActivity extends AppCompatActivity
     findViewById(R.id.delete_job_layout).setVisibility(View.INVISIBLE); // change to visible once button functionality done
 
     findViewById(R.id.fab_edit_job).setClickable(true);
-    findViewById(R.id.fab_edit_job).setOnClickListener(new AddBoostBoxListener());//change this to edit job
+    findViewById(R.id.fab_edit_job).setOnClickListener(new AddBoostBoxListener(this, this.btAdapter));//change this to edit job
     findViewById(R.id.edit_job_layout).setVisibility(View.INVISIBLE);
 
     this.fabMenuOpened = true;
@@ -323,7 +323,7 @@ public class NavigationActivity extends AppCompatActivity
     this.fabMenuOpened = false;
   }
 
-  private LiveData<Set<String>> getDevicesInUse() {
+  protected LiveData<Set<String>> getDevicesInUse() {
     return Transformations.map(this.jobsModel.getJobs(), (List<Job> jobs) -> {
       Set<String> res = new HashSet<>();
       for (Job job: jobs) {
@@ -418,70 +418,4 @@ public class NavigationActivity extends AppCompatActivity
       NavigationActivity.this.toggleFabMenu();
     }
   }
-
-  private class AddBoostBoxListener implements View.OnClickListener {
-
-    @Override
-    public void onClick(View view) {
-      final Spinner deviceSelector = new Spinner(
-          NavigationActivity.this, Spinner.MODE_DROPDOWN);
-      Set<BluetoothDevice> devices = NavigationActivity.this.btAdapter.getBondedDevices();
-
-      if (devices.size() == 0) {
-        Toast
-            .makeText(
-                NavigationActivity.this,
-                "No paired devices found. Is Bluetooth enabled?",
-                Toast.LENGTH_LONG)
-            .show();
-      }
-
-      NavigationActivity.this.getDevicesInUse()
-          .observe(NavigationActivity.this, (Set<String> inUseDevices) -> {
-            HashMap<String, BluetoothDevice> nameDeviceMap = new HashMap<>();
-            for (BluetoothDevice device: devices) {
-              if (inUseDevices.contains(device.getAddress())) {
-                continue;
-              }
-              if (device.getName() != null && !nameDeviceMap.containsKey(device.getName())) {
-                nameDeviceMap.put(device.getName(), device);
-              } else {
-                nameDeviceMap.put(device.toString(), device);
-              }
-            }
-
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                NavigationActivity.this, R.layout.support_simple_spinner_dropdown_item);
-            adapter.addAll(nameDeviceMap.keySet());
-            deviceSelector.setAdapter(adapter);
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(NavigationActivity.this);
-            builder
-                .setTitle(R.string.boost_box_select)
-                .setView(deviceSelector)
-                .setPositiveButton(R.string.create, (DialogInterface dialog, int i) -> {
-                  if (deviceSelector.getSelectedItem() == null) {
-                    Toast
-                        .makeText(
-                            NavigationActivity.this,
-                            "Please Select a Bluetooth Device.",
-                            Toast.LENGTH_SHORT)
-                        .show();
-                    return;
-                  }
-
-                  System.out.println(deviceSelector.getSelectedItem());
-                  BluetoothDevice selection = nameDeviceMap.get(
-                      (String) deviceSelector.getSelectedItem());
-                  NavigationActivity.this.selection.addBoostBox(selection);
-
-                  dialog.dismiss();
-                })
-                .setNegativeButton(R.string.cancel, (DialogInterface dialog, int i) ->{
-                  dialog.cancel();
-                }).show();
-      });
-    }
-  }
-
 }
